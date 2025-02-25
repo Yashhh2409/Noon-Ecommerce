@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import StaticImage from "@/public/NewsLetter1.avif";
+import StaticImage from "@/public/NewsLetter1.png";
 import carousel1 from "@/public/carousel/carousel-1.avif";
 import carousel2 from "@/public/carousel/carousel-2.avif";
 import carousel3 from "@/public/carousel/carousel-3.avif";
