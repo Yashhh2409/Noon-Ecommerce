@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ShopContextProvider>
-          <div className="h-auto bg-white">
+          <div className="h-screen overflow-y-auto bg-white">
             <ToastProvider />
             <Navbar />
             <Categories />

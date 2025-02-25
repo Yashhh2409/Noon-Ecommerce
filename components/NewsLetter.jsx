@@ -41,6 +41,7 @@ export default function Newsletter() {
           width={1920}
           height={500}
           className="w-full object-cover"
+          unoptimized={true}
         />
       </div>
 

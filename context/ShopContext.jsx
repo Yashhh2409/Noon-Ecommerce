@@ -25,13 +25,8 @@ const ShopContextProvider = (props) => {
   // get Cart count (Memoized for performance)
   const getCartCount = useMemo(() => {
     return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
-  }, [cartItems]); // Recalculate when `cartItems` changes
-
- console.log(cartItems);
- console.log(getCartCount);
+  }, [cartItems]); 
  
- 
-  
 
   // removeFromCart function
   const removeFromCart = async (itemId) => {
