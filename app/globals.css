@@ -5,7 +5,27 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --theme-color: #FEEE00; 
 }
+
+.slick-prev::before,
+.slick-next::before {
+  color: black !important;
+  font-size: 24px;
+}
+
+/* Hide scrollbar completely */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
+
 
 @media (prefers-color-scheme: dark) {
   :root {
