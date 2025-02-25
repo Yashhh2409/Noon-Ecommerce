@@ -31,14 +31,12 @@ const RamadanSlider = () => {
   return (
     <div className="flex flex-col bg-[#FFF1BA]">
       <div>
-        {/* ✅ Use Static Path for Public Folder Image */}
         <Image
-          src="/RamadanTitle.avif"
-          alt="Ramadan Banner"
+          src="{RamdanTitle}"
+          alt=""
           width={1920}
           height={500}
           className="w-full p-5"
-          unoptimized={true} // Optional if Next.js optimizes incorrectly
         />
       </div>
       <div className="flex items-center justify-center bg-red-500 p-5">
