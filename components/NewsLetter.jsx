@@ -4,14 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import carousel1 from "@/public/carousel/carousel-1.avif";
-import carousel2 from "@/public/carousel/carousel-2.avif";
-import carousel3 from "@/public/carousel/carousel-3.avif";
-import carousel4 from "@/public/carousel/carousel-4.avif";
-import shopMen from "@/public/carousel/shop-men.avif";
-import shopWomen from "@/public/carousel/shop-women.avif";
 
-const images = [carousel1, carousel2, carousel3, carousel4];
+const images = ["/carousel/Crousel1.png", "/carousel/Crousel2.png", "/carousel/Crousel3.png"];
 
 export default function Newsletter() {
   const [current, setCurrent] = useState(0);
@@ -68,6 +62,7 @@ export default function Newsletter() {
               width={1200}
               height={200}
               className="w-full object-cover"
+              unoptimized
             />
           </div>
         </div>
@@ -76,13 +71,13 @@ export default function Newsletter() {
         <div className="flex w-[30%] justify-between">
           {/* Shop Men Section */}
           <div className="relative w-full sm:w-1/2 md:w-1.5/3 lg:w-2/4">
-            <Image src={shopMen} alt="Shop Men" fill className="object-contain" />
+            <Image src="/carousel/shop-men.png" alt="Shop Men" fill className="object-contain" />
           </div>
 
           {/* Shop Women Section */}
           <div className="relative w-full sm:w-1/2 md:w-1.5/3 lg:w-2/4">
             <Image
-              src={shopWomen}
+              src="/carousel/shop-women.png"
               alt="Shop Women"
               fill
               className="object-contain"
