@@ -3,7 +3,6 @@
 import Slider from "@/components/Slider";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import RamdanTitle from "@/public/RamadanTitle.avif";
 
 const RamadanSlider = () => {
   const sliderImages = [
@@ -32,12 +31,14 @@ const RamadanSlider = () => {
   return (
     <div className="flex flex-col bg-[#FFF1BA]">
       <div>
+        {/* ✅ Use Static Path for Public Folder Image */}
         <Image
-          src={RamdanTitle}
-          alt=""
+          src="/RamadanTitle.avif"
+          alt="Ramadan Banner"
           width={1920}
           height={500}
           className="w-full p-5"
+          unoptimized={true} // Optional if Next.js optimizes incorrectly
         />
       </div>
       <div className="flex items-center justify-center bg-red-500 p-5">
