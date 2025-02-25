@@ -1,12 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import AddBannerImg from '@/public/AddBanner.avif'
 
 const AddBanner = () => {
   return (
     <div className="p-5 bg-[#EBEBEB] mt-5">
       <Image
-        src={AddBannerImg}
+        src="/AddBanner.png"
         alt="Banner"
         width={1920}
         height={500}

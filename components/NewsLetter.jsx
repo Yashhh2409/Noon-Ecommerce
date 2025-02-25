@@ -10,77 +10,82 @@ const images = ["/carousel/Crousel1.png", "/carousel/Crousel2.png", "/carousel/C
 export default function Newsletter() {
   const [current, setCurrent] = useState(0);
 
-  // next slide
+  // Next slide
   const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
 
-  // previous slide
-  const prevSlide = () =>
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+  // Previous slide
+  const prevSlide = () => setCurrent((prev) => (prev - 1 + images.length) % images.length);
 
-  // change image every 5 seconds
+  // Auto change image every 5 seconds
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
-
-    return () => clearInterval(interval); // Clear the interval when the component unmounts
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="w-full h-auto">
-      {/* Static Newsletter Image */}
+    <div className="w-full bg-white">
+      {/* Banner Section */}
       <div className="w-full">
         <Image
           src="/StaticImage.png"
-          alt="Newsletter"
-          width={1920}
+          alt="Newsletter Banner"
+          width={1900}
           height={500}
-          className="w-full object-cover"
-          
+          className="w-full h-auto object-cover"
         />
       </div>
 
-      {/* Flex container for carousel and shop sections */}
-      <div className="flex w-full h-auto">
-        {/* Carousel Section */}
-        <div className="relative h-auto w-[70%]">
-          {/* Previous and Next Slide Buttons */}
-          <div className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
-            <button onClick={prevSlide}>
-            <FontAwesomeIcon icon={faChevronLeft} className="text-xl" />
-            </button>
-          </div>
-          <div className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
-            <button onClick={nextSlide}>
-            <FontAwesomeIcon icon={faChevronRight} className="text-xl" />
-            </button>
-          </div>
+      {/* Main Row: Carousel + Shop Sections */}
+      <div className="flex w-full gap-2">
+        {/* Left: Carousel Section (70%) */}
+        <div className="relative w-full md:w-[100%] h-[150px] sm:h-[200px] md:h-[200px] lg:h-[250px] overflow-hidden">
+          {/* Previous Slide Button */}
+          <button
+            onClick={prevSlide}
+            className="absolute top-1/2 left-3 z-10 transform -translate-y-1/2 bg-gray-50 bg-opacity-20 text-black p-3 rounded-full shadow-md"
+          >
+            <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
+          </button>
+
+          {/* Next Slide Button */}
+          <button
+            onClick={nextSlide}
+            className="absolute top-1/2 right-3 z-10 transform -translate-y-1/2 bg-gray-50 bg-opacity-20 text-black p-3 rounded-full shadow-md"
+          >
+            <FontAwesomeIcon icon={faChevronRight} className="text-lg" />
+          </button>
 
           {/* Carousel Image */}
-          <div className="w-full h-auto overflow-hidden">
-            <Image
-              src={images[current]}
-              alt="Carousel Image"
-              width={1200}
-              height={200}
-              className="w-full object-cover"
-              unoptimized
-            />
-          </div>
+          <Image
+            src={images[current]}
+            alt="Carousel Image"
+            width={1200}
+            height={450}
+            className="w-full h-full object-cover"
+            priority
+          />
         </div>
 
-        {/* Shop Men and Shop Women Sections */}
-        <div className="flex w-[30%] justify-between">
-          {/* Shop Men Section */}
-          <div className="relative w-full sm:w-1/2 md:w-1.5/3 lg:w-2/4">
-            <Image src="/carousel/shop-men.png" alt="Shop Men" fill className="object-contain" />
-          </div>
-
+        {/* Right: Shop Sections (30%) (Hidden on sm screens) */}
+        <div className="hidden md:flex w-[50%]">
           {/* Shop Women Section */}
-          <div className="relative w-full sm:w-1/2 md:w-1.5/3 lg:w-2/4">
+          <div className="w-[50%]">
             <Image
               src="/carousel/shop-women.png"
               alt="Shop Women"
-              fill
-              className="object-contain"
+              width={500}
+              height={100}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          {/* Shop Men Section */}
+          <div className="w-[50%]">
+            <Image
+              src="/carousel/shop-men.png"
+              alt="Shop Men"
+              width={500}
+              height={100}
+              className="w-full h-full object-cover"
             />
           </div>
         </div>

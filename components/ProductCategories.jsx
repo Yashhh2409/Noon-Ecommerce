@@ -1,21 +1,17 @@
 import React from "react";
 import Image from "next/image";
-import CImg1 from "@/public/categoryimages/c-image1.avif";
-import CImg2 from "@/public/categoryimages/c-image2.avif";
-import CImg3 from "@/public/categoryimages/c-image3.avif";
 import Slider from "./Slider";
 
 const ProductCategories = () => {
   const categories = [
-     CImg1,
-     CImg2,
-     CImg3,
-     CImg1,
-     CImg2,
-     CImg3,
-     CImg1,
-     CImg2,
-     CImg3
+     "/categoryimages/CategoryImg1.png",
+     "/categoryimages/CategoryImg2.png",
+     "/categoryimages/CategoryImg1.png",
+     "/categoryimages/CategoryImg2.png",
+     "/categoryimages/CategoryImg1.png",
+     "/categoryimages/CategoryImg2.png",
+     "/categoryimages/CategoryImg1.png",
+     "/categoryimages/CategoryImg2.png",
   ];
 
   return (
@@ -24,7 +20,7 @@ const ProductCategories = () => {
       {categories.map((category, idx) => {
         return (
           <div key={idx}>
-            <Image src={category} width={100} />
+            <Image src={category} width={100} height={100} />
           </div>
         );
       })}
