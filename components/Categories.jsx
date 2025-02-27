@@ -1,97 +1,163 @@
 "use client";
 
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-
-const NextArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={`${className} text-black !important`}
-      style={{ ...style, display: "block", right: 0, color: "black" }}
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={faAngleRight} style={{ color: "black" }} />
-    </div>
-  );
-};
-
-const PrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={`${className} text-black !important`}
-      style={{ ...style, display: "block", left: 0, zIndex: 1, color: "black" }}
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={faAngleLeft} style={{ color: "black" }} />
-    </div>
-  );
-};
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+import categoriesList from "@/public/categoryList";
 
 const Categories = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+  const sliderRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  // Check if scrolling is possible
+  const updateScrollState = () => {
+    if (sliderRef.current) {
+      setCanScrollLeft(sliderRef.current.scrollLeft > 0);
+      setCanScrollRight(
+        sliderRef.current.scrollLeft + sliderRef.current.clientWidth <
+          sliderRef.current.scrollWidth
+      );
+    }
   };
 
-  const categories = [
-    "Electronics",
-    "Fashion",
-    "Home & Kitchen",
-    "Beauty & Health",
-    "Sports",
-    "Toys",
-    "Automotive",
-    "Books",
-  ];
+  useEffect(() => {
+    updateScrollState();
+  }, []);
+
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -200, behavior: "smooth" });
+      setTimeout(updateScrollState, 300);
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 200, behavior: "smooth" });
+      setTimeout(updateScrollState, 300);
+    }
+  };
 
   return (
-    <div className="w-full overflow-hidden border-b-2">
-      <Slider {...settings}>
-        {categories.map((category, index) => (
-          <div key={index}>
-            <div className="bg-[#FCFBF4] text-black p-2 text-center">
-              <h2 className="text-xl font-medium">{category}</h2>
+    <div className="relative w-full bg-white shadow-md p-2">
+      {/* Category Slider with Arrows */}
+      <div className="relative flex items-center">
+        {canScrollLeft && (
+          <button
+            className="absolute -left-1 z-10 px-3 bg-white text-black shadow-[6px_0_10px_rgba(255,255,255,2)]"
+            onClick={scrollLeft}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+        )}
+
+        {/* Categories */}
+        <div
+          className="flex overflow-x-auto scrollbar-hide space-x-4 px-8 w-[90%]"
+          ref={sliderRef}
+          onScroll={updateScrollState}
+        >
+          {categoriesList.map((category, index) => (
+            <div
+              key={index}
+              className="relative group cursor-pointer whitespace-nowrap text-black font-semibold px-4 py-2  hover:border-b-2 hover:border-b-black"
+              onMouseEnter={() => setHoveredCategory(index)}
+              onMouseLeave={() => setHoveredCategory(null)}
+            >
+              {category.title}
+            </div>
+          ))}
+        </div>
+
+        {canScrollRight && (
+          <button
+            className="absolute right-[10%] z-10 px-3 bg-white text-black shadow-[-6px_0_10px_rgba(255,255,255,2)]"
+            onClick={scrollRight}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        )}
+
+        {/* Right-Side Small Banner */}
+        <div className="w-[10%] flex justify-center">
+          <Image
+            src="/categoryimages/categoryBanner.png"
+            alt="category"
+            width={500}
+            height={500}
+          />
+        </div>
+      </div>
+
+      {/* Full-Width Dropdown on Hover */}
+      {hoveredCategory !== null && (
+        <div
+          className="absolute top-[50px] left-0 w-full bg-white shadow-lg p-6 z-50 text-md sm:text-xs sm:p-10"
+          onMouseEnter={() => setHoveredCategory(hoveredCategory)}
+          onMouseLeave={() => setHoveredCategory(null)}
+        >
+          <div className="grid grid-cols-[3fr_2fr] gap-8">
+            {/* Left Section: Subcategories & Top Brands */}
+            <div>
+              <div className="grid grid-cols-4 gap-6">
+                {/* Subcategories */}
+                {categoriesList[hoveredCategory].subcategories.map((sub, i) => (
+                  <div key={i}>
+                    <p className="text-base sm:text-sm md:text-md lg:text-lg font-semibold text-gray-700">
+                      {sub.name}
+                    </p>
+
+                    <ul className="text-gray-600 text-sm mt-2">
+                      {sub.subnames.map((item, j) => (
+                        <li key={j} className="hover:text-black cursor-pointer">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              {/* Top Brands */}
+              <div className="mt-6">
+                <p className="text-lg font-semibold text-gray-700">
+                  Top Brands
+                </p>
+                <div className="flex flex-wrap gap-4 mt-2">
+                  {categoriesList[hoveredCategory].brands.map((brand, i) => (
+                    <div
+                      key={i}
+                      className="flex flex-col items-center bg-gray-100 p-2 rounded-md"
+                    >
+                      <img
+                        src={brand.Logo}
+                        alt=""
+                        className="w-12 h-12 object-contain"
+                      />
+                      <p className="text-xs mt-1">{brand.name}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Section: Promo Banner */}
+            <div className="w-full flex justify-center">
+              <img
+                src="https://via.placeholder.com/250"
+                alt="Promo Banner"
+                className="rounded-md"
+              />
             </div>
           </div>
-        ))}
-      </Slider>
+        </div>
+      )}
     </div>
   );
 };

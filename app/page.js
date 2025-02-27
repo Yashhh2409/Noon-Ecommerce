@@ -10,15 +10,13 @@ import React from 'react'
 const page = () => {
   return (
     <div>
-      <div className="bg-white">
-      <NewsLetter />
+      {/* <NewsLetter /> */}
       <ProductCategories />
       <Deals />
       <Recommended />
       <AddBanner />
       <BestDeals />
       {/* <RamadanSlider /> */}
-      </div>
     </div>
   )
 }
