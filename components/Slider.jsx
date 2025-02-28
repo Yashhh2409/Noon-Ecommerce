@@ -10,13 +10,16 @@ const Slider = ({ children }) => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [visibleSlides, setVisibleSlides] = useState(6);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  // Responsive slides count
+  // Responsive slides count and screen size check
   useEffect(() => {
     const updateScreenSize = () => {
-      if (window.innerWidth < 640) {
+      const width = window.innerWidth;
+      setIsSmallScreen(width < 640); // `sm` breakpoint in Tailwind
+      if (width < 640) {
         setVisibleSlides(2);
-      } else if (window.innerWidth < 1024) {
+      } else if (width < 1024) {
         setVisibleSlides(4);
       } else {
         setVisibleSlides(6);
@@ -82,13 +85,13 @@ const Slider = ({ children }) => {
         <>
           <button
             onClick={scrollLeftBtn}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow w-10 h-10 flex justify-center items-center z-50 opacity-30"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow w-10 h-10 flex justify-center items-center z-50 opacity-50 hover:opacity-100 transition-opacity"
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
           <button
             onClick={scrollRightBtn}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow-lg z-50 w-10 h-10 flex justify-center items-center opacity-30"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow-lg z-50 w-10 h-10 flex justify-center items-center opacity-50 hover:opacity-100 transition-opacity"
           >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
@@ -98,7 +101,9 @@ const Slider = ({ children }) => {
       {/* Slider Container */}
       <div
         ref={sliderRef}
-        className="flex overflow-x-auto scrollbar-hide scroll-smooth select-none cursor-grab active:cursor-grabbing gap-0"
+        className={`flex overflow-x-auto scrollbar-hide scroll-smooth select-none cursor-grab active:cursor-grabbing px-2 ${
+          isSmallScreen ? "gap-2" : "gap-0"
+        }`}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -108,7 +113,7 @@ const Slider = ({ children }) => {
         onTouchEnd={handleTouchEnd}
       >
         {children.map((child, index) => (
-          <div key={index} style={{ flex: `0 0 ${100 / visibleSlides}%`, marginRight: "0px" }}>
+          <div key={index} className="flex-shrink-0" style={{ flex: `0 0 ${100 / visibleSlides}%` }}>
             {child}
           </div>
         ))}
