@@ -32,16 +32,16 @@ const ProductCard = ({
   const handleAddToCart = (e) => {
     e.preventDefault(); // Prevent navigation
     addToCart(_id);
-    toast.success("Product Added to cart!")
+    toast.success("Product Added to cart!");
   };
 
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className="w-full pb-5 h-full flex justify-center">
       <Link
         href={`/product/${_id}`}
         className="w-56 rounded-2xl shadow-lg border p-2 relative bg-white"
       >
-        <div className="relative w-full flex justify-center items-center bg-gray-100 overflow-hidden rounded-xl">
+        <div className="relative w-full flex justify-center items-center rounded-xl overflow-hidden">
           <Image
             src={productImage}
             alt={altText}
@@ -60,12 +60,16 @@ const ProductCard = ({
           >
             <FontAwesomeIcon icon={faShoppingCart} />
           </button>
-        </div>
 
-        <div className="flex items-center mt-2 text-sm">
-          <FontAwesomeIcon icon={faStar} className="text-green-500" />
-          <span className="ml-1 text-gray-700 font-semibold">{rating}</span>
-          <span className="ml-1 text-gray-500">({reviews})</span>
+          <div className="absolute flex items-center mt-2 text-sm bg-white p-1 rounded-md shadow bottom-1 left-1">
+            <FontAwesomeIcon icon={faStar} className="text-green-500" />
+            <span className="ml-1 text-gray-700 text-xs font-semibold">{rating}</span>
+            <span className="ml-1 text-gray-500 text-xs">({reviews})</span>
+          </div>
+
+          <div className="absolute px-2 bg-gray-800 rounded-full top-1 left-1">
+            <p className="text-xs font-semibold text-white">Best Seller</p>
+          </div>
         </div>
 
         <h2 className="text-xs font-semibold text-gray-400 mt-1 leading-tight">
@@ -77,7 +81,9 @@ const ProductCard = ({
             {currency}
             {price}
           </span>
-          <span className="text-gray-500 line-through ml-2">{originalPrice}</span>
+          <span className="text-gray-500 line-through ml-2">
+            {originalPrice}
+          </span>
           <span className="text-green-600 ml-2">{discount}</span>
         </div>
 

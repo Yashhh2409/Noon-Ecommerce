@@ -10,7 +10,7 @@ import React from 'react'
 const page = () => {
   return (
     <div>
-      {/* <NewsLetter /> */}
+      <NewsLetter />
       <ProductCategories />
       <Deals />
       <Recommended />

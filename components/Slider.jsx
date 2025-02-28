@@ -82,13 +82,13 @@ const Slider = ({ children }) => {
         <>
           <button
             onClick={scrollLeftBtn}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg z-10"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow w-10 h-10 flex justify-center items-center z-50 opacity-30"
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
           <button
             onClick={scrollRightBtn}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg z-10"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 p-3 rounded-full shadow-lg z-50 w-10 h-10 flex justify-center items-center opacity-30"
           >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
@@ -98,7 +98,7 @@ const Slider = ({ children }) => {
       {/* Slider Container */}
       <div
         ref={sliderRef}
-        className="flex overflow-x-auto scrollbar-hide scroll-smooth space-x-4 select-none cursor-grab active:cursor-grabbing"
+        className="flex overflow-x-auto scrollbar-hide scroll-smooth select-none cursor-grab active:cursor-grabbing gap-0"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -108,7 +108,7 @@ const Slider = ({ children }) => {
         onTouchEnd={handleTouchEnd}
       >
         {children.map((child, index) => (
-          <div key={index} style={{ flex: `0 0 ${100 / visibleSlides}%` }}>
+          <div key={index} style={{ flex: `0 0 ${100 / visibleSlides}%`, marginRight: "0px" }}>
             {child}
           </div>
         ))}

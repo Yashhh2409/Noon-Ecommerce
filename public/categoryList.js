@@ -8,12 +8,11 @@ const categoriesList = [
         { name: "Tablets", subnames: ["OnePlus Pad 2", "Huawei", "Nokia", "Apple"] },
       ],
       brands: [
-        { Logo: "apple_logo.png", name: "Apple" },
-        { Logo: "samsung_logo.png", name: "Samsung" },
-        { Logo: "sony_logo.png", name: "Sony" },
-        { Logo: "dell_logo.png", name: "Dell" },
+        { Logo: "/brandImg/Samsung-logo.png", name: "Samsung" },
+        { Logo: "/brandImg/Sony-logo.png", name: "Sony" },
+        { Logo: "/brandImg/Dell-logo.png", name: "Dell" },
       ],
-      promoBanner: "electronics_banner.png",
+      promoBanner: "/brandImg/Electronics-Banner.png",
     },
     {
       title: "Men's Fashion",

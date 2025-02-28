@@ -45,7 +45,7 @@ const Categories = () => {
   };
 
   return (
-    <div className="relative w-full bg-white shadow-md p-2">
+    <div className="relative w-full bg-white shadow-md">
       {/* Category Slider with Arrows */}
       <div className="relative flex items-center">
         {canScrollLeft && (
@@ -98,11 +98,11 @@ const Categories = () => {
       {/* Full-Width Dropdown on Hover */}
       {hoveredCategory !== null && (
         <div
-          className="absolute top-[50px] left-0 w-full bg-white shadow-lg p-6 z-50 text-md sm:text-xs sm:p-10"
+          className="absolute top-[40px] left-0 w-full bg-white shadow-lg p-6 z-50 text-md sm:text-xs sm:p-10"
           onMouseEnter={() => setHoveredCategory(hoveredCategory)}
           onMouseLeave={() => setHoveredCategory(null)}
         >
-          <div className="grid grid-cols-[3fr_2fr] gap-8">
+          <div className="grid grid-cols-[3fr_2fr] gap-8 justify-between">
             {/* Left Section: Subcategories & Top Brands */}
             <div>
               <div className="grid grid-cols-4 gap-6">
@@ -129,18 +129,18 @@ const Categories = () => {
                 <p className="text-lg font-semibold text-gray-700">
                   Top Brands
                 </p>
-                <div className="flex flex-wrap gap-4 mt-2">
+                <div className="flex flex-wrap gap-4 mt-2 text-gray-800 font-bold">
                   {categoriesList[hoveredCategory].brands.map((brand, i) => (
                     <div
                       key={i}
-                      className="flex flex-col items-center bg-gray-100 p-2 rounded-md"
+                      className="flex flex-col items-center bg-white p-2 rounded-md"
                     >
                       <img
                         src={brand.Logo}
                         alt=""
-                        className="w-12 h-12 object-contain"
+                        className="w-[100px] object-contain border-2"
                       />
-                      <p className="text-xs mt-1">{brand.name}</p>
+                      <p className="text-sm mt-1">{brand.name}</p>
                     </div>
                   ))}
                 </div>
@@ -148,9 +148,9 @@ const Categories = () => {
             </div>
 
             {/* Right Section: Promo Banner */}
-            <div className="w-full flex justify-center">
+            <div className="w-[250px] sm:max-w-sm md:max-w-md lg:max-w-lg flex justify-end lg:ml-60">
               <img
-                src="https://via.placeholder.com/250"
+                src={categoriesList[hoveredCategory].promoBanner}
                 alt="Promo Banner"
                 className="rounded-md"
               />
