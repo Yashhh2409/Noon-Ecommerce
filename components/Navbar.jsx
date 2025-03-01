@@ -19,6 +19,15 @@ const Navbar = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  // dot loader
+  const loader = (
+    <div className="flex ml-10 space-x-2 justify-center items-center h-16">
+      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.2s]"></div>
+      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.1s]"></div>
+      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+    </div>
+  );
+
   // Search functionality
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -68,11 +77,7 @@ const Navbar = () => {
 
         {/* Second Section - Deliver To */}
         {loading ? (
-          <div className="flex ml-10 space-x-2 justify-center items-center h-16">
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.2s]"></div>
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.1s]"></div>
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-        </div>
+          loader
         ) : (
           <div className="flex items-center gap-2 p-5">
             <Image src="/assets/flag.svg" alt="Flag" width={30} height={15} />
@@ -141,15 +146,22 @@ const Navbar = () => {
         <div className="text-sm font-bold py-5">العربية</div>
 
         {/* Fifth Section - My Account */}
-        <div className="relative p-5">
-          <button onClick={toggleDropdown} className="flex items-center gap-2">
-            <div className="flex flex-col justify-end">
-              <p className="text-xs">Hala !</p>
-              <span className="font-semibold">My Account</span>
-            </div>
-            <FontAwesomeIcon icon={faCaretDown} />
-          </button>
-        </div>
+        {loading ? (
+          loader
+        ) : (
+          <div className="relative p-5">
+            <button
+              onClick={toggleDropdown}
+              className="flex items-center gap-2"
+            >
+              <div className="flex flex-col justify-end">
+                <p className="text-xs">Hala !</p>
+                <span className="font-semibold">My Account</span>
+              </div>
+              <FontAwesomeIcon icon={faCaretDown} />
+            </button>
+          </div>
+        )}
 
         {/* Sixth Section - Wishlist */}
         <button className="flex items-center gap-2 relative p-5">
@@ -176,19 +188,25 @@ const Navbar = () => {
         <Image src="/noon-logo.svg" alt="Logo" width={60} height={60} />
 
         {/* Deliver to section */}
-        <div className="flex text-gray-600 items-center gap-2 p-5">
-          <Image src="/assets/flag.svg" alt="Flag" width={20} height={20} />
-          <div className="leading-tight">
-            <span className="text-xs">
-              Deliver to <FontAwesomeIcon icon={faCaretDown} />
-            </span>
-            {loading ? (
-              <div className="w-16 h-3 bg-gray-300 animate-pulse rounded-md"></div> // Mobile Loading
-            ) : (
-              <div className="font-semibold flex items-center gap-1">Dubai</div>
-            )}
+        {loading ? (
+          loader
+        ) : (
+          <div className="flex text-gray-600 items-center gap-2">
+            <Image src="/assets/flag.svg" alt="Flag" width={20} height={20} />
+            <div className="leading-tight">
+              <span className="text-xs">
+                Deliver to <FontAwesomeIcon icon={faCaretDown} />
+              </span>
+              {loading ? (
+                <div className="w-16 h-3 bg-gray-300 animate-pulse rounded-md"></div> // Mobile Loading
+              ) : (
+                <div className="font-semibold flex items-center gap-1">
+                  Dubai
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Wishlist and Cart */}
         <div className="flex items-center text-gray-600 font-bold">
