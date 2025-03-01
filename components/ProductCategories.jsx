@@ -27,11 +27,7 @@ const categories = [
   "/categoryimages/CategoryImg1.png",
   "/categoryimages/CategoryImg2.png",
   "/categoryimages/CategoryImg1.png",
-  "/categoryimages/CategoryImg2.png",
-  "/categoryimages/CategoryImg1.png",
-  "/categoryimages/CategoryImg2.png",
-  "/categoryimages/CategoryImg1.png",
-  "/categoryimages/CategoryImg2.png",
+  "/categoryimages/CategoryImg2.png"
 ];
 
 const ProductCategories = () => {
@@ -106,7 +102,7 @@ const ProductCategories = () => {
       </button>
 
       {/* Custom Tracking Bar */}
-      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gray-300 rounded-md flex items-center">
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[10%] h-1 bg-gray-300 rounded-md flex items-center">
         <div
           className="h-1 bg-gray-700 rounded-full transition-all duration-300"
           style={{

@@ -1,13 +1,10 @@
 "use client";
-import { useContext, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
   faHeart,
   faShoppingCart,
-  faBox,
-  faMapMarkerAlt,
-  faCreditCard,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
@@ -30,6 +27,15 @@ const Navbar = () => {
     "Samsung",
     "Headphones",
   ]);
+  const [isClient, setIsClient] = useState(false); // Fix for flickering on SSR
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setIsClient(true);
+    setTimeout(() => {
+      setLoading(false); // Simulate loading for "Deliver to" section
+    }, 1500);
+  }, []);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -61,15 +67,25 @@ const Navbar = () => {
         </div>
 
         {/* Second Section - Deliver To */}
-        <div className="flex items-center gap-2 p-5">
-          <Image src="/assets/flag.svg" alt="Flag" width={30} height={15} />
-          <div>
-            <span className="text-sm">Deliver to</span>
-            <div className="font-semibold flex items-center gap-1">
-              Dubai <FontAwesomeIcon icon={faCaretDown} />
+        {loading ? (
+          <div className="flex ml-10 space-x-2 justify-center items-center h-16">
+          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.2s]"></div>
+          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.1s]"></div>
+          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+        </div>
+        ) : (
+          <div className="flex items-center gap-2 p-5">
+            <Image src="/assets/flag.svg" alt="Flag" width={30} height={15} />
+            <div>
+              <span className="text-sm text-gray-600">
+                Deliver to{" "}
+                <FontAwesomeIcon icon={faCaretDown} className="text-gray-600" />
+              </span>
+
+              <div className="font-semibold flex items-center gap-1">Dubai</div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Third Section - Search Bar */}
         <div className="flex-1 mx-4 px-5 relative hidden md:block lg:block">
@@ -82,13 +98,16 @@ const Navbar = () => {
               placeholder="What are you looking for?"
               className="w-full md:w-full p-2 rounded-lg border border-gray-300 outline-none z-50"
             />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className="text-gray-500 cursor-pointer hover:text-gray-700 relative top-3 right-7 z-50"
-              onClick={crossHandler}
-            />
+            {isClient && searchTerm && (
+              <FontAwesomeIcon
+                icon={faTimes}
+                className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-3 z-50"
+                onClick={crossHandler}
+              />
+            )}
           </div>
-          {showDropdown && (
+
+          {isClient && showDropdown && (
             <div className="absolute w-full bg-white border border-gray-300 shadow-lg rounded-md mt-1">
               <div className="flex justify-between p-2 text-sm font-semibold text-gray-500">
                 <span>RECENT SEARCHES</span>
@@ -137,7 +156,7 @@ const Navbar = () => {
           <span>Wishlist</span>
           <FontAwesomeIcon icon={faHeart} />
           <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-            2
+            0
           </span>
         </button>
 
@@ -155,16 +174,22 @@ const Navbar = () => {
       <nav className="md:hidden lg:hidden bg-[var(--theme-color)] flex items-center justify-between p-4 h-[60px]">
         {/* Noon logo */}
         <Image src="/noon-logo.svg" alt="Logo" width={60} height={60} />
+
         {/* Deliver to section */}
         <div className="flex text-gray-600 items-center gap-2 p-5">
           <Image src="/assets/flag.svg" alt="Flag" width={20} height={20} />
           <div className="leading-tight">
-            <span className="text-xs">Deliver to</span>
-            <div className="font-semibold flex items-center gap-1">
-              Dubai <FontAwesomeIcon icon={faCaretDown} />
-            </div>
+            <span className="text-xs">
+              Deliver to <FontAwesomeIcon icon={faCaretDown} />
+            </span>
+            {loading ? (
+              <div className="w-16 h-3 bg-gray-300 animate-pulse rounded-md"></div> // Mobile Loading
+            ) : (
+              <div className="font-semibold flex items-center gap-1">Dubai</div>
+            )}
           </div>
         </div>
+
         {/* Wishlist and Cart */}
         <div className="flex items-center text-gray-600 font-bold">
           <button className="flex items-center gap-2 relative p-5">
@@ -174,7 +199,10 @@ const Navbar = () => {
               0
             </span>
           </button>
-          <Link href="/cart" className="flex items-center gap-2 relative p-5 mr-4">
+          <Link
+            href="/cart"
+            className="flex items-center gap-2 relative p-5 mr-4"
+          >
             <span>Cart</span>
             <FontAwesomeIcon icon={faShoppingCart} />
             <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
