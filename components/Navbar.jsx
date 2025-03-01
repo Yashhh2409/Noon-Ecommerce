@@ -188,40 +188,30 @@ const Navbar = () => {
         <Image src="/noon-logo.svg" alt="Logo" width={60} height={60} />
 
         {/* Deliver to section */}
-        {loading ? (
-          loader
-        ) : (
-          <div className="flex text-gray-600 items-center gap-2">
+          <div className="flex text-gray-600 items-center gap-2 ml-2">
             <Image src="/assets/flag.svg" alt="Flag" width={20} height={20} />
             <div className="leading-tight">
               <span className="text-xs">
                 Deliver to <FontAwesomeIcon icon={faCaretDown} />
               </span>
-              {loading ? (
-                <div className="w-16 h-3 bg-gray-300 animate-pulse rounded-md"></div> // Mobile Loading
-              ) : (
-                <div className="font-semibold flex items-center gap-1">
-                  Dubai
-                </div>
-              )}
+              <div className="font-semibold text-sm flex items-center gap-1">Dubai </div>
             </div>
           </div>
-        )}
 
         {/* Wishlist and Cart */}
         <div className="flex items-center text-gray-600 font-bold">
-          <button className="flex items-center gap-2 relative p-5">
-            <span>Wishlist</span>
+          <button className="flex items-center gap-2 relative py-5">
+            <span className="text-sm font-bold">Wishlist</span>
             <FontAwesomeIcon icon={faHeart} />
-            <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+            <span className="absolute top-4 -right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
               0
             </span>
           </button>
           <Link
             href="/cart"
-            className="flex items-center gap-2 relative p-5 mr-4"
+            className="flex items-center gap-2 relative p-5"
           >
-            <span>Cart</span>
+            <span className="text-sm font-bold">Cart</span>
             <FontAwesomeIcon icon={faShoppingCart} />
             <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
               {getCartCount}
