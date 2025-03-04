@@ -1,11 +1,14 @@
-import AddBanner from '@/components/AddBanner'
-import Deals from '@/components/Deals'
-import NewsLetter from '@/components/NewsLetter'
-import ProductCategories from '@/components/ProductCategories'
-import RamadanSlider from '@/components/RamadanSlider'
-import Recommended from '@/components/Recommended'
-import BestDeals from '@/components/BestDeals'
-import React from 'react'
+import React from "react";
+import dynamic from "next/dynamic";
+
+// Lazy import components
+const NewsLetter = dynamic(() => import("@/components/NewsLetter"));
+const ProductCategories = dynamic(() => import("@/components/ProductCategories"));
+const Deals = dynamic(() => import("@/components/Deals"));
+const Recommended = dynamic(() => import("@/components/Recommended"));
+const AddBanner = dynamic(() => import("@/components/AddBanner"));
+const BestDeals = dynamic(() => import("@/components/BestDeals"));
+// const RamadanSlider = dynamic(()=> import("@/components/RamadanSlider"))
 
 const page = () => {
   return (
@@ -18,7 +21,7 @@ const page = () => {
       <BestDeals />
       {/* <RamadanSlider /> */}
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

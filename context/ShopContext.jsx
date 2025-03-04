@@ -8,6 +8,8 @@ export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
 
+  const currency = "AED ";
+
   // addToCart function
   const addToCart = async (itemId) => {
     setCartItems((prevCart) => {
@@ -21,27 +23,68 @@ const ShopContextProvider = (props) => {
     });
   };
 
-
   // get Cart count (Memoized for performance)
   const getCartCount = useMemo(() => {
     return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
   }, [cartItems]); 
+
+  // update quantity
+  const updateQuantity = async (itemId, quantity) => {
+    setCartItems((prevCart) => {
+      const updatedCart = { ...prevCart };
+  
+      if (quantity > 0) {
+        updatedCart[itemId] = quantity; 
+      } else {
+        delete updatedCart[itemId];
+      }
+  
+      return updatedCart;
+    });
+  };
  
 
   // removeFromCart function
   const removeFromCart = async (itemId) => {
     setCartItems((prevCart) => {
       const updateCart = { ...prevCart };
-      if(updateCart[itemId] > 1) {
-        updateCart[itemId] -= 1; // decrease quantity
-      } else {
-        delete updateCart[itemId]; 
-      }
+        delete updateCart[itemId];
       return updateCart;
     })
   }
 
-  const currency = "AED ";
+  // get cart amount
+  const getCartAmount = () => {
+    let totalAmount = 0;
+  
+    for (const itemId in cartItems) {
+      const itemInfo = products.find((product) => product._id === itemId);
+      if (itemInfo) {
+        totalAmount += itemInfo.price * cartItems[itemId]; // Multiply price with quantity
+      }
+    }
+  
+    return totalAmount;
+  };
+
+  // Shipping Fee
+  const getShippingFee = () => {
+    const cartProductIds = Object.keys(cartItems);
+    
+    // Check if any remaining product in cart has a shipping fee
+    const shippingFees = cartProductIds
+      .map((id) => {
+        const product = products.find((p) => p._id === id);
+        return product?.shippingFee || 0;
+      })
+      .filter((fee) => fee > 0);
+  
+    return shippingFees.length > 0 ? Math.max(...shippingFees) : 0;
+  };
+  
+  
+
+
 
   const value = {
     products,
@@ -50,6 +93,9 @@ const ShopContextProvider = (props) => {
     cartItems,
     getCartCount,
     removeFromCart,
+    updateQuantity,
+    getCartAmount,
+    getShippingFee,
   };
 
   return (

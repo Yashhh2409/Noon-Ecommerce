@@ -1,19 +1,22 @@
 "use client";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
   faHeart,
   faShoppingCart,
   faTimes,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
 import { ShopContext } from "@/context/ShopContext";
+import LoginSignup from "./LoginSignup";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { getCartCount } = useContext(ShopContext);
+  const searchRef = useRef(null);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -38,6 +41,20 @@ const Navbar = () => {
   ]);
   const [isClient, setIsClient] = useState(false); // Fix for flickering on SSR
   const [loading, setLoading] = useState(true);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  useEffect(()=>{
+    const handleClickOutSide = (e) => {
+      if(searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  }, [])
 
   useEffect(() => {
     setIsClient(true);
@@ -93,7 +110,7 @@ const Navbar = () => {
         )}
 
         {/* Third Section - Search Bar */}
-        <div className="flex-1 mx-4 px-5 relative hidden md:block lg:block">
+        <div ref={searchRef} className="flex-1 mx-4 px-5 relative hidden md:block lg:block">
           <div className="flex">
             <input
               type="text"
@@ -103,13 +120,11 @@ const Navbar = () => {
               placeholder="What are you looking for?"
               className="w-full md:w-full p-2 rounded-lg border border-gray-300 outline-none z-50"
             />
-            {isClient && searchTerm && (
-              <FontAwesomeIcon
-                icon={faTimes}
-                className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-3 z-50"
-                onClick={crossHandler}
-              />
-            )}
+            <FontAwesomeIcon
+              icon={faTimes}
+              className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-10 z-50"
+              onClick={crossHandler}
+            />
           </div>
 
           {isClient && showDropdown && (
@@ -143,10 +158,10 @@ const Navbar = () => {
         </div>
 
         {/* Fourth Section - Language */}
-        <div className="text-sm font-bold py-5">العربية</div>
+        <div className="text-sm font-bold py-5 px-5">العربية</div>
 
         {/* Fifth Section - My Account */}
-        {loading ? (
+        {/* {loading ? (
           loader
         ) : (
           <div className="relative p-5">
@@ -161,22 +176,36 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faCaretDown} />
             </button>
           </div>
-        )}
+        )} */}
+
+        <button
+          onClick={() => setIsLoginOpen(true)}
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight text-gray-600 hover:text-gray-800"
+        >
+          <span>Log in</span>
+          <FontAwesomeIcon icon={faUser} />
+        </button>
+
+        {/* login form  */}
+        {isLoginOpen && <LoginSignup onClose={() => setIsLoginOpen(false)} />}
 
         {/* Sixth Section - Wishlist */}
-        <button className="flex items-center gap-2 relative p-5">
+        <button className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight text-gray-700 hover:text-gray-800">
           <span>Wishlist</span>
           <FontAwesomeIcon icon={faHeart} />
-          <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+          <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
             0
           </span>
         </button>
 
         {/* Seventh Section - Cart */}
-        <Link href="/cart" className="flex items-center gap-2 relative p-5">
+        <Link
+          href="/cart"
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight text-gray-700 hover:text-gray-800"
+        >
           <span>Cart</span>
           <FontAwesomeIcon icon={faShoppingCart} />
-          <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+          <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
             {getCartCount}
           </span>
         </Link>
@@ -188,15 +217,21 @@ const Navbar = () => {
         <Image src="/noon-logo.svg" alt="Logo" width={60} height={60} />
 
         {/* Deliver to section */}
+        {loading ? (
+          loader
+        ) : (
           <div className="flex text-gray-600 items-center gap-2 ml-2">
             <Image src="/assets/flag.svg" alt="Flag" width={20} height={20} />
             <div className="leading-tight">
               <span className="text-xs">
                 Deliver to <FontAwesomeIcon icon={faCaretDown} />
               </span>
-              <div className="font-semibold text-sm flex items-center gap-1">Dubai </div>
+              <div className="font-semibold text-sm flex items-center gap-1">
+                Dubai{" "}
+              </div>
             </div>
           </div>
+        )}
 
         {/* Wishlist and Cart */}
         <div className="flex items-center text-gray-600 font-bold">
@@ -207,10 +242,7 @@ const Navbar = () => {
               0
             </span>
           </button>
-          <Link
-            href="/cart"
-            className="flex items-center gap-2 relative p-5"
-          >
+          <Link href="/cart" className="flex items-center gap-2 relative p-5">
             <span className="text-sm font-bold">Cart</span>
             <FontAwesomeIcon icon={faShoppingCart} />
             <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">

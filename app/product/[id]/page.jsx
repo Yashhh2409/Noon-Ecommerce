@@ -11,15 +11,14 @@ import {
   faStar,
   faShoppingCart,
   faHeart,
-  faBoxOpen,
-  faHandshake,
-  faShieldAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { ShopContext } from "@/context/ShopContext";
 import RotatingText from "@/components/RotatingText";
 import { toast } from "react-toastify";
 
 const ProductDetails = () => {
+
+
   const params = useParams();
   const productId = params?.id;
 
@@ -30,9 +29,9 @@ const ProductDetails = () => {
   const [selectedImage, setSelectedImage] = useState("");
 
   const handleCart = () => {
-    addToCart(product._id)
-    toast.success("Product Added to cart!")
-  }
+    addToCart(product._id);
+    toast.success("Product Added to cart!");
+  };
 
   useEffect(() => {
     const foundProduct = products.find((item) => item._id === productId);
@@ -96,7 +95,10 @@ const ProductDetails = () => {
 
             {/* Add to Cart & Wishlist */}
             <div className="mt-6 flex gap-4">
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-md flex items-center gap-2" onClick={handleCart}>
+              <button
+                className="bg-blue-600 text-white px-6 py-2 rounded-md flex items-center gap-2"
+                onClick={handleCart}
+              >
                 <FontAwesomeIcon icon={faShoppingCart} />
                 Add to Cart
               </button>

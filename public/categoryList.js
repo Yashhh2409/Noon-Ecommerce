@@ -1,6 +1,7 @@
 const categoriesList = [
     {
       title: "Electronics",
+      slug: "electronics",
       subcategories: [
         { name: "Mobiles", subnames: ["iPhone", "Vivo", "Oppo", "Samsung"] },
         { name: "Laptops", subnames: ["HP", "Dell", "Asus", "Lenovo"] },

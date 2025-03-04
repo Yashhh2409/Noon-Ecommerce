@@ -108,6 +108,7 @@ export const products = [
         "category": "Women",
         "date": 1716634345448,
         "bestseller": true,
+        "shippingFee": 10,
         "rating": 4.3,
         "reviews": 184,
         "ranking": "#20 In Women's Topwear",

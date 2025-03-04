@@ -7,9 +7,14 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import Link from "next/link";
 import categoriesList from "@/public/categoryList";
+// import getCategories from "@/lib/getCategories";
 
 const Categories = () => {
+
+  // const categories = await getCategories();
+
   const sliderRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -64,14 +69,14 @@ const Categories = () => {
           onScroll={updateScrollState}
         >
           {categoriesList.map((category, index) => (
-            <div
+            <Link href={`/${category.slug}`}
               key={index}
-              className="relative group cursor-pointer whitespace-nowrap text-black font-semibold px-4 py-2  hover:border-b-2 hover:border-b-black"
+              className="relative group cursor-pointer whitespace-nowrap text-black font-semibold px-4 py-2  hover:underline"
               onMouseEnter={() => setHoveredCategory(index)}
               onMouseLeave={() => setHoveredCategory(null)}
             >
               {category.title}
-            </div>
+            </Link>
           ))}
         </div>
 

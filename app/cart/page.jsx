@@ -12,16 +12,23 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "@/context/ShopContext";
 import { toast } from "react-toastify";
 
-
 const page = () => {
-  const { products, currency, cartItems, getCartCount, removeFromCart } =
-    useContext(ShopContext);
+  const {
+    products,
+    currency,
+    cartItems,
+    getCartCount,
+    removeFromCart,
+    updateQuantity,
+    getCartAmount,
+    getShippingFee,
+  } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   const handleRemove = (productId) => {
-    removeFromCart(productId); 
-    toast.success("Product Removed!")
-  }
+    removeFromCart(productId);
+    toast.success("Product Removed!");
+  };
 
   useEffect(() => {
     const tempData = [];
@@ -36,7 +43,7 @@ const page = () => {
   }, [cartItems]);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-2 h-fit bg-white">
+    <div className="max-w-8xl mx-auto px-16 grid grid-cols-1 md:grid-cols-3 gap-2 h-fit bg-white">
       {/* Left: Cart Items (Larger Width) */}
       <div className="bg-white p-4 rounded-lg md:col-span-2">
         <div className="flex justify-between items-start border-b pb-4 mb-4">
@@ -151,14 +158,17 @@ const page = () => {
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center mt-2">
-                      <p className="text-gray-600 text-sm mr-2">Qty</p>
-                      <select className="border text-gray-500 rounded px-2 py-1 text-sm">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    </div>
+                    <input
+                      onChange={(e) =>
+                        e.target.value === "" || e.target.value === "0"
+                          ? null
+                          : updateQuantity(item._id, Number(e.target.value))
+                      }
+                      className="border-2 rounded-sm max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 text-black"
+                      type="number"
+                      min={1}
+                      defaultValue={item.quantity}
+                    />
                   </div>
                 </div>
               );
@@ -168,7 +178,7 @@ const page = () => {
       </div>
 
       {/* Right: Order Summary (Full Height) */}
-      <div className="bg-white p-4 rounded-lg text-gray-800 shadow h-full">
+      <div className="bg-white p-4 rounded-lg text-gray-800 shadow-md border h-auto mt-5 mb-5">
         <h3 className="text-lg font-semibold">Order Summary</h3>
         <div className="mt-4 flex gap-[-12px]">
           <input
@@ -181,19 +191,29 @@ const page = () => {
           </button>
         </div>
         <div className="flex justify-between mt-3">
-          <p>Subtotal (2 items)</p>
-          <p className="font-semibold text-gray-500">AED 3411.00</p>
+          <p>Subtotal ({getCartCount} items)</p>
+          <p className="font-semibold text-gray-500">
+            {currency} {getCartAmount()}.00
+          </p>
         </div>
         <div className="flex justify-between mt-2">
           <p>Shipping Fee</p>
-          <p className="text-green-600 font-semibold">FREE</p>
+          <p className="text-green-600 font-semibold">{getShippingFee()}</p>
         </div>
         <div className="flex justify-between mt-3 text-xl font-bold">
           <p>
             Total{" "}
             <span className="text-sm text-gray-500">(Inclusive of VAT)</span>
           </p>
-          <p>AED 3411.00</p>
+          <p>
+            {getShippingFee() > 0
+              ? (`${currency}${getCartAmount() + getShippingFee()}`) : (
+                <>
+                {currency}{getCartAmount()}{" "} 
+                <span className="text-xs text-green-600">(FREE Shipping)</span>
+                </>
+              )}
+          </p>
         </div>
         <button className="w-full bg-blue-600 text-white py-2 mt-4 rounded-sm font-semibold hover:bg-blue-700">
           CHECKOUT

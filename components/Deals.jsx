@@ -34,23 +34,26 @@ const Deals = () => {
       </div>
 
       {/* Third Section */}
-      <div className="w-full h-auto bg-[#FFE367] p-4 mb-5">
-        <Title firstTxt={"IN"} secondTxt={" FOCUS"} />
+{/* Third Section */}
+<div className="w-full bg-[#FFE367] p-4 flex flex-col items-start justify-center min-h-[500px] sm:min-h-[400px]">
+  <Title firstTxt={"IN"} secondTxt={" FOCUS"} />
 
-        <div className="grid grid-rows-2 gap-4 p-2">
-          {["deals5.png", "deals6.png"].map((deal, index) => (
-            <div key={index} className="relative w-full h-[150px] rounded-md overflow-hidden">
-              <Image
-                src={`/deals/${deal}`}
-                layout="fill"
-                objectFit="cover"
-                alt={`Deals ${index + 5}`}
-                className="rounded-md"
-              />
-            </div>
-          ))}
-        </div>
+  <div className="grid grid-cols-1 gap-4 sm:gap-2 p-4 w-full h-full">
+    {["deals5.png", "deals6.png"].map((deal, index) => (
+      <div key={index} className="relative w-full aspect-[16/7] sm:aspect-[16/9] rounded-md overflow-hidden flex-grow">
+        <Image
+          src={`/deals/${deal}`}
+          layout="fill"
+          objectFit="cover"
+          alt={`Deals ${index + 5}`}
+          className="rounded-md"
+        />
       </div>
+    ))}
+  </div>
+</div>
+
+
     </div>
   );
 };
