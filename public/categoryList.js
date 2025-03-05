@@ -3,10 +3,10 @@ const categoriesList = [
       title: "Electronics",
       slug: "electronics",
       subcategories: [
-        { name: "Mobiles", subnames: ["iPhone", "Vivo", "Oppo", "Samsung"] },
-        { name: "Laptops", subnames: ["HP", "Dell", "Asus", "Lenovo"] },
-        { name: "Cameras", subnames: ["Nikon", "Sony", "Samsung", "Canon"] },
-        { name: "Tablets", subnames: ["OnePlus Pad 2", "Huawei", "Nokia", "Apple"] },
+        { name: "Mobiles", slug: "mobiles", discount: "Up to 60% off", subnames: ["iPhone", "Vivo", "Oppo", "Samsung"] },
+        { name: "Laptops", slug: "laptops", discount: "Up to 40% off", subnames: ["HP", "Dell", "Asus", "Lenovo"] },
+        { name: "Cameras", slug: "cameras", discount: "Up to 10% off", subnames: ["Nikon", "Sony", "Samsung", "Canon"] },
+        { name: "Tablets", slug: "tablets", discount: "Up to 70% off", subnames: ["OnePlus Pad 2", "Huawei", "Nokia", "Apple"] },
       ],
       brands: [
         { Logo: "/brandImg/Samsung-logo.png", name: "Samsung" },

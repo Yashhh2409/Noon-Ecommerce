@@ -11,7 +11,7 @@ import Link from "next/link";
 import categoriesList from "@/public/categoryList";
 // import getCategories from "@/lib/getCategories";
 
-const Categories = () => {
+const Categories = ({ categories }) => {
 
   // const categories = await getCategories();
 
