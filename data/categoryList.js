@@ -1,26 +1,27 @@
 const categoriesList = [
+    // {
+    //   title: "Electronics",
+    //   slug: "electronics",
+    //   subcategories: [
+    //     { name: "Mobiles", slug: "mobiles", discount: "Up to 60% off", subnames: ["iPhone", "Vivo", "Oppo", "Samsung"] },
+    //     { name: "Laptops", slug: "laptops", discount: "Up to 40% off", subnames: ["HP", "Dell", "Asus", "Lenovo"] },
+    //     { name: "Cameras", slug: "cameras", discount: "Up to 10% off", subnames: ["Nikon", "Sony", "Samsung", "Canon"] },
+    //     { name: "Tablets", slug: "tablets", discount: "Up to 70% off", subnames: ["OnePlus Pad 2", "Huawei", "Nokia", "Apple"] },
+    //   ],
+    //   brands: [
+    //     { Logo: "/brandImg/Samsung-logo.png", name: "Samsung" },
+    //     { Logo: "/brandImg/Sony-logo.png", name: "Sony" },
+    //     { Logo: "/brandImg/Dell-logo.png", name: "Dell" },
+    //   ],
+    //   promoBanner: "/brandImg/Electronics-Banner.png",
+    // },
     {
-      title: "Electronics",
-      slug: "electronics",
+      title: "Fashion",
+      slug: "fashion",
       subcategories: [
-        { name: "Mobiles", slug: "mobiles", discount: "Up to 60% off", subnames: ["iPhone", "Vivo", "Oppo", "Samsung"] },
-        { name: "Laptops", slug: "laptops", discount: "Up to 40% off", subnames: ["HP", "Dell", "Asus", "Lenovo"] },
-        { name: "Cameras", slug: "cameras", discount: "Up to 10% off", subnames: ["Nikon", "Sony", "Samsung", "Canon"] },
-        { name: "Tablets", slug: "tablets", discount: "Up to 70% off", subnames: ["OnePlus Pad 2", "Huawei", "Nokia", "Apple"] },
-      ],
-      brands: [
-        { Logo: "/brandImg/Samsung-logo.png", name: "Samsung" },
-        { Logo: "/brandImg/Sony-logo.png", name: "Sony" },
-        { Logo: "/brandImg/Dell-logo.png", name: "Dell" },
-      ],
-      promoBanner: "/brandImg/Electronics-Banner.png",
-    },
-    {
-      title: "Men's Fashion",
-      subcategories: [
-        { name: "Clothing", subnames: ["T-Shirts", "Jeans", "Jackets", "Suits"] },
-        { name: "Footwear", subnames: ["Sneakers", "Boots", "Loafers", "Sandals"] },
-        { name: "Accessories", subnames: ["Watches", "Belts", "Sunglasses", "Caps"] },
+        { name: "Women", slug: "fashion-women", subnames: ["T-Shirts", "Jeans", "Jackets", "Suits"] },
+        { name: "Men", slug: "fashion-men", subnames: ["Sneakers", "Boots", "Loafers", "Sandals"] },
+        { name: "Kids", slug: "fashion-kids", subnames: ["Watches", "Belts", "Sunglasses", "Caps"] },
       ],
       brands: [
         { Logo: "nike_logo.png", name: "Nike" },

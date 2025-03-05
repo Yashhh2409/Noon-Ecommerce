@@ -4,14 +4,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import categoriesList from "@/public/categoryList";
+import categoriesList from "@/data/categoryList";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+
 import AddBanner from "@/components/AddBanner";
 import ProductCategories from "@/components/ProductCategories";
+import Carousel from "@/components/Carousel";
 
 const images = [
   "/carousel/Crousel1.png",
@@ -25,116 +24,82 @@ const images = [
 const CategoryPage = () => {
   const params = useParams();
   const [categoryData, setCategoryData] = useState(null);
-  const [current, setCurrent] = useState(0);
+  const [isOpen, setIsOpen] = useState(true);
 
-  // Next slide
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
-
-  // Previous slide
-  const prevSlide = () =>
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
-
-  // ✅ Use Effect is always called to maintain hook order
   useEffect(() => {
     if (params?.category) {
+      console.log("Params category: ", params.category);
       const foundCategory = categoriesList.find(
         (cat) => cat.slug === params.category
       );
-      setCategoryData(
-        foundCategory || { title: "Category Not Found", subcategories: [] }
-      );
+      if (foundCategory) {
+        setCategoryData(foundCategory);
+      } else {
+        setCategoryData(null);
+      }
     }
   }, [params?.category]);
 
-  // ✅ Auto change image every 5 seconds (hook order is maintained)
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval);
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsOpen(false);
+      } else {
+        setIsOpen(true);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ Don't return early (instead, use conditional rendering inside JSX)
+  const toggleOpen = () => setIsOpen((prev) => !prev);
+
   return (
-    <div className="max-w-full h-auto overflow-hidden mx-0 md:mx-10 bg-[#FFFFFF]">
-      {/* ✅ Show loading message inside the div instead of returning early */}
-      {!categoryData ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          {/* SubCategory Boxes */}
-          <div className="max-w-full flex gap-6 p-5 justify-center">
-            {categoryData.subcategories.map((sub, index) => (
+    <div className="max-w-full h-auto overflow-hidden mx-0 md:mx-5 bg-[#FFFFFF]">
+      <div className="flex gap-5">
+        {/* Filters  */}
+        <div className="w-[25%] bg-red-500 p-5">
+          {/* Delivery Mode  */}
+          <div>
+            <div className="flex justify-between cursor-pointer" onClick={toggleOpen}>
+              <p className="font-bold text-gray-800">Delivery Mode</p>
+              <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
+            </div>
+            {isOpen && (
+              <div className="flex gap-2 py-5">
+                <input type="radio" className="w-5" />
+                <div className="bg-blue-500 w-fit py-1 px-2 rounded-md">
+                  <p>Supermall</p>
+                </div>
+              </div>
+              
+            )}
+          </div>
+        </div>
+
+        {/* Page  */}
+        <div className="w-[75%] bg-blue-500">
+          {/* sub categories  */}
+          <div className="flex gap-5 p-5">
+            {categoryData?.subcategories?.map((sub, idx) => (
               <Link
-                href={`/subcategory/${sub.slug}`}
-                key={index}
-                className="text-white bg-gray-900 max-w-60 rounded-xl py-3 px-10 flex flex-col justify-center items-center"
+                href={`/${params.category}/${sub.slug}`}
+                key={idx}
+                className="max-w-20 bg-red-500 px-20 py-3 rounded-md flex justify-center items-center"
               >
-                <p className="font-bold text-sm md:text-md lg:text-lg">{sub.name}</p>
-                <p className="text-xs">{sub.discount}</p>
+                <p>{sub.name}</p>
               </Link>
             ))}
           </div>
 
-          {/* Carousel */}
-          <div className="w-full">
-            <div className="relative w-full md:w-[100%] h-[150px] sm:h-[200px] md:h-[200px] lg:h-[250px] overflow-hidden">
-              {/* Previous Slide Button */}
-              <button
-                onClick={prevSlide}
-                className="absolute top-1/2 left-3 z-10 transform -translate-y-1/2 bg-white bg-opacity-70 text-black p-3 w-12 h-12 rounded-full shadow-md flex justify-center items-center"
-              >
-                <FontAwesomeIcon
-                  icon={faChevronLeft}
-                  className="text-2xl text-gray-800"
-                />
-              </button>
+          {/* carousel  */}
+          <Carousel imgArray={images} />
 
-              {/* Next Slide Button */}
-              <button
-                onClick={nextSlide}
-                className="absolute top-1/2 right-3 z-10 transform -translate-y-1/2 bg-white bg-opacity-70 text-black p-3 w-12 h-12 rounded-full shadow-md flex justify-center items-center"
-              >
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className="text-2xl text-gray-800"
-                />
-              </button>
-
-              {/* Carousel Image */}
-              <Image
-                src={images[current]}
-                alt="Carousel Image"
-                width={1200}
-                height={450}
-                className="w-full h-full object-cover"
-                priority
-              />
-
-              {/* 🚀 Dashed Line Progress Tracker */}
-              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
-                {images.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`h-1 w-6 rounded-md transition-all ${
-                      current === index ? "bg-yellow-500" : "bg-gray-300"
-                    }`}
-                  ></div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Add banner  */}
-          <AddBanner />
-
-          {/* productCategories  */}
+          {/* Product slider */}
           <ProductCategories />
-
-          <h1>4
-
-            ftghgjv
-          </h1>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 };

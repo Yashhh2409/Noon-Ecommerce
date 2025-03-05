@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
-import categoriesList from "@/public/categoryList";
+import categoriesList from "@/data/categoryList";
 // import getCategories from "@/lib/getCategories";
 
 const Categories = ({ categories }) => {

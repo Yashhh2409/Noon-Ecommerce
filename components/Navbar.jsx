@@ -43,9 +43,9 @@ const Navbar = () => {
   const [loading, setLoading] = useState(true);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     const handleClickOutSide = (e) => {
-      if(searchRef.current && !searchRef.current.contains(e.target)) {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
         setShowDropdown(false);
       }
     };
@@ -54,7 +54,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutSide);
     };
-  }, [])
+  }, []);
 
   useEffect(() => {
     setIsClient(true);
@@ -110,7 +110,10 @@ const Navbar = () => {
         )}
 
         {/* Third Section - Search Bar */}
-        <div ref={searchRef} className="flex-1 mx-4 px-5 relative hidden md:block lg:block">
+        <div
+          ref={searchRef}
+          className="flex-1 mx-4 px-5 relative hidden md:block lg:block"
+        >
           <div className="flex">
             <input
               type="text"
@@ -120,11 +123,13 @@ const Navbar = () => {
               placeholder="What are you looking for?"
               className="w-full md:w-full p-2 rounded-lg border border-gray-300 outline-none z-50"
             />
-            <FontAwesomeIcon
-              icon={faTimes}
-              className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-10 z-50"
-              onClick={crossHandler}
-            />
+            {isClient && searchTerm && (
+              <FontAwesomeIcon
+                icon={faTimes}
+                className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-10 z-50"
+                onClick={crossHandler}
+              />
+            )}
           </div>
 
           {isClient && showDropdown && (

@@ -5,6 +5,7 @@ import ShopContextProvider from "@/context/ShopContext";
 import Categories from "@/components/Categories";
 import ToastProvider from "@/components/ToastProvider";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +31,7 @@ export default function RootLayout({ children }) {
         <ShopContextProvider>
           <div className="h-screen overflow-y-auto bg-[#F7F7FA]">
             <ToastProvider />
-            <Navbar />
-            <Categories />
+            <Header />
             {children}
             <Footer />
           </div>

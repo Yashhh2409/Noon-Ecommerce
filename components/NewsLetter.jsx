@@ -31,7 +31,7 @@ export default function Newsletter() {
           alt="Newsletter Banner"
           width={1900}
           height={500}
-          className="w-full h-auto object-cover"
+          className="w-[100%] h-[100%] object-cover"
         />
       </div>
 
@@ -87,7 +87,7 @@ export default function Newsletter() {
               alt="Shop Women"
               width={500}
               height={100}
-              className="w-full h-full object-cover"
+              className="w-[full] h-full object-cover"
             />
           </div>
           {/* Shop Men Section */}
