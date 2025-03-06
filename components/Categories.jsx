@@ -50,7 +50,7 @@ const Categories = ({ categories }) => {
   };
 
   return (
-    <div className="relative w-full bg-white shadow-md">
+    <div className="relative w-full h-10 bg-white shadow-md">
       {/* Category Slider with Arrows */}
       <div className="relative flex items-center">
         {canScrollLeft && (
