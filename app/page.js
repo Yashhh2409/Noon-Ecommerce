@@ -12,7 +12,7 @@ const BestDeals = dynamic(() => import("@/components/BestDeals"));
 
 const page = () => {
   return (
-    <div>
+    <div className="">
       <NewsLetter />
       <ProductCategories />
       <Deals />

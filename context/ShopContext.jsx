@@ -9,6 +9,9 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
 
   const currency = "AED ";
+ const API_BACKEND_URL = process.env.NEXT_PUBLIC_API_BACKEND_URL;
+
+ 
 
   // addToCart function
   const addToCart = async (itemId) => {
@@ -96,6 +99,7 @@ const ShopContextProvider = (props) => {
     updateQuantity,
     getCartAmount,
     getShippingFee,
+    API_BACKEND_URL,
   };
 
   return (

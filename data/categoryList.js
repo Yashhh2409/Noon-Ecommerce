@@ -16,7 +16,7 @@ const categoriesList = [
     //   promoBanner: "/brandImg/Electronics-Banner.png",
     // },
     {
-      title: "Fashion",
+      name: "Fashion",
       slug: "fashion",
       subcategories: [
         { name: "Women", slug: "fashion-women", subnames: ["T-Shirts", "Jeans", "Jackets", "Suits"] },
@@ -31,6 +31,9 @@ const categoriesList = [
       ],
       promoBanner: "mens_fashion_banner.png",
     },
+
+
+
     {
       title: "Women's Fashion",
       subcategories: [

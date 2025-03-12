@@ -11,18 +11,21 @@ import {
   faStar,
   faShoppingCart,
   faHeart,
+  faAngleRight,
+  faTruckFast,
+  faRotateLeft,
+  faBank,
 } from "@fortawesome/free-solid-svg-icons";
 import { ShopContext } from "@/context/ShopContext";
 import RotatingText from "@/components/RotatingText";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 const ProductDetails = () => {
-
-
   const params = useParams();
   const productId = params?.id;
 
-  const { products, addToCart } = useContext(ShopContext);
+  const { products, addToCart, currency } = useContext(ShopContext);
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState("");
   const [hoverPreview, setHoverPreview] = useState(false);
@@ -46,16 +49,16 @@ const ProductDetails = () => {
     return <p className="text-center text-lg">⏳ Loading product details...</p>;
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-8">
+    <div className="max-w-8xl mx-auto p-4 lg:p-10 md:p-8">
       {/* Breadcrumb Navigation */}
       <nav className="text-sm text-gray-500 mb-4">
         Home &gt; {product?.category} &gt; {product?.subCategory}{" "}
         {product?.name}
       </nav>
 
-      <div className="grid lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-4 gap-6">
+      <div className="grid lg:grid-cols-12 md:grid-cols-8 sm:grid-cols-4 gap-6 h-auto">
         {/* Left: Thumbnails & Main Image */}
-        <div className="md:col-span-4 flex gap-4">
+        <div className="md:col-span-4 flex gap-4 sm:h-auto md:h-fit md:sticky md:top-10">
           {/* Thumbnails - Vertical */}
           <div className="flex flex-col gap-2">
             {product?.image?.map((img, index) => (
@@ -111,7 +114,7 @@ const ProductDetails = () => {
         </div>
 
         {/* Middle: Product Details */}
-        <div className="md:col-span-4">
+        <div className="md:col-span-4 flex flex-col gap-2">
           <div className="flex justify-between mb-5">
             <h1 className="text-gray-400 font-bold">Apple</h1>
             <button className="text-blue-500 font-semibold border rounded-full p-1 px-2 shadow-lg">
@@ -124,7 +127,7 @@ const ProductDetails = () => {
           </h1>
 
           {/* Rating Stars */}
-          <div className="flex items-center gap-2 text-gray-500 mt-2">
+          <div className="flex items-center gap-2 text-gray-500">
             <div className="text-gray-600 text-sm">
               Model Number : {product?.model || "Add here"}
             </div>{" "}
@@ -137,7 +140,7 @@ const ProductDetails = () => {
           </div>
 
           {/* Price & Discounts */}
-          <div className="mt-4">
+          <div>
             <p className="text-gray-500 line-through text-lg">
               AED {product?.originalPrice}
             </p>
@@ -169,157 +172,221 @@ const ProductDetails = () => {
 
           {/* Payment Options */}
           <div className="mt-4">
-            <p className="text-sm flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faMoneyBillWave}
-                className="text-green-500"
-              />
-              <strong className="text-gray-500">Pay in 4 installments</strong>{" "}
-              (AED {product?.installmentPrice})
-            </p>
-            <p className="text-sm flex items-center gap-2 mt-2 text-gray-500">
+            <div className="bg-red-200 w-full h-auto py-4 rounded-md flex items-center justify-between gap-2 px-4">
               <FontAwesomeIcon icon={faCreditCard} className="text-blue-500" />
-              Earn <strong>AED {product?.cashback} Cashback</strong> with the
-              noon One Credit Card.
+              <p className="text-sm text-gray-500">
+                Pay in 4 simple, interest free payments of{" "}
+                <span className="font-bold text-md text-gray-800">
+                  {currency} 1,324.75
+                </span>
+              </p>
+              <FontAwesomeIcon icon={faAngleRight} className="text-gray-500" />
+            </div>
+          </div>
+
+          {/* Cashback Offer */}
+          <div className="bg-[#C2FA70] w-full h-auto py-6 rounded-md flex items-center justify-between gap-2 px-4">
+            <FontAwesomeIcon icon={faCreditCard} className="text-blue-500" />
+            <p className="text-gray-800 font-bold">
+              Earn {currency} 264.95{" "}
+              <span className="text-violet-500">CA$HBACK</span>{" "}
+              <span className="text-gray-500 font-normal">
+                with the noon One Cred Card.
+              </span>{" "}
+              <span className="text-blue-700 underline">Apply now</span>{" "}
             </p>
           </div>
 
-          {/* Seller Information */}
-          <div className="mt-6 p-4 border rounded-lg bg-gray-50">
-            <h3 className="text-lg font-semibold text-gray-500">
-              Sold by <span className="text-blue-500">{product?.seller}</span>
-            </h3>
-            <div className="flex items-center gap-2 text-green-600 mt-2">
-              <FontAwesomeIcon icon={faCheckCircle} />
-              <span className="text-gray-600">
-                {product?.sellerRating}% Positive Ratings
-              </span>
-            </div>
-            <p className="text-sm text-gray-600">{product?.description}</p>
+          {/* Promo Banner GIF */}
+          <div className="mt-6 w-full h-auto rounded-lg bg-gray-50">
+            <Image
+              src={"/product_details_offer_banner.gif"}
+              layout="responsive"
+              width={500}
+              height={300}
+              className="w-full h-full object-contain"
+            />
           </div>
 
-          {/* Benefits */}
-          <div className="mt-6 grid grid-cols-2 gap-4">
-            <div className="flex items-center gap-2 text-gray-700">
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                className="text-green-500"
-              />
-              Free Returns
+          {/* Offer Ticket */}
+          <div className="relative flex items-center justify-between w-full p-4 bg-green-50 border-2 border-dashed border-[#38AE04] rounded-lg">
+            <div className="flex items-center gap-2">
+              <div>
+                <Image
+                  src={"/icons-svg/coupon-discount-v2.svg"}
+                  width={35}
+                  height={35}
+                />
+              </div>
+
+              <div className="text-[#38AE04] font-bold">
+                <p>Extra 20% off!</p>
+                <p className="text-lg">CODE: AUTOAPPLIED OFFER</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2 text-gray-700">
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                className="text-green-500"
+
+            <div>
+              <Image
+                src={"/icons-svg/coupon-details-rightarrow.svg"}
+                width={35}
+                height={35}
               />
-              Trusted Shipping
+            </div>
+          </div>
+
+          {/* Benifits */}
+          <div className="w-full h-auto bg-white flex items-center justify-around gap-2 rounded-md shadow-sm py-5">
+            <div className="w-auto h-auto flex flex-col justify-center items-center gap-2 px-5">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center bg-[#FFF8EC] p-7">
+                <FontAwesomeIcon
+                  icon={faTruckFast}
+                  className="text-gray-800  text-3xl"
+                />
+              </div>
+              <p className="text-gray-600 font-semibold whitespace-pre-line text-center">
+                Delivery{"\n"}by noon
+              </p>
+            </div>
+
+            <div className="w-auto h-auto flex flex-col justify-center items-center gap-2">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center bg-[#FFF8EC] p-7">
+                <FontAwesomeIcon
+                  icon={faStar}
+                  className="text-gray-800 text-3xl"
+                />
+              </div>
+              <p className="text-gray-600 font-semibold whitespace-pre-line text-center">
+                High Rated{"\n"}seller
+              </p>
+            </div>
+
+            <div className="w-auto h-auto flex flex-col justify-center items-center gap-2">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center bg-[#FFF8EC] p-7">
+                <FontAwesomeIcon
+                  icon={faRotateLeft}
+                  className="text-gray-800 text-3xl"
+                />
+              </div>
+              <p className="text-gray-600 font-semibold whitespace-pre-line text-center">
+                Low{"\n"}Returns
+              </p>
+            </div>
+
+            <div className="w-auto h-auto flex flex-col justify-center items-center gap-2">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center bg-[#FFF8EC] p-7">
+                <FontAwesomeIcon
+                  icon={faMoneyBillWave}
+                  className="text-gray-800 text-3xl"
+                />
+              </div>
+              <p className="text-gray-600 font-semibold whitespace-pre-line text-center">
+                Cash on{"\n"}Delivery
+              </p>
             </div>
           </div>
         </div>
 
         {/* Right: Extra Services */}
-        <div className="md:col-span-4 border p-4 rounded-lg shadow-md bg-white">
-          {/* Product Info */}
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-700">
+        <div className="md:col-span-4 border-l-[1px] p-4  overflow-y-auto scrollbar-hidden">
+          {/* Add banner */}
+          <div className="flex items-center justify-between border p-2 rounded-md">
+            <Image src={"/icons-svg/iphone.png"} width={35} height={35} />
+            <h2 className="max-w-60 text-sm text-gray-700">
               Apple iPhone 16 Pro Max Case With MagSafe - Clear
             </h2>
-            <div className="flex items-center space-x-2">
-              <p className="text-xl font-bold text-gray-800">AED 145.00</p>
-              <span className="bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded">
-                express
-              </span>
+            <div className="flex flex-col justify-center items-center space-x-2">
+              <p className="text-sm text-gray-800">
+                {currency}{" "}
+                <span className="font-bold text-gray-800 text-[18px]">
+                  145.00
+                </span>
+              </p>
+              <div className="flex gap-4">
+                <span className="bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded">
+                  express
+                </span>
+                <p className="text-gray-400 text-sm bg-gray-200 px-2 py-0.5 rounded-lg text-center">
+                  Ad
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Warranty & Returns */}
-          <div className="mt-2 text-sm text-gray-600 space-y-1">
-            <p className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faCheckCircle} className="text-blue-500" />
-              1 year warranty{" "}
-              <span className="text-blue-500 cursor-pointer">Learn more</span>
-            </p>
-            <p className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                className="text-green-500"
-              />
-              Enjoy hassle-free returns with this offer.
-              <span className="text-blue-500 cursor-pointer">Learn more</span>
-            </p>
-          </div>
-
-          {/* Seller Info */}
-          <div className="mt-4 p-3 border rounded-lg bg-gray-50">
-            <p className="text-sm text-gray-600">
-              Sold by{" "}
-              <span className="text-blue-500 font-semibold">callmate</span>
-            </p>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="bg-yellow-300 text-black px-2 py-1 rounded text-xs font-bold">
-                4.8★
-              </span>
-              <p className="text-gray-600 text-sm">85% Positive Ratings</p>
-            </div>
-            <p className="text-xs text-gray-500 mt-1">
-              Brand warranty Japan spec
-            </p>
-
-            {/* Seller Highlights */}
-            <div className="mt-3 grid grid-cols-2 gap-3 text-sm text-gray-600">
-              <p className="flex items-center gap-2">
+          {/* Bank Offers */}
+          <div className="mt-4">
+            <h2 className="text-gray-600 font-bold tracking-wide">
+              BANK OFFERS
+            </h2>
+            <div className="border rounded-lg bg-gray-50">
+              <div className="flex gap-4 justify-center items-center px-5 py-2">
                 <FontAwesomeIcon
-                  icon={faCheckCircle}
-                  className="text-green-500"
+                  icon={faCreditCard}
+                  className="text-yellow-400"
                 />
-                Partner Since{" "}
-                <span className="font-semibold text-gray-800">6+ Years</span>
-              </p>
-              <p className="flex items-center gap-2">
+                <p className="text-gray-500">
+                  <span className="text-sm text-gray-800 font-bold">
+                    Earn {currency} 264.95
+                  </span>{" "}
+                  cashback with the Marsheq noon credit card.
+                </p>
                 <FontAwesomeIcon
-                  icon={faCheckCircle}
-                  className="text-green-500"
+                  icon={faAngleRight}
+                  className="text-gray-500"
                 />
-                Item as Described{" "}
-                <span className="font-semibold text-gray-800">90%</span>
-              </p>
-              <p className="flex items-center gap-2">
+              </div>
+              <hr />
+              <div className="flex gap-4 justify-between items-center px-5 py-2">
+                <FontAwesomeIcon icon={faBank} className="text-yellow-400" />
+                <p className="text-gray-500">
+                  cashback with the Marsheq noon credit card.
+                </p>
                 <FontAwesomeIcon
-                  icon={faCheckCircle}
-                  className="text-green-500"
+                  icon={faAngleRight}
+                  className="text-gray-500"
                 />
-                Great Recent Rating
-              </p>
-              <p className="flex items-center gap-2">
-                <FontAwesomeIcon
-                  icon={faCheckCircle}
-                  className="text-green-500"
-                />
-                Low Return Seller
-              </p>
+              </div>
             </div>
           </div>
 
-          {/* Additional Benefits */}
-          <div className="mt-4 space-y-2 text-sm text-gray-700">
-            <p className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                className="text-green-500"
-              />
-              Free Returns on eligible items
-            </p>
-            <p className="flex items-center gap-2">
-              <FontAwesomeIcon icon={faTruck} className="text-blue-500" />
-              Free shipping when you spend AED 100 and above on express items
-            </p>
-            <p className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                className="text-green-500"
-              />
-              Contactless delivery for prepaid orders
-            </p>
+          {/* Seller */}
+          <div className="mt-4">
+            <h2 className="text-gray-600 font-bold tracking-wide">SELLER</h2>
+            <div className="border rounded-lg bg-gray-50">
+              <div className="flex gap-4 justify-between items-center px-5 py-2">
+                <div className="w-auto h-auto flex flex-col justify-center items-center gap-2 px-5">
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center bg-[#FFF8EC] p-7">
+                    <FontAwesomeIcon
+                      icon={faTruckFast}
+                      className="text-gray-800  text-3xl"
+                    />
+                  </div>
+                </div>
+                <p className="text-gray-500">
+                  <span className="text-sm text-gray-800 font-bold">
+                    Sold by
+                  </span>{" "}
+                  noon
+                </p>
+                <div>
+                  <p className="text-gray-800">72% Positive Rating</p>
+                </div>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  className="text-gray-500"
+                />
+              </div>
+              <hr />
+              <div className="flex gap-4 justify-between items-center px-5 py-2">
+                <FontAwesomeIcon icon={faBank} className="text-yellow-400" />
+                <p className="text-gray-500">
+                  cashback with the Marsheq noon credit card.
+                </p>
+                <FontAwesomeIcon
+                  icon={faAngleRight}
+                  className="text-gray-500"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
