@@ -4,22 +4,22 @@ import { useParams } from "next/navigation";
 import { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTruck,
   faMoneyBillWave,
   faCreditCard,
-  faCheckCircle,
   faStar,
   faShoppingCart,
   faHeart,
   faAngleRight,
   faTruckFast,
   faRotateLeft,
-  faBank,
 } from "@fortawesome/free-solid-svg-icons";
 import { ShopContext } from "@/context/ShopContext";
 import RotatingText from "@/components/RotatingText";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import ExtraServices from "@/components/ProductDetails/ExtraServices";
+import FrequentlyBought from "@/components/ProductDetails/FrequentlyBought";
+import Variants from "@/components/ProductDetails/Variants";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -49,7 +49,10 @@ const ProductDetails = () => {
     return <p className="text-center text-lg">⏳ Loading product details...</p>;
 
   return (
-    <div className="max-w-8xl mx-auto p-4 lg:p-10 md:p-8">
+    <>
+
+   
+    <div className="max-w-8xl mx-auto p-4 lg:p-10 md:p-8 bg-white">
       {/* Breadcrumb Navigation */}
       <nav className="text-sm text-gray-500 mb-4">
         Home &gt; {product?.category} &gt; {product?.subCategory}{" "}
@@ -142,10 +145,10 @@ const ProductDetails = () => {
           {/* Price & Discounts */}
           <div>
             <p className="text-gray-500 line-through text-lg">
-              AED {product?.originalPrice}
+              {currency} {product?.originalPrice}
             </p>
             <p className="text-3xl font-bold text-green-600">
-              AED {product?.price}
+              {currency} {product?.price}
             </p>
             <p className="text-green-500 text-sm">
               Saving: {product?.discount}
@@ -284,113 +287,21 @@ const ProductDetails = () => {
               </p>
             </div>
           </div>
+
+          <Variants />
         </div>
 
         {/* Right: Extra Services */}
         <div className="md:col-span-4 border-l-[1px] p-4  overflow-y-auto scrollbar-hidden">
-          {/* Add banner */}
-          <div className="flex items-center justify-between border p-2 rounded-md">
-            <Image src={"/icons-svg/iphone.png"} width={35} height={35} />
-            <h2 className="max-w-60 text-sm text-gray-700">
-              Apple iPhone 16 Pro Max Case With MagSafe - Clear
-            </h2>
-            <div className="flex flex-col justify-center items-center space-x-2">
-              <p className="text-sm text-gray-800">
-                {currency}{" "}
-                <span className="font-bold text-gray-800 text-[18px]">
-                  145.00
-                </span>
-              </p>
-              <div className="flex gap-4">
-                <span className="bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded">
-                  express
-                </span>
-                <p className="text-gray-400 text-sm bg-gray-200 px-2 py-0.5 rounded-lg text-center">
-                  Ad
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Bank Offers */}
-          <div className="mt-4">
-            <h2 className="text-gray-600 font-bold tracking-wide">
-              BANK OFFERS
-            </h2>
-            <div className="border rounded-lg bg-gray-50">
-              <div className="flex gap-4 justify-center items-center px-5 py-2">
-                <FontAwesomeIcon
-                  icon={faCreditCard}
-                  className="text-yellow-400"
-                />
-                <p className="text-gray-500">
-                  <span className="text-sm text-gray-800 font-bold">
-                    Earn {currency} 264.95
-                  </span>{" "}
-                  cashback with the Marsheq noon credit card.
-                </p>
-                <FontAwesomeIcon
-                  icon={faAngleRight}
-                  className="text-gray-500"
-                />
-              </div>
-              <hr />
-              <div className="flex gap-4 justify-between items-center px-5 py-2">
-                <FontAwesomeIcon icon={faBank} className="text-yellow-400" />
-                <p className="text-gray-500">
-                  cashback with the Marsheq noon credit card.
-                </p>
-                <FontAwesomeIcon
-                  icon={faAngleRight}
-                  className="text-gray-500"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Seller */}
-          <div className="mt-4">
-            <h2 className="text-gray-600 font-bold tracking-wide">SELLER</h2>
-            <div className="border rounded-lg bg-gray-50">
-              <div className="flex gap-4 justify-between items-center px-5 py-2">
-                <div className="w-auto h-auto flex flex-col justify-center items-center gap-2 px-5">
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center bg-[#FFF8EC] p-7">
-                    <FontAwesomeIcon
-                      icon={faTruckFast}
-                      className="text-gray-800  text-3xl"
-                    />
-                  </div>
-                </div>
-                <p className="text-gray-500">
-                  <span className="text-sm text-gray-800 font-bold">
-                    Sold by
-                  </span>{" "}
-                  noon
-                </p>
-                <div>
-                  <p className="text-gray-800">72% Positive Rating</p>
-                </div>
-                <FontAwesomeIcon
-                  icon={faAngleRight}
-                  className="text-gray-500"
-                />
-              </div>
-              <hr />
-              <div className="flex gap-4 justify-between items-center px-5 py-2">
-                <FontAwesomeIcon icon={faBank} className="text-yellow-400" />
-                <p className="text-gray-500">
-                  cashback with the Marsheq noon credit card.
-                </p>
-                <FontAwesomeIcon
-                  icon={faAngleRight}
-                  className="text-gray-500"
-                />
-              </div>
-            </div>
-          </div>
+          <ExtraServices productId={productId} product={product} />
         </div>
       </div>
     </div>
+
+    <div className="w-full h-auto bg-white mt-10 px-10 py-2">
+      <FrequentlyBought productId={productId} product={product} mainImage={mainImage}/>
+    </div>
+    </>
   );
 };
 
