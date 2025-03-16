@@ -3,20 +3,7 @@ import Image from "next/image";
 import { ShopContext } from "@/context/ShopContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCreditCard,
-  faAngleRight,
-  faTruckFast,
-  faBank,
-  faRotate,
-  faRotateForward,
-  faHandHolding,
-  faHandHoldingHand,
-  faFolderMinus,
-  faIdBadge,
-  faTentArrowTurnLeft,
-  faTag,
   faPlus,
-  faCheck,
   faEquals,
 } from "@fortawesome/free-solid-svg-icons";
 
