@@ -1,7 +1,10 @@
 "use client"; // Ensures it's a client component
 
-import { useParams } from "next/navigation";
 import { useState, useEffect, useContext } from "react";
+import { useParams } from "next/navigation";
+import dynamic from "next/dynamic";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMoneyBillWave,
@@ -21,16 +24,20 @@ import ExtraServices from "@/components/ProductDetails/ExtraServices";
 import FrequentlyBought from "@/components/ProductDetails/FrequentlyBought";
 import Variants from "@/components/ProductDetails/Variants";
 import ProductOverview from "@/components/ProductDetails/ProductOverview";
+import RatingsAndReviews from "@/components/ProductDetails/RatingsAndReviews";
 
 const ProductDetails = () => {
   const params = useParams();
   const productId = params?.id;
 
+  
   const { products, addToCart, currency } = useContext(ShopContext);
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState("");
   const [hoverPreview, setHoverPreview] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+
+  
 
   const scrollToSection = () => {
     document.getElementById("Variants")?.scrollIntoView({ behavior: "smooth" });
@@ -62,50 +69,54 @@ const ProductDetails = () => {
           {product?.name}
         </nav>
 
-        <div className="grid lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-4 gap-6 h-auto">
+        <div className="grid lg:grid-cols-12 md:grid-cols-12 sm:grid-cols-12 gap-6 h-auto">
           {/* Left: Thumbnails & Main Image */}
           <div className="md:col-span-4 flex gap-4 sm:h-auto md:h-fit md:sticky md:top-10">
-            {/* Thumbnails - Vertical */}
-            <div className="flex flex-col gap-2">
-              {product?.image?.map((img, index) => (
+            <div className="flex flex-col">
+             <div className="flex flex-col gap-2 justify-center items-center">
+               {/* Main Image with Hover Preview */}
+               <div
+                className="relative"
+                onMouseEnter={() => setHoverPreview(true)}
+                onMouseLeave={() => setHoverPreview(false)}
+              >
                 <img
-                  key={index}
-                  src={img.src}
-                  alt={`Thumbnail ${index + 1}`}
-                  className={`w-20 h-20 border rounded-md cursor-pointer hover:opacity-75 transition-all ${
-                    selectedImage === img.src ? "border-blue-500 border-2" : ""
-                  }`}
-                  onClick={() => {
-                    setMainImage(img.src);
-                    setSelectedImage(img.src);
-                  }}
+                  src={mainImage}
+                  alt="Main Product"
+                  className="w-full rounded-lg"
                 />
-              ))}
-            </div>
 
-            {/* Main Image with Hover Preview */}
-            <div
-              className="relative"
-              onMouseEnter={() => setHoverPreview(true)}
-              onMouseLeave={() => setHoverPreview(false)}
-            >
-              <img
-                src={mainImage}
-                alt="Main Product"
-                className="w-full rounded-lg shadow-md"
-              />
-
-              {/* Large Hover Preview */}
-              {hoverPreview && (
-                <div className="absolute top-0 left-full ml-4 bg-white border rounded-lg shadow-lg p-2 z-10">
-                  <img
-                    src={mainImage.src}
-                    alt="Preview"
-                    className="w-48 h-48"
-                  />
-                </div>
-              )}
-
+                {/* Large Hover Preview */}
+                {hoverPreview && (
+                  <div className="absolute top-0 left-full ml-4 bg-white border rounded-lg shadow-lg p-2 z-10">
+                    <img
+                      src={mainImage.src}
+                      alt="Preview"
+                      className="w-48 h-48"
+                    />
+                  </div>
+                )}
+              </div>
+              {/* Thumbnails - Horizontal */}
+              <div className="flex gap-2 slider-container w-full  max-w-sm overflow-hidden">
+           
+                {product?.image?.map((img, index) => (
+                 <img
+                 key={index}
+                 src={img.src}
+                 alt={`Thumbnail ${index + 1}`}
+                 className={`w-20 h-20 border rounded-md cursor-pointer hover:border-black hover:opacity-75 transition-all object-cover ${
+                   selectedImage === img.src ? "border-blue-500 border-2" : ""
+                 }`}
+                 onClick={() => {
+                   setMainImage(img.src);
+                   setSelectedImage(img.src);
+                 }}
+               />
+               
+                ))}
+              </div>
+             </div>
               {/* Add to Cart & Wishlist */}
               <div className="mt-6 flex gap-4">
                 <button
@@ -326,6 +337,10 @@ const ProductDetails = () => {
 
       <div className="w-full h-auto bg-white mt-10 px-10 py-2">
         <ProductOverview />
+      </div>
+
+      <div className="w-full h-auto bg-white my-10 px-10 py-2">
+                <RatingsAndReviews />
       </div>
     </>
   );
