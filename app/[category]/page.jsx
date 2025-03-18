@@ -107,7 +107,7 @@ const CategoryPage = () => {
     <div className="max-w-full h-auto overflow-hidden mx-0 md:mx-5 bg-[#FFFFFF]">
       <div className="flex gap-5">
         {/* Filters */}
-        <div className="w-[25%] bg-blue-100 p-5 mt-2 rounded-md">
+        <div className="w-[20%] bg-white p-5 mt-2 rounded-md">
           {/* Delivery Mode Section */}
           <div className="mb-5">
             <div
@@ -219,7 +219,7 @@ const CategoryPage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="w-[75%] bg-blue-500 p-5 mt-2 rounded-md">
+        <div className="w-[80%] bg-white p-5 mt-2 rounded-md">
           {/* Subcategories */}
           <div className="flex gap-5 mb-5">
             {categoryData?.subcategories?.map((sub, idx) => (

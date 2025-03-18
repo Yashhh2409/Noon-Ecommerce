@@ -48,3 +48,42 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.custom-swiper .swiper-scrollbar {
+  
+  width: 60px !important; /* Smaller parent width */
+  height: 4px !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  background: rgba(200, 200, 200, 0.6); /* Light gray */
+  border-radius: 10px;
+}
+
+.custom-swiper .swiper-scrollbar-drag {
+  width: 20px !important; /* Smaller child width */
+  background: black !important;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+
+/* Default arrow customization */
+.swiper-button-prev,
+.swiper-button-next {
+  color: white;
+  background-color: white; 
+  width: 40px !important; 
+  height: 40px !important; 
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+/* Change arrow icon size */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px !important; 
+}

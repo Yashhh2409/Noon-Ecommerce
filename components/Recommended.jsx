@@ -5,6 +5,7 @@ import { ShopContext } from "@/context/ShopContext";
 import ProductCard from "./ProductCard";
 import Slider from "./Slider";
 import Title from "./Title";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Recommended = () => {
   const { products } = useContext(ShopContext) || { products: [] };
@@ -26,9 +27,7 @@ const Recommended = () => {
 
       {/* Show Loader while loading */}
       {loading ? (
-        <div className="flex justify-center items-center h-48">
-          <div className="animate-spin rounded-full h-10 w-10 border-4 border-gray-300 border-t-green-600"></div>
-        </div>
+        <LoadingSpinner />
       ) : (
         <Slider>
           {recommendedProducts.map((product) => (

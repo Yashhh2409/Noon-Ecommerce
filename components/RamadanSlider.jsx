@@ -1,63 +1,81 @@
 "use client";
 
-import Slider from "@/components/Slider";
-import { SwiperSlide } from "swiper/react";
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/scrollbar";
+import "swiper/css/navigation";
+import { Scrollbar, Navigation } from "swiper/modules";
 import Image from "next/image";
+import Title from "./Title";
+import LoadingSpinner from "./LoadingSpinner";
+
+const images = [
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+  "/RamdanImgs/Img4.avif",
+  "/RamdanImgs/Img5.avif",
+];
 
 const RamadanSlider = () => {
-  const sliderImages = [
-    {
-      color: "white",
-      title: "Slide 1",
-      text: "This is a card inside the slider.",
-    },
-    {
-      color: "blue-500",
-      title: "Slide 2",
-      text: "Click the button below!",
-    },
-    {
-      color: "green-500",
-      title: "Slide 3",
-      text: "Another content here.",
-    },
-    {
-      color: "red-500",
-      title: "Slide 4",
-      text: "More content inside the slider.",
-    },
-  ];
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (images.length > 0) {
+      setLoading(false);
+    }
+  }, [images]);
 
   return (
-    <div className="flex flex-col bg-[#FFF1BA]">
-      <div>
-        <Image
-          src="{RamdanTitle}"
-          alt=""
-          width={1920}
-          height={500}
-          className="w-full p-5"
-        />
+    <div className=" w-full h-auto bg-[#FFF1BA] p-5">
+      <div className="flex justify-between items-center mb-5">
+        <Title firstTxt={"RAMADAN"} secondTxt={"ESSENTIALS"} />
+        <button className="bg-gray-800 text-white font-bold py-1 px-2 rounded-md">
+          VIEW ALL
+        </button>
       </div>
-      <div className="flex items-center justify-center bg-red-500 p-5">
-        <Slider>
-          {sliderImages.map((slide, index) => (
-            <SwiperSlide key={index}>
-              <div
-                className={`p-6 bg-${slide.color} text-white text-center rounded-lg w-72 shadow-lg`}
-              >
-                <h2 className="text-xl font-bold">{slide.title}</h2>
-                <p className="mt-2">{slide.text}</p>
-                {index === 1 && (
-                  <button className="mt-2 bg-white text-blue-500 px-4 py-2 rounded">
-                    Click Me
-                  </button>
-                )}
-              </div>
-            </SwiperSlide>
-          ))}
-        </Slider>
-      </div>
+
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <Swiper
+          scrollbar={{ draggable: true }}
+          navigation={true}
+          modules={[Scrollbar, Navigation]}
+          slidesPerView={7}
+          spaceBetween={5}
+          className="custom-swiper"
+        >
+          <div className="select-none">
+            {images.map((img, idx) => (
+              <SwiperSlide key={idx}>
+                <div className="w-fit">
+                  <Image
+                    src={img}
+                    width={200}
+                    height={100}
+                    className="object-cover"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </div>
+        </Swiper>
+      )}
     </div>
   );
 };

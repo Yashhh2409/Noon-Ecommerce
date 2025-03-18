@@ -25,6 +25,7 @@ import FrequentlyBought from "@/components/ProductDetails/FrequentlyBought";
 import Variants from "@/components/ProductDetails/Variants";
 import ProductOverview from "@/components/ProductDetails/ProductOverview";
 import RatingsAndReviews from "@/components/ProductDetails/RatingsAndReviews";
+import Recommended from "@/components/Recommended";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -341,6 +342,10 @@ const ProductDetails = () => {
 
       <div className="w-full h-auto bg-white my-10 px-10 py-2">
                 <RatingsAndReviews />
+      </div>
+
+      <div className="w-full h-auto bg-white my-10 px-10 py-2">
+                <Recommended/>
       </div>
     </>
   );
