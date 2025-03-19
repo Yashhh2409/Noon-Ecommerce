@@ -2,37 +2,37 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "@/context/ShopContext";
-import ProductCard from "./ProductCard";
-import Title from "./Title";
-import Slider from "./Slider";
-import LoadingSpinner from "./LoadingSpinner";
+import Slider from "../Slider";
+import LoadingSpinner from "../LoadingSpinner";
+import ProductCard from "../ProductCard";
+import Title from "../Title";
 
-const BestDeals = () => {
-  const { products } = useContext(ShopContext);
+
+const Recommended = () => {
+  const { products } = useContext(ShopContext) || { products: [] };
   const [recommendedProducts, setRecommendedProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     if (products?.length) {
-      setTimeout(() => {
-        setRecommendedProducts(products.slice(11, 20));
-        setLoading(false);
-      }, 1000);
+      setTimeout(() => { 
+        setRecommendedProducts(products.slice(0, 10));
+        setLoading(false); // Stop loading after data is ready
+      }, 1000); // Simulate API delay
     }
   }, [products]);
 
   return (
-    <div className="bg-white mt-10 flex flex-col">
-      <Title firstTxt={"BEST DEALS"} secondTxt={" FOR YOU"} />
-
-      {/* Show Loader While loading */}
+    <div className="bg-white mt-10 flex flex-col w-full">
+      <Title firstTxt={"RECOMMENDED"} secondTxt={" FOR YOU"} />
+      {/* Show Loader while loading */}
       {loading ? (
         <LoadingSpinner />
       ) : (
         <Slider>
-          {recommendedProducts.map((product, idx) => (
+          {recommendedProducts.map((product) => (
             <ProductCard
-              key={idx}
+              key={product._id}
               _id={product._id}
               image={product.image}
               name={product.name}
@@ -50,4 +50,4 @@ const BestDeals = () => {
   );
 };
 
-export default BestDeals;
+export default Recommended;

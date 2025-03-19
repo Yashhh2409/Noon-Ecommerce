@@ -6,10 +6,13 @@ import Link from "next/link";
 import categoriesList from "@/data/categoryList";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProductCategories from "@/components/ProductCategories";
+import ProductCategories from "@/components/Sliders/ProductCategories";
+import Image from "next/image";
 import Carousel from "@/components/Carousel";
 import NestedCategory from "@/components/NestedCategory";
 import { ShopContext } from "@/context/ShopContext";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import Filters from "@/components/L1category/Filters";
 
 const images = [
   "/carousel/Crousel1.png",
@@ -64,6 +67,55 @@ const categoriesData = [
   },
 ];
 
+const categories = [
+  "/categoryimages/CategoryImg3.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+  "/categoryimages/CategoryImg4.avif",
+  "/categoryimages/CategoryImg5.avif",
+];
+
+const Eidcategories = [
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+  "/categoryimages/CategoryImg6.avif",
+  "/categoryimages/CategoryImg7.avif",
+];
+
 const CategoryPage = () => {
   const params = useParams();
   const [categoryData, setCategoryData] = useState(null);
@@ -71,8 +123,9 @@ const CategoryPage = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(true);
   const [isBrandsOpen, setIsBrandsOpen] = useState(true);
   const [isPriceOpen, setIsPriceOpen] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const {currency} = useContext(ShopContext);
+  const { currency } = useContext(ShopContext);
 
   useEffect(() => {
     if (params?.category) {
@@ -103,143 +156,82 @@ const CategoryPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (categories.length > 0) {
+      setLoading(false);
+    }
+  });
+
   return (
     <div className="max-w-full h-auto overflow-hidden mx-0 md:mx-5 bg-[#FFFFFF]">
-      <div className="flex gap-5">
-        {/* Filters */}
-        <div className="w-[20%] bg-white p-5 mt-2 rounded-md">
-          {/* Delivery Mode Section */}
-          <div className="mb-5">
-            <div
-              className="flex justify-between items-center cursor-pointer"
-              onClick={() => setIsDeliveryOpen((prev) => !prev)}
-            >
-              <p className="font-bold text-gray-800">Delivery Mode</p>
-              <FontAwesomeIcon
-                width={20}
-                height={20}
-                icon={faChevronDown}
-                className={`transition-transform duration-200 text-gray-800 ${
-                  isDeliveryOpen ? "rotate-180" : "rotate-0"
-                }`}
-              />
-            </div>
-            {isDeliveryOpen && (
-              <div className="flex gap-2 py-5">
-                <input type="radio" className="w-5" />
-                <div className="bg-blue-500 text-white w-fit py-1 px-2 rounded-md">
-                  <p>Supermall</p>
-                </div>
-              </div>
-            )}
-          </div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="flex gap-5">
+          {/* Filters */}
+          <Filters categoriesData={categoriesData} />
 
-          {/* Category Section */}
-          <div>
-            <div
-              className="flex justify-between items-center cursor-pointer"
-              onClick={() => setIsCategoryOpen((prev) => !prev)}
-            >
-              <p className="font-bold text-gray-800">Categories</p>
-              <FontAwesomeIcon
-                width={20}
-                height={20}
-                icon={faChevronDown}
-                className={`transition-transform duration-200 text-gray-800 ${
-                  isCategoryOpen ? "rotate-180" : "rotate-0"
-                }`}
-              />
+          {/* Main Content */}
+          <div className="w-[80%] bg-white p-5 mt-2 rounded-md">
+            {/* Subcategories */}
+            <div className="flex gap-5 mb-5">
+              {categoryData?.subcategories?.map((sub, idx) => (
+                <Link
+                  href={`/${params.category}/${sub.slug}`}
+                  key={idx}
+                  className="bg-red-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
+                >
+                  <p>{sub.name}</p>
+                </Link>
+              ))}
             </div>
-            {isCategoryOpen && (
-              <div className="mt-3">
-                <NestedCategory categories={categoriesData} />
-              </div>
-            )}
-          </div>
 
-          {/* Brands Section */}
-          <div className="mt-5">
-            <div
-              className="flex justify-between items-center cursor-pointer"
-              onClick={() => setIsBrandsOpen((prev) => !prev)}
-            >
-              <p className="font-bold text-gray-800">Brands</p>
-              <FontAwesomeIcon
-                width={20}
-                height={20}
-                icon={faChevronDown}
-                className={`transition-transform duration-200 text-gray-800 ${
-                  isBrandsOpen ? "rotate-180" : "rotate-0"
-                }`}
-              />
-            </div>
-            {isBrandsOpen && (
-              <div className="flex flex-col py-2">
-                <div className="flex justify-center">
-                  <input type="text" placeholder="Search" className="border-2 px-2 w-full m-2 border-gray-500" />
-                </div>
-                <div className="flex justify-between px-3">
-                  <div className="flex gap-2 items-center">
-                  <input type="radio" className={`appearance-none w-4 h-4 border-2 border-gray-500 rounded-sm checked:bg-blue-500`}/>
-                  <p className="text-gray-800">Puna</p>
-                  </div>
-                  <p className="text-gray-800">(0)</p>
-                </div>
-              </div>
-            )}
-          </div>
+            {/* Carousel */}
+            <Carousel imgArray={images} />
 
-          {/* Price Section */}
-          <div className="mt-5">
-            <div
-              className="flex justify-between items-center cursor-pointer"
-              onClick={() => setIsPriceOpen((prev) => !prev)}
-            >
-              <p className="font-bold text-gray-800">{`Price (${currency})`}</p>
-              <FontAwesomeIcon
-                width={20}
-                height={20}
-                icon={faChevronDown}
-                className={`transition-transform duration-200 text-gray-800 ${
-                  isPriceOpen ? "rotate-180" : "rotate-0"
-                }`}
+            {/* Product Categories */}
+            {loading ? (
+              <LoadingSpinner />
+            ) : (
+              <ProductCategories
+                categories={categories}
+                rows={2}
+                sliderBG={false}
+              />
+            )}
+
+            {/* flash sell banner  */}
+            <div className="mb-10 w-full h-auto">
+              <Image
+                src="/categoryimages/FlashSaleBanner.gif"
+                layout="responsive"
+                width={500}
+                height={300}
+                className="w-full h-[20px] object-cover"
+                priority
               />
             </div>
-            {isPriceOpen && (
-              <div className="flex flex-col py-2">
-                <div className="flex gap-2 justify-evenly">
-                  <input type="text" placeholder="0" className="w-24 px-5"/>
-                  <p className="text-gray-800">To</p>
-                  <input type="text" placeholder="0" className="w-24 px-5"/>
-                  <p className="text-blue-500">Go</p>
-                </div>
+
+            {/* Get Eid Ready  */}
+            {loading ? (
+              <LoadingSpinner />
+            ) : (
+              <div>
+                <p className="px-5 text-gray-700 font-extrabold text-xs sm:text-md md:text-lg lg:text-xl">
+                  Get Eid Ready
+                </p>
+                <ProductCategories
+                  categories={Eidcategories}
+                  rows={1}
+                  sliderBG={false}
+                  slidesPerView={7}
+                  width={150}
+                />
               </div>
             )}
           </div>
         </div>
-
-        {/* Main Content */}
-        <div className="w-[80%] bg-white p-5 mt-2 rounded-md">
-          {/* Subcategories */}
-          <div className="flex gap-5 mb-5">
-            {categoryData?.subcategories?.map((sub, idx) => (
-              <Link
-                href={`/${params.category}/${sub.slug}`}
-                key={idx}
-                className="bg-red-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
-              >
-                <p>{sub.name}</p>
-              </Link>
-            ))}
-          </div>
-
-          {/* Carousel */}
-          <Carousel imgArray={images} />
-
-          {/* Product Categories */}
-          <ProductCategories />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

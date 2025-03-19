@@ -87,3 +87,8 @@ body {
 .swiper-button-next::after {
   font-size: 20px !important; 
 }
+
+/* Slider background  */
+.slider-bg {
+  @apply bg-[#FFF1BA];
+}
