@@ -84,11 +84,11 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar for large and medium screens */}
-      <nav className="hidden md:flex lg:flex bg-[var(--theme-color)] text-gray-900 items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50">
+      <nav className="hidden md:flex lg:flex bg-[var(--theme-color)] text-white items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50">
         {/* First Section - Logo */}
         <div className="flex items-center gap-4">
           <Link href="/">
-            <Image src="/noon-logo.svg" alt="Logo" width={100} height={100} />
+            <Image src="/Logo.png" alt="Logo" width={100} height={100} />
           </Link>
         </div>
 
@@ -99,9 +99,9 @@ const Navbar = () => {
           <div className="flex items-center gap-2 p-5">
             <Image src="/assets/flag.svg" alt="Flag" width={30} height={15} />
             <div>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm ">
                 Deliver to{" "}
-                <FontAwesomeIcon icon={faCaretDown} className="text-gray-600" />
+                <FontAwesomeIcon icon={faCaretDown} />
               </span>
 
               <div className="font-semibold flex items-center gap-1">Dubai</div>
@@ -185,7 +185,7 @@ const Navbar = () => {
 
         <button
           onClick={() => setIsLoginOpen(true)}
-          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight text-gray-600 hover:text-gray-800"
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight hover:text-white"
         >
           <span>Log in</span>
           <FontAwesomeIcon icon={faUser} />
@@ -195,7 +195,7 @@ const Navbar = () => {
         {isLoginOpen && <LoginSignup onClose={() => setIsLoginOpen(false)} />}
 
         {/* Sixth Section - Wishlist */}
-        <button className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight text-gray-700 hover:text-gray-800">
+        <button className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight ">
           <span>Wishlist</span>
           <FontAwesomeIcon icon={faHeart} />
           <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
@@ -206,7 +206,7 @@ const Navbar = () => {
         {/* Seventh Section - Cart */}
         <Link
           href="/cart"
-          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight text-gray-700 hover:text-gray-800"
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight"
         >
           <span>Cart</span>
           <FontAwesomeIcon icon={faShoppingCart} />
