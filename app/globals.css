@@ -71,11 +71,12 @@ body {
 /* Default arrow customization */
 .swiper-button-prev,
 .swiper-button-next {
-  color: white;
+  color: black !important;
   background-color: white; 
   width: 40px !important; 
   height: 40px !important; 
   border-radius: 50%; 
+  font-weight: bold !important;
   display: flex;
   align-items: center;
   justify-content: center;

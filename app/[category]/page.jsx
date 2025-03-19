@@ -13,6 +13,7 @@ import NestedCategory from "@/components/NestedCategory";
 import { ShopContext } from "@/context/ShopContext";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Filters from "@/components/L1category/Filters";
+import Recommended from "@/components/Sliders/Recommended";
 
 const images = [
   "/carousel/Crousel1.png",
@@ -210,6 +211,9 @@ const CategoryPage = () => {
                 className="w-full h-[20px] object-cover"
               />
             </div>
+
+            {/* Limited Price Drops */}
+           
 
             {/* Get Eid Ready  */}
             {loading ? (
