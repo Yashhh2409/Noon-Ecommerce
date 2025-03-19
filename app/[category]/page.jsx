@@ -208,7 +208,6 @@ const CategoryPage = () => {
                 width={500}
                 height={300}
                 className="w-full h-[20px] object-cover"
-                priority
               />
             </div>
 
