@@ -179,6 +179,7 @@ const ExtraServices = () => {
             <div className="flex gap-5 justify-center items-center">
               <Image
                 src={"/icons-svg/AnkerBannerImage.png"}
+                alt="img"
                 width={50}
                 height={50}
               />

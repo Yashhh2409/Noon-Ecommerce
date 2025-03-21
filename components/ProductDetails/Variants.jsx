@@ -137,6 +137,7 @@ const Variants = () => {
             <div className="w-auto h-auto flex justify-center items-center gap-2 px-5">
               <Image
                 src={"/icons-svg/starVariants.png"}
+                alt="img"
                 width={35}
                 height={35}
                 className="rounded-full"

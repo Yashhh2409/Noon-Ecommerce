@@ -66,6 +66,7 @@ const RamadanSlider = () => {
                 <div className="w-fit">
                   <Image
                     src={img}
+                    alt="img"
                     width={200}
                     height={100}
                     className="object-cover"

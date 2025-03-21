@@ -14,6 +14,7 @@ import { ShopContext } from "@/context/ShopContext";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Filters from "@/components/L1category/Filters";
 import Recommended from "@/components/Sliders/Recommended";
+import CategoryProductCardSlider from "@/components/Sliders/CategoryProductCardSlider";
 
 const images = [
   "/carousel/Crousel1.png",
@@ -117,6 +118,19 @@ const Eidcategories = [
   "/categoryimages/CategoryImg7.avif",
 ];
 
+const CrazyDeals = [
+  "/CrazyDeals/Img1.avif",
+  "/CrazyDeals/Img2.avif",
+  "/CrazyDeals/Img1.avif",
+  "/CrazyDeals/Img2.avif",
+  "/CrazyDeals/Img1.avif",
+  "/CrazyDeals/Img2.avif",
+  "/CrazyDeals/Img1.avif",
+  "/CrazyDeals/Img2.avif",
+  "/CrazyDeals/Img1.avif",
+  "/CrazyDeals/Img2.avif",
+];
+
 const CategoryPage = () => {
   const params = useParams();
   const [categoryData, setCategoryData] = useState(null);
@@ -205,6 +219,7 @@ const CategoryPage = () => {
             <div className="mb-10 w-full h-auto">
               <Image
                 src="/categoryimages/FlashSaleBanner.gif"
+                alt="image"
                 layout="responsive"
                 width={500}
                 height={300}
@@ -229,6 +244,28 @@ const CategoryPage = () => {
                   sliderBG={false}
                   slidesPerView={7}
                   width={150}
+                />
+              </div>
+            )}
+
+            {/* Category Product Card Slider */}
+            <CategoryProductCardSlider />
+
+
+             {/* Crazy Deals  */}
+             {loading ? (
+              <LoadingSpinner />
+            ) : (
+              <div className="bg-[#FDFDEB] pt-5">
+                <p className="px-5 text-gray-700 font-extrabold text-xs sm:text-md md:text-lg lg:text-xl">
+                  Get Eid Ready
+                </p>
+                <ProductCategories
+                  categories={CrazyDeals}
+                  rows={1}
+                  sliderBG={false}
+                  slidesPerView={5}
+                  width={200}
                 />
               </div>
             )}

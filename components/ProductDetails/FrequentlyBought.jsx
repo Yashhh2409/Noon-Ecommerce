@@ -23,6 +23,7 @@ const FrequentlyBought = ({ productId, product, mainImage }) => {
               <input type="radio" name="option" className="peer hidden" />
               <Image
                 src={"/icons-svg/checkbox-square_checked_v2.svg"}
+                alt="img"
                 width={20}
                 height={20}
               />
@@ -31,6 +32,7 @@ const FrequentlyBought = ({ productId, product, mainImage }) => {
             <div className="flex flex-col items-center justify-center gap-4">
               <Image
                 src={mainImage}
+                alt="img"
                 width={80}
                 height={80}
                 className="rounded-lg"
@@ -57,6 +59,7 @@ const FrequentlyBought = ({ productId, product, mainImage }) => {
               <input type="radio" name="option" className="peer hidden" />
               <Image
                 src={"/icons-svg/checkbox-square_checked_v2.svg"}
+                alt="img"
                 width={20}
                 height={20}
               />
@@ -66,6 +69,7 @@ const FrequentlyBought = ({ productId, product, mainImage }) => {
               <Image
                 src={mainImage}
                 width={80}
+                alt="img"
                 height={80}
                 className="rounded-lg"
               />
@@ -91,6 +95,7 @@ const FrequentlyBought = ({ productId, product, mainImage }) => {
               <input type="radio" name="option" className="peer hidden" />
               <Image
                 src={"/icons-svg/checkbox-square_checked_v2.svg"}
+                alt="img"
                 width={20}
                 height={20}
               />
@@ -99,6 +104,7 @@ const FrequentlyBought = ({ productId, product, mainImage }) => {
             <div className="flex flex-col items-center justify-center gap-4">
               <Image
                 src={mainImage}
+                alt="img"
                 width={80}
                 height={80}
                 className="rounded-lg"

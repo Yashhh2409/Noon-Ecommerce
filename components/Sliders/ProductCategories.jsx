@@ -41,6 +41,7 @@ const ProductCategories = ({ categories, rows = 1, sliderBG = false, slidesPerVi
                   <Link href={"/Yash"}>
                   <Image
                     src={img}
+                    alt="images"
                     width={width}
                     height={width}
                     className="object-cover cursor-pointer"

@@ -44,7 +44,7 @@ const ProductCard = ({
         <div className="relative w-full flex justify-center items-center rounded-xl overflow-hidden">
           <Image
             src={productImage}
-            alt={altText}
+            alt={altText || "image"}
             width={210}
             height={210}
             className="object-contain"
@@ -63,7 +63,9 @@ const ProductCard = ({
 
           <div className="absolute flex items-center mt-2 text-sm bg-white p-1 rounded-md shadow bottom-1 left-1">
             <FontAwesomeIcon icon={faStar} className="text-green-500" />
-            <span className="ml-1 text-gray-700 text-xs font-semibold">{rating}</span>
+            <span className="ml-1 text-gray-700 text-xs font-semibold">
+              {rating}
+            </span>
             <span className="ml-1 text-gray-500 text-xs">({reviews})</span>
           </div>
 

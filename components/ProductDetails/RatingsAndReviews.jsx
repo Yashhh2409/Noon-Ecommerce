@@ -96,6 +96,7 @@ const RatingsAndReviews = () => {
             <div className="flex gap-2">
               <Image
                 src={"/icons-svg/reviews-icon-yellow-star-circle.svg"}
+                alt="img"
                 width={17}
                 height={17}
                 className="w-6 h-6"
@@ -111,6 +112,7 @@ const RatingsAndReviews = () => {
             <div className="flex gap-2">
               <Image
                 src={"/icons-svg/reviews-icon-noon-logo-circle.svg"}
+                alt="img"
                 width={17}
                 height={17}
                 className="w-6 h-6"
@@ -190,7 +192,7 @@ const RatingsAndReviews = () => {
                         >
                           <Image
                             src={option.src}
-                            alt={`Star ${option.id}`}
+                            alt={`Star ${option.id}` || "img"}
                             width={90}
                             height={90}
                           />

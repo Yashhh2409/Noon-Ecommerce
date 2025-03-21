@@ -68,6 +68,7 @@ const OverallRating = () => {
                 <div className="flex gap-2">
                   <Image
                     src={"/icons-svg/reviews-icon-yellow-star-circle.svg"}
+                    alt="img"
                     width={17}
                     height={17}
                     className="w-6 h-6"
@@ -83,6 +84,7 @@ const OverallRating = () => {
                 <div className="flex gap-2">
                   <Image
                     src={"/icons-svg/reviews-icon-noon-logo-circle.svg"}
+                    alt="img"
                     width={17}
                     height={17}
                     className="w-6 h-6"

@@ -58,6 +58,7 @@ const MaximizeSaving = () => {
                 <div className="w-fit mb-5">
                   <Image
                     src={img}
+                    alt="img"
                     width={350}
                     height={200}
                     className="object-cover"

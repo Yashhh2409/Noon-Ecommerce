@@ -126,8 +126,8 @@ const ProductOverview = () => {
         </div>
       </div>
 
-      <div class="relative bg-white p-2 flex justify-center items-center ">
-        <div class="absolute top-0 left-0 w-full h-10 bg-white blur-md"></div>
+      <div className="relative bg-white p-2 flex justify-center items-center ">
+        <div className="absolute top-0 left-0 w-full h-10 bg-white blur-md"></div>
         <button
           className="m-6 text-blue-600 font-bold z-50 border-2 border-blue-600 px-5 py-1 rounded-lg hover:border-blue-700 hover:text-blue-700"
           onClick={() => setShowFullList(!showFullList)}
