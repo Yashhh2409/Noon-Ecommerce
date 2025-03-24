@@ -10,15 +10,12 @@ import {
 const FrequentlyBought = ({ productId, product, mainImage }) => {
   const { currency } = useContext(ShopContext);
   return (
-    <div className="p-5">
-      <h1 className="text-2xl font-bold text-gray-800 mb-5">
-        Fequently Bought Together
-      </h1>
+    <div className="">
       <div className="flex justify-between gap-5">
         {/* first  */}
         <div className="flex justify-start border-2 border-gray-100 p-4 rounded-md gap-4">
           {/* box 1 */}
-          <div className="p-5 text-gray-800 border border-gray-200 rounded-[20px] ">
+          <div className="p-5 text-gray-800 border border-gray-200 h-auto rounded-[20px] ">
             <label className="flex items-center space-x-2 cursor-pointer">
               <input type="radio" name="option" className="peer hidden" />
               <Image
@@ -123,19 +120,16 @@ const FrequentlyBought = ({ productId, product, mainImage }) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center text-gray-800">
-          <FontAwesomeIcon icon={faEquals} className="text-xl" />
-        </div>
         {/* second  */}
-        <div className="w-[30%] bg-[#F8F9FD] p-5 flex flex-col text-gray-600 items-center justify-center gap-5">
-          <h1 className="text-4xl  font-semibold">
+        {/* <div className="w-[30%] bg-[#F8F9FD] p-5 flex flex-col text-gray-600 items-center justify-center gap-5">
+          <h1 className="text-2xl  font-semibold">
             {currency} {product.price}.00
           </h1>
           <p>Package Total for all 3 items together</p>
           <button className="border border-blue-600 rounded-sm py-4 px-5  text-blue-600 font-semibold">
             Buy 3 together {currency} {product.price}.00
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -11,7 +11,13 @@ import Image from "next/image";
 import LoadingSpinner from "../LoadingSpinner";
 import Link from "next/link";
 
-const ProductCategories = ({ categories, rows = 1, sliderBG = false, slidesPerView = 12, width = 90 }) => {
+const ProductCategories = ({
+  categories,
+  rows = 1,
+  sliderBG = false,
+  slidesPerView = 12,
+  width = 90
+}) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,17 +41,17 @@ const ProductCategories = ({ categories, rows = 1, sliderBG = false, slidesPerVi
           className="custom-swiper"
         >
           <div className="">
-            {categories.map((img, idx) => (
-              <SwiperSlide key={idx}>
+            {categories?.map((category) => (
+              <SwiperSlide key={category.id}>
                 <div className="w-fit mb-5">
-                  <Link href={"/Yash"}>
-                  <Image
-                    src={img}
-                    alt="images"
-                    width={width}
-                    height={width}
-                    className="object-cover cursor-pointer"
-                  />
+                  <Link href={`/subcategory/${category.id}`}>
+                    <Image
+                      src={category?.src}
+                      alt="images"
+                      width={width}
+                      height={width}
+                      className="object-cover cursor-pointer"
+                    />
                   </Link>
                 </div>
               </SwiperSlide>

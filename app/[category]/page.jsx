@@ -23,7 +23,8 @@ const images = [
   "/carousel/Crousel1.png",
   "/carousel/Crousel2.png",
   "/carousel/Crousel3.png",
-];
+]
+
 
 const categoriesData = [
   {
@@ -70,66 +71,69 @@ const categoriesData = [
 ];
 
 const categories = [
-  "/categoryimages/CategoryImg3.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
-  "/categoryimages/CategoryImg4.avif",
-  "/categoryimages/CategoryImg5.avif",
+  { id: 1, src: "/categoryimages/CategoryImg3.avif" },
+  { id: 2, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 3, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 4, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 5, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 6, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 7, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 8, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 9, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 10, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 11, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 12, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 13, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 14, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 15, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 16, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 17, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 18, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 19, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 20, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 21, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 22, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 23, src: "/categoryimages/CategoryImg5.avif" },
+  { id: 24, src: "/categoryimages/CategoryImg4.avif" },
+  { id: 25, src: "/categoryimages/CategoryImg5.avif" },
 ];
 
+
 const Eidcategories = [
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
-  "/categoryimages/CategoryImg6.avif",
-  "/categoryimages/CategoryImg7.avif",
+  { id: 1, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 2, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 3, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 4, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 5, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 6, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 7, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 8, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 9, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 10, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 11, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 12, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 13, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 14, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 15, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 16, src: "/categoryimages/CategoryImg7.avif" },
+  { id: 17, src: "/categoryimages/CategoryImg6.avif" },
+  { id: 18, src: "/categoryimages/CategoryImg7.avif" },
 ];
 
 const CrazyDeals = [
-  "/CrazyDeals/Img1.avif",
-  "/CrazyDeals/Img2.avif",
-  "/CrazyDeals/Img1.avif",
-  "/CrazyDeals/Img2.avif",
-  "/CrazyDeals/Img1.avif",
-  "/CrazyDeals/Img2.avif",
-  "/CrazyDeals/Img1.avif",
-  "/CrazyDeals/Img2.avif",
-  "/CrazyDeals/Img1.avif",
-  "/CrazyDeals/Img2.avif",
+  { id: 1, src: "/CrazyDeals/Img1.avif" },
+  { id: 2, src: "/CrazyDeals/Img2.avif" },
+  { id: 3, src: "/CrazyDeals/Img1.avif" },
+  { id: 4, src: "/CrazyDeals/Img2.avif" },
+  { id: 5, src: "/CrazyDeals/Img1.avif" },
+  { id: 6, src: "/CrazyDeals/Img2.avif" },
+  { id: 7, src: "/CrazyDeals/Img1.avif" },
+  { id: 8, src: "/CrazyDeals/Img2.avif" },
+  { id: 9, src: "/CrazyDeals/Img1.avif" },
+  { id: 10, src: "/CrazyDeals/Img2.avif" },
 ];
+
+
 
 const CategoryPage = () => {
   const params = useParams();
@@ -189,7 +193,20 @@ const CategoryPage = () => {
           {/* Main Content */}
           <div className="w-[80%] bg-white p-5 mt-2 rounded-md">
             {/* Subcategories */}
+
+            {/* Dummy data */}
             <div className="flex gap-5 mb-5">
+              
+                <Link
+                  href={`/mens`}
+                  className="bg-gray-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
+                >
+                  <p>Mens</p>
+                </Link>
+            </div>
+
+            {/* with data  */}
+            {/* <div className="flex gap-5 mb-5">
               {categoryData?.subcategories?.map((sub, idx) => (
                 <Link
                   href={`/${params.category}/${sub.slug}`}
@@ -199,7 +216,7 @@ const CategoryPage = () => {
                   <p>{sub.name}</p>
                 </Link>
               ))}
-            </div>
+            </div> */}
 
             {/* Carousel */}
             <Carousel imgArray={images} />
@@ -212,6 +229,7 @@ const CategoryPage = () => {
                 categories={categories}
                 rows={2}
                 sliderBG={false}
+                width={90}
               />
             )}
 

@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { useContext } from "react";
 import { ShopContext } from "@/context/ShopContext";
-import RotatingText from "./RotatingText"; // Importing the new animation component
+import RotatingText from "./RotatingText"; 
 import { toast } from "react-toastify";
 
 const ProductCard = ({
@@ -39,7 +39,7 @@ const ProductCard = ({
     <div className="w-full pb-5 h-full flex justify-center">
       <Link
         href={`/product/${_id}`}
-        className="w-56 rounded-2xl shadow-lg border p-2 relative bg-white"
+        className="w-auto h-auto rounded-2xl shadow-lg border p-2 relative bg-white"
       >
         <div className="relative w-full flex justify-center items-center rounded-xl overflow-hidden">
           <Image

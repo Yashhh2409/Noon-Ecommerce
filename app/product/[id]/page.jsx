@@ -78,7 +78,7 @@ const ProductDetails = () => {
           <div className="col-span-1 flex gap-4 sm:h-auto md:h-fit md:sticky md:top-10">
             <div className="w-full flex flex-col ">
               <div className="flex justify-center">
-              <ProductImage mainImage={mainImage} product={product} />
+                <ProductImage mainImage={mainImage} product={product} />
               </div>
 
               {/* Add to Cart & Wishlist */}
@@ -285,12 +285,30 @@ const ProductDetails = () => {
             <div id="Variants">
               <Variants />
             </div>
-            <div className="w-auto h-auto bg-white mt-10 px-10 py-2">
+
+            {/* <div className="w-auto h-auto overflow-x-auto bg-white py-2">
               <FrequentlyBought
                 productId={productId}
                 product={product}
                 mainImage={mainImage}
               />
+            </div> */}
+
+            <div className="w-auto h-auto bg-[#F7F9FE] flex flex-col gap-2 mt-5">
+              <p className="text-gray-500">Frequently Bought Together</p>
+              <div className="overflow-x-auto">
+                <FrequentlyBought
+                  productId={productId}
+                  product={product}
+                  mainImage={mainImage}
+                />
+              </div>
+
+              <button className="border border-blue-600 rounded-sm py-4 px-5  text-blue-600 font-semibold">
+                  Buy 3 together {currency} {product.price}.00
+                </button>
+
+              
             </div>
           </div>
 

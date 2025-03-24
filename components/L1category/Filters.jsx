@@ -70,7 +70,7 @@ const Filters = ({ categoriesData }) => {
   };
 
   return (
-    <div className="w-[20%] bg-white p-5 mt-2 rounded-md text-md">
+    <div className="w-auto p-5 mt-2 rounded-md text-md">
       {/* Delivery Mode Section */}
       <div className="mb-5">
         <div
