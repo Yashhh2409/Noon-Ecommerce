@@ -61,6 +61,22 @@ const categoriesData = [
   },
 ];
 
+// filter dataset 
+const filtersData = {
+  "filters": {
+    "Brand": {
+      "popular": ["TOMMY HILFIGER", "ESPRIT", "DIESEL", "PUMA", "Nike", "Adidas", "Reebok", "CONVERSE", "EMPORIO ARMANI", "SKECHERS", "Lee Cooper", "GUESS"],
+      "all": {
+        "#": ["11 degrees", "1st Piece", "90 Degree By Reflex", "304"],
+        "A": ["ABOF", "ALEOBONWAY", "ALTRD", "AMPLIFIED", "ANTA", "ASICS Tiger", "Adidas", "Adidas x Parley", "Air Jordan", "Aeropostale"]
+      }
+    },
+    "Size": ["XS", "S", "M", "L", "XL", "XXL", "3XL"],
+    "Colour": ["White", "Black", "Blue", "Red", "Green", "Yellow", "Grey", "Pink", "Purple", "Brown"]
+  }
+}
+
+
 const Breadcrumb = () => (
   <nav className="text-sm text-purple-500 py-4">
     <p className="text-gray-500 px-5">Home &gt; Data Aaana abhi baki hai</p>
@@ -103,8 +119,6 @@ const ToggleSection = ({ label, icon, isOpen, toggle }) => (
 
 const SubcategoryPage = () => {
   const { products } = useContext(ShopContext);
-
-  console.log("This is the products:", products);
 
   const [sections, setSections] = useState({
     brands: false,
@@ -150,6 +164,7 @@ const SubcategoryPage = () => {
               />
               <FilterDropdownBrands isOpen={sections.brands} />
             </div>
+
             <div className="relative">
               <ToggleSection
                 label="Size"

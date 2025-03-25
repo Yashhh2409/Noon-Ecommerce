@@ -238,7 +238,7 @@ const Navbar = () => {
               height={20}
               className="rounded-md"
             />
-            <div className="leading-tight">
+            <div className="leading-tight text-white">
               <span className="text-xs">
                 Deliver to <FontAwesomeIcon icon={faCaretDown} />
               </span>
@@ -253,7 +253,7 @@ const Navbar = () => {
 
         <button
           onClick={() => setIsLoginOpen(true)}
-          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight hover:text-white"
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold  leading-tight text-white"
         >
           <span className="text-nowrap">Log in</span>
           <FontAwesomeIcon icon={faUser} />
