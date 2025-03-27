@@ -50,6 +50,8 @@ const Navbar = () => {
       }
     };
 
+    
+
     document.addEventListener("mousedown", handleClickOutSide);
     return () => {
       document.removeEventListener("mousedown", handleClickOutSide);
@@ -84,7 +86,7 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar for large and medium screens */}
-      <nav className="hidden md:flex lg:flex bg-[var(--theme-color)] text-white items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50">
+      <nav className="hidden md:flex lg:flex bg-[var(--theme-color)] text-light items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50">
         {/* First Section - Logo */}
         <div className="flex items-center gap-4">
           <Link href="/">

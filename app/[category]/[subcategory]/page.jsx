@@ -1,21 +1,17 @@
 "use client";
 
-import FilterDropdownBrands from "@/components/FilterSections/FilterDropdownBrands";
-import FilterDropdownSize from "@/components/FilterSections/FilterDropdownSize";
-import FilterDropdownDeals from "@/components/FilterSections/FilterDropdownDeals";
+import FilterDropdown from "@/components/FilterSections/FilterDropdown";
 import Filters from "@/components/L1category/Filters";
 import {
   faSort,
   faTag,
   faChevronDown,
-  faRuler,
-  faSearch,
-  faPercentage,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "@/context/ShopContext";
 import ProductCard from "@/components/ProductCard";
+import fetchFilters from "@/api/fetchFilters";
 
 const categoriesData = [
   {
@@ -61,22 +57,6 @@ const categoriesData = [
   },
 ];
 
-// filter dataset 
-const filtersData = {
-  "filters": {
-    "Brand": {
-      "popular": ["TOMMY HILFIGER", "ESPRIT", "DIESEL", "PUMA", "Nike", "Adidas", "Reebok", "CONVERSE", "EMPORIO ARMANI", "SKECHERS", "Lee Cooper", "GUESS"],
-      "all": {
-        "#": ["11 degrees", "1st Piece", "90 Degree By Reflex", "304"],
-        "A": ["ABOF", "ALEOBONWAY", "ALTRD", "AMPLIFIED", "ANTA", "ASICS Tiger", "Adidas", "Adidas x Parley", "Air Jordan", "Aeropostale"]
-      }
-    },
-    "Size": ["XS", "S", "M", "L", "XL", "XXL", "3XL"],
-    "Colour": ["White", "Black", "Blue", "Red", "Green", "Yellow", "Grey", "Pink", "Purple", "Brown"]
-  }
-}
-
-
 const Breadcrumb = () => (
   <nav className="text-sm text-purple-500 py-4">
     <p className="text-gray-500 px-5">Home &gt; Data Aaana abhi baki hai</p>
@@ -120,17 +100,23 @@ const ToggleSection = ({ label, icon, isOpen, toggle }) => (
 const SubcategoryPage = () => {
   const { products } = useContext(ShopContext);
 
-  const [sections, setSections] = useState({
-    brands: false,
-    size: false,
-    deals: false,
-  });
+  const [filters, setFilters] = useState([]);
+  const [sections, setSections] = useState({});
 
-  const toggleSection = (section) => {
+  useEffect(() => {
+    const loadFilters = async () => {
+      const data = await fetchFilters();
+      console.log("Data is :", data);
+
+      setFilters(data);
+    };
+    loadFilters();
+  }, []);
+
+  const toggleSection = (name) => {
     setSections((prev) => ({
-      brands: section === "brands" ? !prev.brands : false,
-      size: section === "size" ? !prev.size : false,
-      deals: section === "deals" ? !prev.deals : false,
+      ...prev,
+      [name]: !prev[name],
     }));
   };
 
@@ -155,17 +141,24 @@ const SubcategoryPage = () => {
             <SortOptions />
           </div>
           <div className="flex gap-2 relative">
-            <div className="relative">
-              <ToggleSection
-                label="Brands"
-                icon={faTag}
-                isOpen={sections.brands}
-                toggle={() => toggleSection("brands")}
-              />
-              <FilterDropdownBrands isOpen={sections.brands} />
-            </div>
+            {filters.map((filter, idx) => (
+              <div key={idx} className="relative">
+                <ToggleSection
+                  label={filter.name}
+                  icon={faTag}
+                  isOpen={sections[filter.name]}
+                  toggle={() => toggleSection(filter.name)}
+                />
+                {sections[filter.name] && (
+                  <FilterDropdown
+                    filterName={filter.name}
+                    filterData={filter.data}
+                  />
+                )}
+              </div>
+            ))}
 
-            <div className="relative">
+            {/* <div className="relative">
               <ToggleSection
                 label="Size"
                 icon={faRuler}
@@ -182,9 +175,9 @@ const SubcategoryPage = () => {
                 toggle={() => toggleSection("deals")}
               />
               <FilterDropdownDeals isOpen={sections.deals} />
-            </div>
+            </div> */}
           </div>
-          <hr className="border border-gray-300 mb-8"/>
+          <hr className="border border-gray-300 mb-8" />
 
           {/* Rendering cards as per filters  */}
           <div className="grid-cols-1">

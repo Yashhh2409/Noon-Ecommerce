@@ -1,6 +1,9 @@
+@import url("https://fonts.cdnfonts.com/css/helvetica-neue-5");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
   --theme-color: #0C3451; 
@@ -83,11 +86,10 @@
   }
 
   /*  Title */
-  .text-primary {
-    @apply text-gray-800 font-bold
-  }
-  .text-secondary {
-    @apply text-gray-500
+  
+
+  .rounded-md {
+    border-radius: 6px !important;
   }
 
 }

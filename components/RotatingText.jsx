@@ -2,37 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheckCircle,
-  faFire,
-  faTruckFast,
-} from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
-const RotatingText = () => {
-  const textArray = [
-    <span key="sold-recently">
-      <FontAwesomeIcon
-        icon={faCheckCircle}
-        className="text-green-500 text-xs mr-1"
-      />
-      10+ sold recently
-    </span>,
-
-    <span key="selling-fast">
-      <FontAwesomeIcon icon={faFire} className="text-red-500 text-xs mr-1" />
-      Selling out fast
-    </span>,
-
-    <span key="free-delivery">
-      <FontAwesomeIcon
-        icon={faTruckFast}
-        className="text-blue-500 text-xs mr-1"
-      />
-      Free Delivery
-    </span>,
-  ];
-
+const RotatingText = ({ messages = [] }) => {
   const [index, setIndex] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -40,23 +12,34 @@ const RotatingText = () => {
     setIsMounted(true);
 
     const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % textArray.length);
+      setIndex((prevIndex) => (prevIndex + 1) % messages.length);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [messages]);
 
   return (
-    <div className="h-[30px] overflow-hidden flex items-center">
-      {isMounted && (
+    <div className="h-[30px] overflow-hidden flex items-baseline">
+      {isMounted && messages.length > 0 && (
         <motion.div
           key={index}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1 }}
-          className="text-black text-sm"
+          className="text-black text-sm flex items-center"
         >
-          {textArray[index]}
+          {messages[index]?.image && (
+            <Image
+              src={messages[index].image}
+              alt="icon"
+              width={12}
+              height={12}
+              className="mr-1"
+            />
+          )}
+          <span className="font-normal leading-tight text-[12px]">
+            {messages[index]?.text}
+          </span>
         </motion.div>
       )}
     </div>

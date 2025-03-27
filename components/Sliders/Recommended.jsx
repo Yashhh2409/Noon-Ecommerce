@@ -2,49 +2,48 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "@/context/ShopContext";
-import Slider from "../Slider";
+import CustomSwiper from "../CustomSwiper"; // Import the reusable Swiper component
 import LoadingSpinner from "../LoadingSpinner";
-import ProductCard from "../ProductCard";
 import Title from "../Title";
-
+import ProductCard from "../ProductCard";
 
 const Recommended = () => {
   const { products } = useContext(ShopContext) || { products: [] };
   const [recommendedProducts, setRecommendedProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (products?.length) {
-      setTimeout(() => { 
+      setTimeout(() => {
         setRecommendedProducts(products.slice(0, 10));
-        setLoading(false); // Stop loading after data is ready
-      }, 1000); // Simulate API delay
+        setLoading(false);
+      }, 1000); // Simulated API delay
     }
   }, [products]);
 
   return (
-    <div className="bg-white mt-10 flex flex-col w-full">
-      <Title firstTxt={"RECOMMENDED"} secondTxt={" FOR YOU"} />
-      {/* Show Loader while loading */}
+    <div className="w-full max-w-screen bg-white mt-10 flex flex-col p-5 gap-5">
+      <Title firstTxt="RECOMMENDED" secondTxt=" FOR YOU" />
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <Slider>
+        <CustomSwiper>
           {recommendedProducts.map((product) => (
-            <ProductCard
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              originalPrice={product.originalPrice}
-              ranking={product.ranking}
-              rating={product.rating}
-              tag={product.tag}
-              reviews={product.reviews}
-            />
+            <div key={product._id} className="w-full">
+              <ProductCard
+                _id={product._id}
+                image={product.image}
+                name={product.name}
+                price={product.price}
+                originalPrice={product.originalPrice}
+                ranking={product.ranking}
+                rating={product.rating}
+                tag={product.tag}
+                reviews={product.reviews}
+              />
+            </div>
           ))}
-        </Slider>
+        </CustomSwiper>
       )}
     </div>
   );

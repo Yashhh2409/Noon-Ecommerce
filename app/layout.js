@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ShopContextProvider>
-          <div className="h-screen overflow-y-auto bg-[#F7F7FA]">
+          <div className="h-screen w-screen overflow-y-auto bg-[#F7F7FA]">
             <ToastProvider />
             <Header />
             {children}
