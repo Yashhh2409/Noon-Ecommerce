@@ -6,23 +6,29 @@
 
 
 :root {
-  --theme-color: #0C3451; 
+  --theme-color: #0C3451;
 }
 
-.slick-prev::before,
+/* .slick-prev::before,
 .slick-next::before {
-  color: black !important;
+width: 50px;
+height: 50px;
   font-size: 24px;
-}
+  background-color: green;
+  border-radius: 20%;
+} */
 
 /* Hide scrollbar completely */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 /* Hide scrollbar */
@@ -31,23 +37,28 @@
 }
 
 .scrollbar-hidden {
-  -ms-overflow-style: none; /* IE & Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE & Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .custom-swiper .swiper-scrollbar {
-  
-  width: 60px !important; /* Smaller parent width */
+
+  width: 60px !important;
+  /* Smaller parent width */
   height: 4px !important;
   left: 50% !important;
   transform: translateX(-50%);
   margin-top: 20px;
-  background: rgba(200, 200, 200, 0.6); /* Light gray */
+  background: rgba(200, 200, 200, 0.6);
+  /* Light gray */
   border-radius: 10px;
 }
 
 .custom-swiper .swiper-scrollbar-drag {
-  width: 20px !important; /* Smaller child width */
+  width: 20px !important;
+  /* Smaller child width */
   background: black !important;
   border-radius: 10px;
   transition: transform 0.3s ease;
@@ -58,10 +69,10 @@
 .swiper-button-prev,
 .swiper-button-next {
   color: black !important;
-  background-color: white; 
-  width: 40px !important; 
-  height: 40px !important; 
-  border-radius: 50%; 
+  background-color: white;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
   font-weight: bold !important;
   display: flex;
   align-items: center;
@@ -72,8 +83,55 @@
 /* Change arrow icon size */
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  font-size: 20px !important; 
+  font-size: 20px !important;
 }
+
+/* ====================================================== */
+
+/* Card Slider  */
+/* Target the Ant Design Carousel Arrows */
+.slick-arrow {
+  display: none;
+}
+
+/* Square shape for arrows */
+.slick-prev {
+  left: -50px;
+}
+
+.slick-next {
+  right: -50px;
+}
+
+
+/* Modify the arrow icon */
+.card-slider .slick-arrow {
+  font-size: 20px !important;
+  color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.card-slider .slick-arrow::before {
+  font-size: 20px !important;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-slider .slick-arrow::after {
+  font-size: 20px !important;
+  color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ====================================================== */
 
 /* Slider background  */
 .slider-bg {
@@ -86,19 +144,10 @@
   }
 
   /*  Title */
-  
+
 
   .rounded-md {
     border-radius: 6px !important;
   }
 
 }
-
-
-
-
-
-
-
-
-

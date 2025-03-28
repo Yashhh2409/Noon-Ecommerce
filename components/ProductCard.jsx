@@ -7,6 +7,7 @@ import {
   faHeart,
   faStar,
   faChevronRight,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useContext, useState } from "react";
@@ -16,9 +17,11 @@ import { toast } from "react-toastify";
 import { Card } from "antd";
 const { Meta } = Card;
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Carousel } from 'antd';
 
 const messages = [
   { image: "/icons-svg/cart.avif", text: "10+ sold recently" },
@@ -48,7 +51,7 @@ const ProductCard = ({
   };
 
   // Example Usage
-  const thumbImages = getThumbnailImages("aaaaa");
+  const thumbImages = getThumbnailImages(_id);
   console.log("Thumbnail Images:", thumbImages);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -82,13 +85,14 @@ const ProductCard = ({
         {/* Image Slider Section */}
         <div className="relative">
           {isHovered ? (
-            <Swiper modules={[Navigation]} navigation className="w-full h-full">
+            <Carousel arrows infinite
+              className="card-slider">
               {thumbImages.map((thumb, idx) => (
-                <SwiperSlide key={idx}>
-                  <Image src={thumb} alt={`Thumbnail ${idx + 1}`} />
-                </SwiperSlide>
+                <div key={idx} className="flex justify-center items-center">
+                  <Image src={thumb} alt={`Thumbnail ${idx + 1}`} width={200} height={200} className="object-cover w-full h-full" />
+                </div>
               ))}
-            </Swiper>
+            </Carousel>
           ) : (
             <Image
               src={productImage}
