@@ -2,10 +2,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ShopContextProvider from "@/context/ShopContext";
-import Categories from "@/components/Categories";
 import ToastProvider from "@/components/ToastProvider";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import PageLoader from "@/components/PageLoader"; // ✅ Import Loader
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,16 +25,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ShopContextProvider>
-          <div className="h-screen w-screen overflow-y-auto bg-[#F7F7FA]">
-            <ToastProvider />
-            <Header />
-            {children}
-            <Footer />
-          </div>
+          <PageLoader /> {/* ✅ Shows Material UI Progress Bar */}
+          <ToastProvider />
+          <Header />
+          {children}
+          <Footer />
         </ShopContextProvider>
       </body>
     </html>

@@ -52,7 +52,6 @@ const ProductCard = ({
 
   // Example Usage
   const thumbImages = getThumbnailImages(_id);
-  console.log("Thumbnail Images:", thumbImages);
 
   const [isHovered, setIsHovered] = useState(false);
 
