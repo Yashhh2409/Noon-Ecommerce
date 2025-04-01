@@ -15,6 +15,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import Filters from "@/components/L1category/Filters";
 import Recommended from "@/components/Sliders/Recommended";
 import CategoryProductCardSlider from "@/components/Sliders/CategoryProductCardSlider";
+import { getCategories } from "@/api/getCategories";
 
 const images = [
   "/carousel/Crousel1.png",
@@ -137,7 +138,14 @@ const CrazyDeals = [
 
 const CategoryPage = () => {
   const params = useParams();
-  const [categoryData, setCategoryData] = useState(null);
+  const decodedCategory = decodeURIComponent(params.category);
+
+  console.log("Params of cat:", decodedCategory);
+
+
+  const [categories, setCategories] = useState([]);
+  const [foundCategory, setFoundCategory] = useState([]);
+  const [forthLevelCategory, setForthLevelCategory] = useState([]);
   const [isDeliveryOpen, setIsDeliveryOpen] = useState(true);
   const [isCategoryOpen, setIsCategoryOpen] = useState(true);
   const [isBrandsOpen, setIsBrandsOpen] = useState(true);
@@ -147,14 +155,50 @@ const CategoryPage = () => {
   const { currency } = useContext(ShopContext);
 
   useEffect(() => {
-    if (params?.category) {
-      console.log("Params category: ", params.category);
-      const foundCategory = categoriesList.find(
-        (cat) => cat.slug === params.category
-      );
-      setCategoryData(foundCategory || null);
+    const fetchCategories = async () => {
+      const data = await getCategories();
+      if (data) {
+        setCategories(data);
+      }
+
     }
-  }, [params?.category]);
+
+    fetchCategories()
+  }, [])
+
+  console.log("Category URLs:", categories.map(cat => cat.category_url));
+
+  useEffect(() => {
+    if (decodedCategory && categories.length > 0) {
+      console.log("Decoded Category:", decodedCategory);
+      categories.forEach((cat) => {
+        console.log(`Checking if ${cat?.category_url} === ${decodedCategory}`);
+      });
+
+      const foundCategory = categories.find(
+        (cat) => cat?.category_url === decodedCategory
+      );
+      setFoundCategory(foundCategory || []);
+
+      console.log("Found category is:", foundCategory);
+      console.log("MY category is:", categories);
+
+      // extracted cat id from slug
+      const categoryId = foundCategory.category_id;
+      console.log("Cats id: ", categoryId);
+
+      // extracting forth level cats
+      const forthLevel = categories.filter((cat) => cat.sub_category === categoryId);
+      setForthLevelCategory(forthLevel);
+
+
+    }
+  }, [decodedCategory, categories]);
+
+
+
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -196,13 +240,17 @@ const CategoryPage = () => {
 
             {/* Dummy data */}
             <div className="flex gap-5 mb-5">
-              
-                <Link
-                  href={`/mens`}
-                  className="bg-gray-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
-                >
-                  <p>Mens</p>
-                </Link>
+              {
+                forthLevelCategory.map((cat) => (
+                  <Link
+                    href={`/${cat.category_url}`}
+                    className="bg-gray-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
+                  >
+                    <p>{cat.category_name}</p>
+                  </Link>
+                ))
+              }
+
             </div>
 
             {/* with data  */}
@@ -246,7 +294,7 @@ const CategoryPage = () => {
             </div>
 
             {/* Limited Price Drops */}
-           
+
 
             {/* Get Eid Ready  */}
             {loading ? (
@@ -270,8 +318,8 @@ const CategoryPage = () => {
             <CategoryProductCardSlider />
 
 
-             {/* Crazy Deals  */}
-             {loading ? (
+            {/* Crazy Deals  */}
+            {loading ? (
               <LoadingSpinner />
             ) : (
               <div className="bg-[#FDFDEB] pt-5">

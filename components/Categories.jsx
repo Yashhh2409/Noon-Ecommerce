@@ -9,16 +9,52 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import categoriesList from "@/data/categoryList";
-// import getCategories from "@/lib/getCategories";
+import { getCategories } from "@/api/getCategories";
 
-const Categories = ({ categories }) => {
+const buildCategoryTree = (categories) => {
+  const categoryMap = new Map();
+  const tree = [];
 
-  // const categories = await getCategories();
+  categories.forEach(category => {
+    categoryMap.set(category.category_id, { ...category, children: [] });
+  });
+
+  categories.forEach(category => {
+    if (category.sub_category === 0) {
+      tree.push(categoryMap.get(category.category_id)); // parent cats
+    } else {
+      const parent = categoryMap.get(category.sub_category);
+      if (parent) {
+        parent.children.push(categoryMap.get(category.category_id)); // sub cats
+      }
+    }
+  });
+
+  return tree;
+}
+
+const Categories = () => {
 
   const sliderRef = useRef(null);
+  const [categories, setCategories] = useState([]);
+  const [categoryTree, setCategoryTree] = useState([]);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await getCategories();
+
+      if (data) {
+        setCategories(data);
+        setCategoryTree(buildCategoryTree(data));
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
 
   // Check if scrolling is possible
   const updateScrollState = () => {
@@ -26,7 +62,7 @@ const Categories = ({ categories }) => {
       setCanScrollLeft(sliderRef.current.scrollLeft > 0);
       setCanScrollRight(
         sliderRef.current.scrollLeft + sliderRef.current.clientWidth <
-          sliderRef.current.scrollWidth
+        sliderRef.current.scrollWidth
       );
     }
   };
@@ -64,18 +100,18 @@ const Categories = ({ categories }) => {
 
         {/* Categories */}
         <div
-          className="flex overflow-x-auto scrollbar-hide space-x-4 px-8 w-[90%]"
+          className="flex overflow-x-auto scrollbar-hide px-1 w-[90%]"
           ref={sliderRef}
           onScroll={updateScrollState}
         >
-          {categoriesList.map((category, index) => (
-            <Link href={`/${category.slug}`}
+          {categoryTree.map((parentCategory, index) => (
+            <Link href={`/${parentCategory.category_url}`}
               key={index}
-              className="relative group cursor-pointer whitespace-nowrap text-black font-semibold px-4 py-2  hover:underline"
-              onMouseEnter={() => setHoveredCategory(index)}
+              className="relative text-[15px] group cursor-pointer whitespace-nowrap text-secondary font-semibold px-4 py-2  hover:underline"
+              onMouseEnter={() => setHoveredCategory(parentCategory)}
               onMouseLeave={() => setHoveredCategory(null)}
             >
-              {category.title}
+              {parentCategory.category_name}
             </Link>
           ))}
         </div>
@@ -112,16 +148,21 @@ const Categories = ({ categories }) => {
             <div>
               <div className="grid grid-cols-4 gap-6">
                 {/* Subcategories */}
-                {categoriesList[hoveredCategory].subcategories.map((sub, i) => (
+                {hoveredCategory?.children?.map((subCategory, i) => (
                   <div key={i}>
-                    <p className="text-base sm:text-sm md:text-md lg:text-lg font-semibold text-gray-700">
-                      {sub.name}
-                    </p>
+                    <Link href={`/${subCategory.category_url}`}>
+                      <p className="w-16 h-5 text-[14px] truncate text-ellipsis break-words  font-semibold text-secondary">
+                        {subCategory.category_name}
+                      </p>
+                    </Link>
 
-                    <ul className="text-gray-600 text-sm mt-2">
-                      {sub.subnames.map((item, j) => (
+                    {/* sub sub categpories  */}
+                    <ul className="w-16 h-5 text-primary truncate text-ellipsis whitespace-nowrap text-sm mt-2">
+                      {subCategory.children.map((subSubCategory, j) => (
                         <li key={j} className="hover:text-black cursor-pointer">
-                          {item}
+                          <Link href={`/${subSubCategory.category_url}`}>
+                            {subSubCategory.category_name}
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -135,7 +176,7 @@ const Categories = ({ categories }) => {
                   Top Brands
                 </p>
                 <div className="flex flex-wrap gap-4 mt-2 text-gray-800 font-bold">
-                  {categoriesList[hoveredCategory].brands.map((brand, i) => (
+                  {/* {hoveredCategory.categoryTree.map((brand, i) => (
                     <div
                       key={i}
                       className="flex flex-col items-center bg-white p-2 rounded-md"
@@ -147,18 +188,18 @@ const Categories = ({ categories }) => {
                       />
                       <p className="text-sm mt-1">{brand.name}</p>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
               </div>
             </div>
 
             {/* Right Section: Promo Banner */}
             <div className="w-[250px] sm:max-w-sm md:max-w-md lg:max-w-lg flex justify-end lg:ml-60">
-              <img
+              {/* <img
                 src={categoriesList[hoveredCategory].promoBanner}
                 alt="Promo Banner"
                 className="rounded-md"
-              />
+              /> */}
             </div>
           </div>
         </div>

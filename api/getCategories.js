@@ -1,20 +1,15 @@
-import axios from "axios";
-
-export const fetchCategories = async (API_BACKEND_URL) => {
-  console.log("fetchCategories function called"); // ✅ Check if function is called
-  console.log("Backend URL:", API_BACKEND_URL); // ✅ Check API URL
-
-  if (!API_BACKEND_URL) {
-    console.error("API_BACKEND_URL is undefined! Check ShopContext.");
-    return [];
-  }
-
+export const getCategories = async () => {
   try {
-    const response = await axios.get(`${API_BACKEND_URL}/categories/getcategories`);
-    console.log("Fetched Categories:", response.data); // ✅ Check response
-    return response.data;
+    const response = await fetch("https://noon-website.onrender.com/noon/get-categories");
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch categories");
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error("Failed to fetch categories:", error);
-    return [];
+    console.error("Error fetching categories:", error.message);
+    return null;
   }
 };

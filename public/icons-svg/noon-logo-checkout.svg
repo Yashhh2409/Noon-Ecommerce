@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11.5,0 L11.7105263,-1.77635684e-15 C18.0618009,-2.94306706e-15 23.2105263,5.14872538 23.2105263,11.5 L23.2105263,11.5 C23.2105263,17.8512746 18.0618009,23 11.7105263,23 L11.5,23 C5.14872538,23 7.77806814e-16,17.8512746 0,11.5 L0,11.5 C-7.77806814e-16,5.14872538 5.14872538,1.16671022e-15 11.5,0 Z" id="path-1"></path>
+        <filter x="-38.8%" y="-26.1%" width="177.6%" height="178.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.250980392   0 0 0 0 0.270588235   0 0 0 0 0.325490196  0 0 0 0.449573864 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3" transform="translate(-22.000000, 2.000000)">
+            <g id="Group-5" transform="translate(27.000000, 0.000000)">
+                <g id="Rectangle-2">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#272C3A" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Locker" transform="translate(4.351974, 4.312500)" fill="#FEEE00">
+                    <g id="Group">
+                        <path d="M0,7.44844853 C0,11.2606985 3.24716643,14.2224559 7.02343795,14.2224559 C10.9759648,14.2224559 14.1790674,11.0406765 14.1790674,7.15519853 C14.1790674,4.88259559 13.0769629,2.88852941 11.4460922,1.55419118 L10.2558599,3.60694118 C11.2401784,4.44272059 11.9162195,5.73291912 11.9162195,7.18445588 C11.9162195,9.82370588 9.72692432,11.9936544 7.02343795,11.9936544 C4.33452654,11.9936544 2.14523135,9.82370588 2.14523135,7.11122794 C2.14523135,6.78855147 2.17455075,6.46604412 2.23335904,6.15808088 L0,7.44844853 Z" id="Fill-14"></path>
+                        <path d="M9.227342,0.351933824 C8.55147041,0.102654412 7.94915154,0 7.3466632,0 C6.89111083,0 6.49436675,0.0586838235 6.2004948,0.117367647 L4.67249623,2.75661765 C5.23075126,2.43394118 5.95085617,2.25805882 6.72943042,2.25805882 C7.18498278,2.25805882 7.59630183,2.31657353 8.02253479,2.43394118 L9.227342,0.351933824 Z" id="Fill-15"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

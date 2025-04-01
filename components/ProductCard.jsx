@@ -43,8 +43,6 @@ const ProductCard = ({
 }) => {
   const { currency, addToCart, products } = useContext(ShopContext);
 
-  console.log("My Products are: ", products);
-
   const getThumbnailImages = (_id) => {
     const product = products.find((item) => item._id === _id);
     return product ? product.image : [];
@@ -84,7 +82,7 @@ const ProductCard = ({
         {/* Image Slider Section */}
         <div className="relative">
           {isHovered ? (
-            <Carousel arrows infinite
+            <Carousel autoplay autoplaySpeed={3000} arrows infinite
              id="hover-slider"
              className="transition-all duration-300 ease-in-out;  ">
               {thumbImages.map((thumb, idx) => (

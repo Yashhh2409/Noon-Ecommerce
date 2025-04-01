@@ -11,8 +11,10 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "@/context/ShopContext";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const page = () => {
+
   const {
     products,
     currency,
@@ -29,6 +31,9 @@ const page = () => {
     removeFromCart(productId);
     toast.success("Product Removed!");
   };
+
+
+
 
   useEffect(() => {
     const tempData = [];
@@ -209,15 +214,18 @@ const page = () => {
             {getShippingFee() > 0
               ? (`${currency}${getCartAmount() + getShippingFee()}`) : (
                 <>
-                {currency}{getCartAmount()}{" "} 
-                <span className="text-xs text-green-600">(FREE Shipping)</span>
+                  {currency}{getCartAmount()}{" "}
+                  <span className="text-xs text-green-600">(FREE Shipping)</span>
                 </>
               )}
           </p>
         </div>
-        <button className="w-full bg-blue-600 text-white py-2 mt-4 rounded-sm font-semibold hover:bg-blue-700">
-          CHECKOUT
-        </button>
+        <Link href={"/checkout"}>
+          <button className="w-full bg-blue-600 text-white py-2 mt-4 rounded-sm font-semibold hover:bg-blue-700">
+            CHECKOUT
+          </button>
+        </Link>
+
       </div>
     </div>
   );
