@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import categoriesList from "@/data/categoryList";
 import { getCategories } from "@/api/getCategories";
+import { hover } from "framer-motion";
 
 const buildCategoryTree = (categories) => {
   const categoryMap = new Map();
@@ -41,6 +42,8 @@ const Categories = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -150,14 +153,14 @@ const Categories = () => {
                 {/* Subcategories */}
                 {hoveredCategory?.children?.map((subCategory, i) => (
                   <div key={i}>
-                    <Link href={`/${subCategory.category_url}`}>
-                      <p className="w-16 h-5 text-[14px] truncate text-ellipsis break-words  font-semibold text-secondary">
+                    <Link href={`/${hoveredCategory.category_url}/${subCategory.category_url}`}>
+                      <p className=" text-[14px] truncate text-ellipsis break-words  font-semibold text-secondary">
                         {subCategory.category_name}
                       </p>
                     </Link>
 
                     {/* sub sub categpories  */}
-                    <ul className="w-16 h-5 text-primary truncate text-ellipsis whitespace-nowrap text-sm mt-2">
+                    <ul className=" text-primary truncate text-ellipsis whitespace-nowrap text-sm mt-2">
                       {subCategory.children.map((subSubCategory, j) => (
                         <li key={j} className="hover:text-black cursor-pointer">
                           <Link href={`/${subSubCategory.category_url}`}>

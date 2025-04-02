@@ -7,6 +7,7 @@ import {
   faHeart,
   faStar,
   faChevronRight,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useContext, useState } from "react";
@@ -20,6 +21,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Carousel } from 'antd';
 
 const messages = [
   { image: "/icons-svg/cart.avif", text: "10+ sold recently" },
@@ -41,8 +43,6 @@ const ProductCard = ({
 }) => {
   const { currency, addToCart, products } = useContext(ShopContext);
 
-  console.log("My Products are: ", products);
-
   const getThumbnailImages = (_id) => {
     const product = products.find((item) => item._id === _id);
     return product ? product.image : [];
@@ -50,7 +50,6 @@ const ProductCard = ({
 
   // Example Usage
   const thumbImages = getThumbnailImages(_id);
-  console.log("Thumbnail Images:", thumbImages);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -83,13 +82,15 @@ const ProductCard = ({
         {/* Image Slider Section */}
         <div className="relative">
           {isHovered ? (
-            <Swiper modules={[Navigation]} navigation pagination={{clickable: true}} className="w-full h-full">
+            <Carousel autoplay autoplaySpeed={2000} arrows infinite
+              id="hover-slider"
+              className="transition-all duration-300 ease-in-out;  ">
               {thumbImages.map((thumb, idx) => (
-                <SwiperSlide key={idx}>
-                  <Image src={thumb} alt={`Thumbnail ${idx + 1}`} />
-                </SwiperSlide>
+                <div key={idx} id="hover-slider" className="flex justify-center items-center">
+                  <Image src={thumb} alt={`Thumbnail ${idx + 1}`} width={200} height={200} className="object-cover w-full h-full" />
+                </div>
               ))}
-            </Swiper>
+            </Carousel>
           ) : (
             <Image
               src={productImage}
@@ -133,7 +134,7 @@ const ProductCard = ({
             <RotatingText messages={messages} />
           </div>
         </div>
-        <div className="relative min-w-[240px] -left-4 bg-[#2122B8] text-white flex items-center justify-between gap-x-4 px-5 pl-2 pr-5 py-1 rounded-r-lg rounded-bl-lg h-8 mt-2 ">
+        <div className="relative min-w-[235px] -left-3 bg-[#2122B8] text-white flex items-center justify-between gap-x-4 px-5 pl-2 pr-5 py-1 rounded-r-lg rounded-bl-lg h-8 mt-2 ">
           <div className="flex items-center gap-4 px-2">
             <div className="flex items-center">
               <div className="text-yellow-400 font-bold text-xs leading-none">
@@ -143,12 +144,12 @@ const ProductCard = ({
                 GET IN <span className="font-bold">1 HR 20 MINS</span>
               </div>
             </div>
-            <div className="ml-2 text-white text-lg">
+            <div className="text-white text-lg">
               <FontAwesomeIcon icon={faChevronRight} width={10} height={10} />
             </div>
           </div>
         </div>
-        <div className="bg-[#404553] w-3 h-3 rotate-45 relative -top-[38px] -left-[13.2px] -z-20"></div>
+        <div className="bg-[#404553] w-3 h-3 rotate-45 relative -top-[38px] -left-[9.40px] -z-20"></div>
       </div>
     </Link>
   );

@@ -10,7 +10,7 @@ import {
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ShopContext } from "@/context/ShopContext";
 import RotatingText from "./RotatingText";
 import { toast } from "react-toastify";
@@ -22,6 +22,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Carousel } from 'antd';
+import HoveredCardSlider from "./Sliders/HoveredCardSlider";
 
 const messages = [
   { image: "/icons-svg/cart.avif", text: "10+ sold recently" },
@@ -43,6 +44,7 @@ const ProductCard = ({
 }) => {
   const { currency, addToCart, products } = useContext(ShopContext);
 
+
   const getThumbnailImages = (_id) => {
     const product = products.find((item) => item._id === _id);
     return product ? product.image : [];
@@ -55,6 +57,7 @@ const ProductCard = ({
 
   const productImage = image[0] || "/placeholder.png";
   const altText = name ? `${name} product image` : "Product image";
+
 
   const handleAddToCart = (e) => {
     e.preventDefault(); // Prevent navigation
@@ -81,16 +84,9 @@ const ProductCard = ({
 
         {/* Image Slider Section */}
         <div className="relative">
+
           {isHovered ? (
-            <Carousel autoplay autoplaySpeed={3000} arrows infinite
-             id="hover-slider"
-             className="transition-all duration-300 ease-in-out;  ">
-              {thumbImages.map((thumb, idx) => (
-                <div key={idx} className="flex justify-center items-center">
-                  <Image src={thumb} alt={`Thumbnail ${idx + 1}`} width={200} height={200} className="object-cover w-full h-full" />
-                </div>
-              ))}
-            </Carousel>
+            <HoveredCardSlider thumbImages={thumbImages} />
           ) : (
             <Image
               src={productImage}

@@ -88,77 +88,8 @@ height: 50px;
 
 /* ====================================================== */
 
-#hover-slider .slick-prev {
-  background-color: #00000080 !important; /* Dark background */
-  color: white !important; /* Arrow color */
-  width: 25px; /* Adjust width */
-  height: 40px; /* Adjust height */
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease-in-out;
-}
 
-#hover-slider .slick-next {
-  background-color: #00000080 !important; /* Dark background */
-  color: white !important;
-  width: 25px;
-  height: 40px; 
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease-in-out;
-}
-
-#hover-slider .slick-prev::after {
-  position: absolute;
-  top: 14px;
-  left: 9px;
-}
-
-#hover-slider .slick-next::after {
-  position: absolute;
-  top: 14px;
-  right: 9px;
-}
-
-#hover-slider .slick-prev::before {
-  display: none;
-}
-
-#hover-slider .slick-next::before {
-  display: none;
-}
-
-/* Adjust horizontal spacing */
-#hover-slider .slick-prev {
-  position: absolute;
-  margin-left: -8px;
-}
-#hover-slider .slick-next {
-  position: absolute;
-  margin-right: -8px;
-}
-
-#hover-slider .slick-dots-bottom {
-  position: absolute;
-  background-color: gray;
-  padding: 5px;
-  border-radius: 8px;
-  left: 35%;
-  width: 30%;
-}
-
-#hover-slider li .slick-active::after {
-  color: black !important;
-}
-
-
-
+/* ====================================================== */
 
 
 
