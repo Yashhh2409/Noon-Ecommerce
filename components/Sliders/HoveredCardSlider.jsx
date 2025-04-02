@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { motion } from 'framer-motion'
 
 const HoveredCardSlider = ({ thumbImages }) => {
 
@@ -17,8 +18,8 @@ const HoveredCardSlider = ({ thumbImages }) => {
     }
 
     const startAutoSlide = () => {
-        slideRef.current = setInterval(()=> {
-            setCurr((prev) => (prev + 1)% thumbImages.length)
+        slideRef.current = setInterval(() => {
+            setCurr((prev) => (prev + 1) % thumbImages.length)
         }, 3000)
     }
 
@@ -39,33 +40,50 @@ const HoveredCardSlider = ({ thumbImages }) => {
             </div>
 
             <div className='flex absolute inset-0 justify-between items-center'>
-                <button onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    prev();
-                }} className='bg-gray-400 p-2 rounded-tr-md rounded-br-md'>
+                <motion.button
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -50, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        prev();
+                    }} className='bg-gray-400 p-2 rounded-tr-md rounded-br-md'>
                     <FontAwesomeIcon icon={faChevronLeft} className='text-white font-bold' />
-                </button>
+                </motion.button>
 
-                <button onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    next();
-                }} className='bg-gray-400 p-2 rounded-tl-md rounded-bl-md'>
+                <motion.button
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 50, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        next();
+                    }} className='bg-gray-400 p-2 rounded-tl-md rounded-bl-md'>
                     <FontAwesomeIcon icon={faChevronRight} className='text-white font-bold' />
-                </button>
+                </motion.button>
             </div>
 
-            <div className='absolute w-full ml-10 bottom-4 right-0 left-0 align-middle'>
+            <motion.div
+
+                initial={{ y: 3, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 3, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+
+                className='absolute w-full ml-10 bottom-4 right-0 left-0 align-middle'>
                 <div className='max-w-20 h-4 flex items-center justify-center gap-2 bg-slate-200 rounded-full mx-10'>
                     {
                         thumbImages.map((_, idx) => (
-                            <div className={`transition-all w-[4px] h-[4px] bg-secondary rounded-full ${curr === idx ? "w-[16px] h-[5px]" : "bg-opacity-50"}`}>
+                            <div key={idx} className={`transition-all w-[4px] h-[4px] bg-secondary rounded-full ${curr === idx ? "min-w-[16px] w-[16px] h-[5px]" : "bg-opacity-50"}`}>
                             </div>
                         ))
                     }
                 </div>
-            </div>
+            </motion.div>
         </div>
     )
 }

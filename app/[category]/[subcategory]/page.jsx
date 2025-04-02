@@ -157,25 +157,6 @@ const SubcategoryPage = () => {
                 )}
               </div>
             ))}
-
-            {/* <div className="relative">
-              <ToggleSection
-                label="Size"
-                icon={faRuler}
-                isOpen={sections.size}
-                toggle={() => toggleSection("size")}
-              />
-              <FilterDropdownSize isOpen={sections.size} />
-            </div>
-            <div className="relative">
-              <ToggleSection
-                label="Deals"
-                icon={faPercentage}
-                isOpen={sections.deals}
-                toggle={() => toggleSection("deals")}
-              />
-              <FilterDropdownDeals isOpen={sections.deals} />
-            </div> */}
           </div>
           <hr className="border border-gray-300 mb-8" />
 

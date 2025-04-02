@@ -13,9 +13,8 @@ import NestedCategory from "@/components/NestedCategory";
 import { ShopContext } from "@/context/ShopContext";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Filters from "@/components/L1category/Filters";
-import Recommended from "@/components/Sliders/Recommended";
-import CategoryProductCardSlider from "@/components/Sliders/CategoryProductCardSlider";
 import { getCategories } from "@/api/getCategories";
+import HomeProductSlider from "@/components/Sliders/HomeProductSlider";
 
 const images = [
   "/carousel/Crousel1.png",
@@ -152,7 +151,7 @@ const CategoryPage = () => {
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const { currency } = useContext(ShopContext);
+  const { currency, products } = useContext(ShopContext);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -166,7 +165,6 @@ const CategoryPage = () => {
     fetchCategories()
   }, [])
 
-  console.log("Category URLs:", categories.map(cat => cat.category_url));
 
   useEffect(() => {
     if (decodedCategory && categories.length > 0) {
@@ -241,8 +239,9 @@ const CategoryPage = () => {
             {/* Dummy data */}
             <div className="flex gap-5 mb-5">
               {
-                forthLevelCategory.map((cat) => (
+                forthLevelCategory.map((cat, idx) => (
                   <Link
+                  key={idx}
                     href={`/${cat.category_url}`}
                     className="bg-gray-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
                   >
@@ -315,7 +314,7 @@ const CategoryPage = () => {
             )}
 
             {/* Category Product Card Slider */}
-            <CategoryProductCardSlider />
+            <HomeProductSlider  firstTxt={"Haa"} secondTxt={"Bhaiii"} products={products}/>
 
 
             {/* Crazy Deals  */}

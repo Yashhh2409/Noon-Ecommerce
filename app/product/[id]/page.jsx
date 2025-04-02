@@ -25,7 +25,7 @@ import FrequentlyBought from "@/components/ProductDetails/FrequentlyBought";
 import Variants from "@/components/ProductDetails/Variants";
 import ProductOverview from "@/components/ProductDetails/ProductOverview";
 import RatingsAndReviews from "@/components/ProductDetails/RatingsAndReviews";
-import Recommended from "@/components/Sliders/Recommended";
+import Recommended from "@/components/Sliders/HomeProductSlider";
 // import ProductImage from "@/components/ProductDetails/ProductImage";
 
 const ProductImage = dynamic(

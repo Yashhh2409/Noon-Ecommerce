@@ -83,7 +83,7 @@ const ProductCard = ({
         </div>
 
         {/* Image Slider Section */}
-        <div className="relative">
+        <div className="relative transition-all ease-in-out duration-300">
 
           {isHovered ? (
             <HoveredCardSlider thumbImages={thumbImages} />

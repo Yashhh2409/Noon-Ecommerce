@@ -16,7 +16,7 @@ const CustomSwiper = ({ children }) => {
         breakpoints={{
           1024: { slidesPerView: 6}, // Desktop: 5 slides
           768: { slidesPerView: 3 }, // Tablet: 3 slides
-          480: { slidesPerView: 2 }, // Mobile: 2 slides
+          450: { slidesPerView: 2 }, // Mobile: 2 slides
           0: { slidesPerView: 1 }, // Small screens: 1 slide
         }}
         className="mySwiper"

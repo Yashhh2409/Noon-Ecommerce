@@ -29,8 +29,6 @@ const names = [
 ];
 
 
-
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -42,16 +40,22 @@ const style = {
     p: 4,
 };
 
+const countries = [
+    {name: "UAE", flag: "/flags/ae.svg"},
+    {name: "KSA", flag: "/flags/sa.svg"},
+    {name: "Egypt", flag: "/flags/eg.svg"},
+]
+
 const Checkout = () => {
 
     const [open, setOpen] = useState(true);
-
-
     const [age, setAge] = useState('');
 
     const handleChange = (event) => {
         setAge(event.target.value);
     };
+
+
 
     return (
         <>
@@ -83,11 +87,17 @@ const Checkout = () => {
                                 <Typography variant='p' className='text-secondary text-sm text-nowrap font-bold'>
                                     Ship to
                                 </Typography>
-                               <Box>
-                                <select>
-
-                                </select>
-                               </Box>
+                                <Box>
+                                    <select>
+                                        <option value="">
+                                            <div>
+                                                <Image src={"/flags/ae.svg"} width={35} height={35} alt='img' className='w-50 h-30' />
+                                                <Typography variant='p' className='text-primary'>UAE</Typography>
+                                                <Checkbox />
+                                            </div>
+                                        </option>
+                                    </select>
+                                </Box>
                             </Box>
                         </Box>
                     </Container>

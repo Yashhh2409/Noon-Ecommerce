@@ -2,13 +2,13 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "@/context/ShopContext";
-import CustomSwiper from "../CustomSwiper"; // Import the reusable Swiper component
+import CustomSwiper from "../CustomSwiper"; 
 import LoadingSpinner from "../LoadingSpinner";
 import Title from "../Title";
 import ProductCard from "../ProductCard";
 
-const Recommended = () => {
-  const { products } = useContext(ShopContext) || { products: [] };
+const HomeProductSlider = ({firstTxt, secondTxt, products}) => {
+  // const { products } = useContext(ShopContext) || { products: [] };
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,13 +17,13 @@ const Recommended = () => {
       setTimeout(() => {
         setRecommendedProducts(products.slice(0, 10));
         setLoading(false);
-      }, 1000); // Simulated API delay
+      }, 1000); 
     }
   }, [products]);
 
   return (
-    <div className="w-full max-w-screen bg-white mt-10 flex flex-col p-5 gap-5">
-      <Title firstTxt="RECOMMENDED" secondTxt=" FOR YOU" />
+    <div className="w-full max-w-screen bg-white mt-10 flex flex-col justify-center p-5 gap-5">
+      <Title firstTxt={firstTxt} secondTxt={secondTxt} />
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -49,4 +49,4 @@ const Recommended = () => {
   );
 };
 
-export default Recommended;
+export default HomeProductSlider;

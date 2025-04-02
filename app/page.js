@@ -1,21 +1,16 @@
-import React from "react";
+"use client"
+import React, { useContext } from "react";
 import dynamic from "next/dynamic";
+import { ShopContext } from "@/context/ShopContext";
 
 // Lazy import components
 const NewsLetter = dynamic(() => import("@/components/NewsLetter"));
-const ProductCategories = dynamic(() =>
-  import("@/components/Sliders/ProductCategories")
-);
+const ProductCategories = dynamic(() =>import("@/components/Sliders/ProductCategories"));
 const Deals = dynamic(() => import("@/components/Deals"));
-const Recommended = dynamic(() => import("@/components/Sliders/Recommended"));
+const HomeProductSlider = dynamic(() => import("@/components/Sliders/HomeProductSlider"));
 const AddBanner = dynamic(() => import("@/components/AddBanner"));
-const BestDeals = dynamic(() => import("@/components/Sliders/BestDeals"));
-const RamadanSlider = dynamic(() =>
-  import("@/components/Sliders/RamadanSlider")
-);
-const MaximizeSaving = dynamic(() =>
-  import("@/components/Sliders/MaximizeSaving")
-);
+const RamadanSlider = dynamic(() =>import("@/components/Sliders/RamadanSlider"));
+const MaximizeSaving = dynamic(() =>import("@/components/Sliders/MaximizeSaving"));
 
 const categories = [
   { id: 1, src: "/categoryimages/First.gif" },
@@ -42,14 +37,19 @@ const categories = [
 ];
 
 const page = () => {
+
+  const {products} = useContext(ShopContext);
+  
+  
+
   return (
     <div className="">
       <NewsLetter />
       <ProductCategories categories={categories} rows={1} sliderBG={true} />
       <Deals />
-      <Recommended />
+      <HomeProductSlider firstTxt={"Recommended"} secondTxt={"For You"} products={products}/>
       <AddBanner />
-      <BestDeals />
+      <HomeProductSlider firstTxt={"Yash"} secondTxt={"Dhande"} products={products}/>
       <RamadanSlider />
       <AddBanner />
       <MaximizeSaving />
