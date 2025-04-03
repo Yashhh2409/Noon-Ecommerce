@@ -49,7 +49,7 @@ const page = () => {
       <Deals />
       <HomeProductSlider firstTxt={"Recommended"} secondTxt={"For You"} products={products}/>
       <AddBanner />
-      <HomeProductSlider firstTxt={"Yash"} secondTxt={"Dhande"} products={products}/>
+      <HomeProductSlider firstTxt={"Currently"} secondTxt={"Trending"} products={products}/>
       <RamadanSlider />
       <AddBanner />
       <MaximizeSaving />

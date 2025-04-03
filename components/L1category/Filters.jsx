@@ -270,8 +270,8 @@ const Filters = ({ categoriesData }) => {
           </div>
         </div>
         {sections.priceDrop && (
-          <div className="flex flex-col py-2 gap-2">
-            <div className="flex gap-2 px-3">
+          <div className="flex flex-col py-2 gap-1">
+            <div className="flex gap-1 px-1 text-sm">
               <div className="flex gap-2 items-center">
                 <input
                   type="checkbox"
@@ -280,12 +280,12 @@ const Filters = ({ categoriesData }) => {
                   className="appearance-none w-4 h-4 border cursor-pointer border-gray-500 rounded-sm checked:bg-blue-500 checked:bg-[url('/icons-svg/checkbox-square_checked_v2.svg')] checked:bg-center checked:bg-no-repeat"
                 />
 
-                <p className="text-gray-800">Lowest price in a year</p>
+                <p className="text-gray-800 text-sm">Lowest price in a year</p>
               </div>
               <p className="text-gray-800">(0)</p>
             </div>
 
-            <div className="flex gap-2 px-3">
+            <div className="flex gap-1 px-1 text-sm">
               <div className="flex gap-2 items-center">
                 <input
                   type="checkbox"
@@ -294,12 +294,12 @@ const Filters = ({ categoriesData }) => {
                   className="appearance-none w-4 h-4 border cursor-pointer border-gray-500 rounded-sm checked:bg-blue-500 checked:bg-[url('/icons-svg/checkbox-square_checked_v2.svg')] checked:bg-center checked:bg-no-repeat"
                 />
 
-                <p className="text-gray-800">Lowest price in 30 days</p>
+                <p className="text-gray-800 ">Lowest price in 30 days</p>
               </div>
               <p className="text-gray-800">(0)</p>
             </div>
 
-            <div className="flex gap-2 px-3">
+            <div className="flex gap-1 px-1 text-sm">
               <div className="flex gap-2 items-center">
                 <input
                   type="checkbox"
@@ -308,7 +308,7 @@ const Filters = ({ categoriesData }) => {
                   className="appearance-none w-4 h-4 border cursor-pointer border-gray-500 rounded-sm checked:bg-blue-500 checked:bg-[url('/icons-svg/checkbox-square_checked_v2.svg')] checked:bg-center checked:bg-no-repeat"
                 />
 
-                <p className="text-gray-800">Lowest price in 7 days</p>
+                <p className="text-gray-800 ">Lowest price in 7 days</p>
               </div>
               <p className="text-gray-800">(0)</p>
             </div>

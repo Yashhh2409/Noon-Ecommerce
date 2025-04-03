@@ -110,4 +110,9 @@ height: 50px;
     border-radius: 6px !important;
   }
 
+  button:disabled {
+    color: rgb(169, 169, 169);
+    border-radius: 8px;
+  }
+
 }

@@ -74,7 +74,7 @@ const HoveredCardSlider = ({ thumbImages }) => {
                 exit={{ y: 3, opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
 
-                className='absolute w-full ml-10 bottom-4 right-0 left-0 align-middle'>
+                className='absolute w-full ml-4 sm:ml-10 bottom-4 right-0 left-0 align-middle'>
                 <div className='max-w-20 h-4 flex items-center justify-center gap-2 bg-slate-200 rounded-full mx-10'>
                     {
                         thumbImages.map((_, idx) => (

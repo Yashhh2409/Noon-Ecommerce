@@ -73,11 +73,11 @@ const ProductCard = ({
       className="flex flex-col gap-1 max-w-[262px] h-[500px] border cursor-pointer bg-light p-[5px] rounded-lg"
     >
       <div className="border rounded-lg overflow-hidden">
-        <div className="flex justify-between bg-[#F1EFF0]">
-          <div className="relative flex justify-center items-center  px-[10px] bg-[#404553] rounded-full top-1 left-1 z-50">
-            <p className="text-[14px] font-semibold text-white">Best Seller</p>
+        <div className="flex justify-between bg-[#F1EFF0] z-40">
+          <div className="relative flex justify-center items-center h-[24px] px-[10px] bg-[#404553] rounded-full top-1 left-1">
+            <p className="text-xs font-semibold text-white">Best Seller</p>
           </div>
-          <button className="relative w-[24px] h-[24px] flex items-center justify-center top-1 right-2 text-gray-600 text-sm bg-white p-4 rounded-md shadow z-50">
+          <button className="relative w-[24px] h-[24px] flex items-center justify-center top-1 right-2 text-gray-600 text-sm bg-white p-4 rounded-md shadow z-40">
             <FontAwesomeIcon icon={faHeart} />
           </button>
         </div>
@@ -130,22 +130,22 @@ const ProductCard = ({
             <RotatingText messages={messages} />
           </div>
         </div>
-        <div className="relative min-w-[235px] -left-3 bg-[#2122B8] text-white flex items-center justify-between gap-x-4 px-5 pl-2 pr-5 py-1 rounded-r-lg rounded-bl-lg h-8 mt-2 ">
-          <div className="flex items-center gap-4 px-2">
+        <div className="relative min-w-[210px] sm:min-w-[235px] -left-3 bg-[#2122B8] text-white flex items-center justify-between gap-x-4 px-5 pl-2 pr-5 py-1 rounded-r-lg rounded-bl-lg h-8 mt-2 ">
+          <div className="flex items-center gap-3 sm:gap-4 px-2">
             <div className="flex items-center">
-              <div className="text-yellow-400 font-bold text-xs leading-none">
+              <div className="text-yellow-400 font-bold text-[10px] sm:text-xs leading-none">
                 super <br /> mall
               </div>
-              <div className="ml-2 text-white text-nowrap text-sm ">
+              <div className="ml-2 text-white text-nowrap text-xs sm:text-sm ">
                 GET IN <span className="font-bold">1 HR 20 MINS</span>
               </div>
             </div>
-            <div className="text-white text-lg">
+            <div className="text-white text-xs sm:text-md">
               <FontAwesomeIcon icon={faChevronRight} width={10} height={10} />
             </div>
           </div>
         </div>
-        <div className="bg-[#404553] w-3 h-3 rotate-45 relative -top-[38px] -left-[9.40px] -z-20"></div>
+        <div className="bg-[#404553] w-3 h-3 rotate-45 relative -top-[38px] -left-[9.40px] -z-[1]"></div>
       </div>
     </Link>
   );
