@@ -70,7 +70,7 @@ const ProductCard = ({
       href={`/product/${_id}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="flex flex-col gap-1 max-w-[262px] h-[500px] border cursor-pointer bg-light p-[5px] rounded-lg"
+      className="flex flex-col gap-1 max-w-[262px] lg:h-[500px] border cursor-pointer bg-light p-[5px] rounded-lg"
     >
       <div className="border rounded-lg overflow-hidden">
         <div className="flex justify-between bg-[#F1EFF0] z-40">
@@ -130,13 +130,13 @@ const ProductCard = ({
             <RotatingText messages={messages} />
           </div>
         </div>
-        <div className="relative min-w-[210px] sm:min-w-[235px] -left-3 bg-[#2122B8] text-white flex items-center justify-between gap-x-4 px-5 pl-2 pr-5 py-1 rounded-r-lg rounded-bl-lg h-8 mt-2 ">
-          <div className="flex items-center gap-3 sm:gap-4 px-2">
+        <div className="relative w-[165px] lg:min-w-[235px] -left-3 bg-[#2122B8] text-white flex items-center justify-between gap-x-4 px-5 pl-2 pr-5 py-1 rounded-r-lg rounded-bl-lg h-8 mt-2 ">
+          <div className="flex items-center gap-2 lg:gap-4 px-2">
             <div className="flex items-center">
-              <div className="text-yellow-400 font-bold text-[10px] sm:text-xs leading-none">
+              <div className="text-yellow-400 font-bold text-[10px] lg:text-xs leading-none">
                 super <br /> mall
               </div>
-              <div className="ml-2 text-white text-nowrap text-xs sm:text-sm ">
+              <div className="ml-2 text-white text-nowrap text-[9px] lg:text-sm ">
                 GET IN <span className="font-bold">1 HR 20 MINS</span>
               </div>
             </div>

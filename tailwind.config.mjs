@@ -26,6 +26,13 @@ export default {
           "100%": { width: "100%" },
         },
       },
+
+      screens: {
+        xs: "200px",
+        sm: "400px", // Small (phones)
+        md: "768px", // Medium (tablets)
+        lg: "1024px", // Large (laptops)
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

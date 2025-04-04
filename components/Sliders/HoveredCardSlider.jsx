@@ -74,11 +74,11 @@ const HoveredCardSlider = ({ thumbImages }) => {
                 exit={{ y: 3, opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
 
-                className='absolute w-full ml-4 sm:ml-10 bottom-4 right-0 left-0 align-middle'>
-                <div className='max-w-20 h-4 flex items-center justify-center gap-2 bg-slate-200 rounded-full mx-10'>
+                className='absolute w-full ml-12 lg:ml-10 bottom-4 right-0 left-0 align-middle'>
+                <div className='max-w-12 lg:max-w-20 h-2 lg:h-4 flex items-center justify-center gap-1 lg:gap-2 bg-slate-200 rounded-full lg:mx-10'>
                     {
                         thumbImages.map((_, idx) => (
-                            <div key={idx} className={`transition-all w-[4px] h-[4px] bg-secondary rounded-full ${curr === idx ? "min-w-[16px] w-[16px] h-[5px]" : "bg-opacity-50"}`}>
+                            <div key={idx} className={`transition-all w-[2px] lg:w-[4px] h-[2.2px] lg:h-[4px] bg-secondary rounded-full ${curr === idx ? "min-w-[8px] lg:min-w-[16px] w-[8px] lg:w-[16px] lg:h-[5px]" : "bg-opacity-50"}`}>
                             </div>
                         ))
                     }
