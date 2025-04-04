@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShopContext } from "@/context/ShopContext";
 import LoginSignup from "./LoginSignup";
+import { getHeaders } from "@/api/getHeader";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -42,6 +43,8 @@ const Navbar = () => {
   const [isClient, setIsClient] = useState(false); // Fix for flickering on SSR
   const [loading, setLoading] = useState(true);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [navItems, setNavItems] = useState([]);
+  const [navSettings, setNavSettings] = useState([]);
 
   useEffect(() => {
     const handleClickOutSide = (e) => {
@@ -49,8 +52,6 @@ const Navbar = () => {
         setShowDropdown(false);
       }
     };
-
-    
 
     document.addEventListener("mousedown", handleClickOutSide);
     return () => {
@@ -83,91 +84,137 @@ const Navbar = () => {
     setSearchTerm("");
   };
 
+  const fetchNavSettings = async () => {
+    try {
+      const response = await fetch(
+        "https://noon-website.onrender.com/noon/getHeaderSetting"
+      );
+
+      if (!response.ok) {
+        console.error("Failed to fetch NavSettings");
+      }
+
+      const data = await response.json();
+
+      if (data) {
+        setNavSettings(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch NavSettings");
+    }
+  };
+
+  const fetchNavItems = async () => {
+    const data = await getHeaders();
+
+    const activeItems = data
+      .filter((item) => item.status_id === 1)
+      .sort((a, b) => a.sort_order - b.sort_order);
+
+    setNavItems(activeItems);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchNavItems();
+    fetchNavSettings();
+  }, []);
+
   return (
     <>
       {/* Navbar for large and medium screens */}
       <nav className="hidden md:flex lg:flex bg-[var(--theme-color)] text-light items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50">
-        {/* First Section - Logo */}
-        <div className="flex items-center gap-4">
-          <Link href="/">
-            <Image src="/Logo.png" alt="Logo" width={100} height={100} />
-          </Link>
-        </div>
-
-        {/* Second Section - Deliver To */}
-        {loading ? (
-          loader
-        ) : (
-          <div className="flex items-center gap-2 p-5">
-            <Image
-              src="/assets/Flag_of_Qatar.svg"
-              alt="Flag"
-              width={50}
-              height={30}
-              className="rounded-md"
-            />
-            <div>
-              <span className="text-sm ">
-                Deliver to <FontAwesomeIcon icon={faCaretDown} />
-              </span>
-
-              <div className="font-semibold flex items-center gap-1">Doha</div>
+        {navItems
+          .filter((item) => item.header_name === "noon")
+          .map((item) => (
+            // First Section - Logo
+            <div key={item} className="flex items-center gap-4">
+              <Link href="/">
+                <Image src="/Logo.png" alt="Logo" width={100} height={100} />
+              </Link>
             </div>
-          </div>
-        )}
+          ))}
 
-        {/* Third Section - Search Bar */}
-        <div
-          ref={searchRef}
-          className="flex-1 mx-4 px-5 relative hidden md:block lg:block"
-        >
-          <div className="flex">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={handleSearch}
-              onFocus={() => setShowDropdown(true)}
-              placeholder="What are you looking for?"
-              className="w-full md:w-full p-2 rounded-lg border border-gray-300 outline-none z-50"
-            />
-            {isClient && searchTerm && (
-              <FontAwesomeIcon
-                icon={faTimes}
-                className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-10 z-50"
-                onClick={crossHandler}
+        {navItems
+          .filter((item) => item.header_name === "Delivery Location")
+          .map((item) => (
+            <div key={item} className="flex items-center gap-2 p-5">
+              <Image
+                src="/assets/Flag_of_Qatar.svg"
+                alt="Flag"
+                width={50}
+                height={30}
+                className="rounded-md"
               />
-            )}
-          </div>
+              <div>
+                <span className="text-sm ">
+                  Deliver to <FontAwesomeIcon icon={faCaretDown} />
+                </span>
 
-          {isClient && showDropdown && (
-            <div className="absolute w-full bg-white border border-gray-300 shadow-lg rounded-md mt-1">
-              <div className="flex justify-between p-2 text-sm font-semibold text-gray-500">
-                <span>RECENT SEARCHES</span>
-                <button
-                  onClick={clearRecentSearches}
-                  className="text-blue-500 hover:underline"
-                >
-                  CLEAR ALL
-                </button>
+                <div className="font-semibold flex items-center gap-1">
+                  {navSettings?.delivery_location}
+                </div>
               </div>
-              {recentSearches.length > 0 ? (
-                recentSearches.map((item, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleSelect(item)}
-                    className="p-2 cursor-pointer hover:bg-gray-100"
-                  >
-                    {item}
+            </div>
+          ))}
+
+        {navItems
+          .filter((item) => item.header_name === "Search")
+          .map((item) => (
+            // Third Section - Search Bar
+            <div
+              key={item}
+              ref={searchRef}
+              className="flex-1 mx-4 px-5 relative hidden md:block lg:block"
+            >
+              <div className="flex">
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearch}
+                  onFocus={() => setShowDropdown(true)}
+                  placeholder={navSettings?.search_placeholder}
+                  className="w-full md:w-full p-2 rounded-lg border border-gray-300 outline-none z-50"
+                />
+                {isClient && searchTerm && (
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-10 z-50"
+                    onClick={crossHandler}
+                  />
+                )}
+              </div>
+
+              {isClient && showDropdown && (
+                <div className="absolute w-full bg-white border border-gray-300 shadow-lg rounded-md mt-1">
+                  <div className="flex justify-between p-2 text-sm font-semibold text-gray-500">
+                    <span>RECENT SEARCHES</span>
+                    <button
+                      onClick={clearRecentSearches}
+                      className="text-blue-500 hover:underline"
+                    >
+                      CLEAR ALL
+                    </button>
                   </div>
-                ))
-              ) : (
-                <div className="p-2 text-gray-400 text-sm">
-                  No recent searches
+                  {recentSearches.length > 0 ? (
+                    recentSearches.map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleSelect(item)}
+                        className="p-2 cursor-pointer hover:bg-gray-100"
+                      >
+                        {item}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="p-2 text-gray-400 text-sm">
+                      No recent searches
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-          )}
-        </div>
+          ))}
 
         {/* Fourth Section - Language */}
         <div className="text-sm font-bold py-5 px-5">العربية</div>

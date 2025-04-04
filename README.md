@@ -1,158 +1,304 @@
 "use client";
-
-import Image from "next/image";
+import { useEffect, useState, useContext, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faShoppingCart,
+  faCaretDown,
   faHeart,
-  faStar,
-  faChevronRight,
-  faChevronLeft,
+  faShoppingCart,
+  faTimes,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 import Link from "next/link";
-import { useContext, useState } from "react";
 import { ShopContext } from "@/context/ShopContext";
-import RotatingText from "./RotatingText";
-import { toast } from "react-toastify";
-import { Card } from "antd";
-const { Meta } = Card;
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Carousel } from 'antd';
+import LoginSignup from "./LoginSignup";
+import { getHeaders } from "@/api/getHeader";
 
-const messages = [
-  { image: "/icons-svg/cart.avif", text: "10+ sold recently" },
-  { image: "/icons-svg/delivery-car.avif", text: "Selling out fast" },
-  { image: "/icons-svg/basket.avif", text: "Free Delivery" },
-];
+const Navbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { getCartCount } = useContext(ShopContext);
+  const searchRef = useRef(null);
 
-const ProductCard = ({
-  _id,
-  image,
-  name,
-  price,
-  originalPrice,
-  reviews,
-  discount,
-  tag,
-  ranking,
-  rating,
-}) => {
-  const { currency, addToCart, products } = useContext(ShopContext);
-
-  const getThumbnailImages = (_id) => {
-    const product = products.find((item) => item._id === _id);
-    return product ? product.image : [];
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
-  // Example Usage
-  const thumbImages = getThumbnailImages(_id);
+  // dot loader
+  const loader = (
+    <div className="flex ml-10 space-x-2 justify-center items-center h-16">
+      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.2s]"></div>
+      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.1s]"></div>
+      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+    </div>
+  );
 
-  const [isHovered, setIsHovered] = useState(false);
+  // Search functionality
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [recentSearches, setRecentSearches] = useState([
+    "iPhone",
+    "Samsung",
+    "Headphones",
+  ]);
+  const [isClient, setIsClient] = useState(false); // Fix for flickering on SSR
+  const [loading, setLoading] = useState(true);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [navItems, setNavItems] = useState([]);
 
-  const productImage = image[0] || "/placeholder.png";
-  const altText = name ? `${name} product image` : "Product image";
+  useEffect(() => {
+    const handleClickOutSide = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
 
-  const handleAddToCart = (e) => {
-    e.preventDefault(); // Prevent navigation
-    addToCart(_id);
-    toast.success("Product Added to cart!");
+    document.addEventListener("mousedown", handleClickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
+    setTimeout(() => {
+      setLoading(false); // Simulate loading for "Deliver to" section
+    }, 1500);
+  }, []);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
   };
+
+  const handleSelect = (term) => {
+    setSearchTerm(term);
+    setShowDropdown(false);
+  };
+
+  const clearRecentSearches = () => {
+    setRecentSearches([]);
+  };
+
+  const crossHandler = () => {
+    setShowDropdown(false);
+    setSearchTerm("");
+  };
+
+  const fetchNavItems = async () => {
+    const data = await getHeaders();
+
+    const activeItems = data
+      .filter((item) => item.status_id === 1)
+      .sort((a, b) => a.sort_order - b.sort_order);
+
+    setNavItems(activeItems);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchNavItems();
+  }, []);
 
   return (
-    <Link
-      href={`/product/${_id}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="flex flex-col gap-1 max-w-[262px] h-[500px] border cursor-pointer bg-light p-[5px] rounded-lg"
-    >
-      <div className="border rounded-lg overflow-hidden">
-        <div className="flex justify-between bg-[#F1EFF0]">
-          <div className="relative flex justify-center items-center  px-[10px] bg-[#404553] rounded-full top-1 left-1 z-50">
-            <p className="text-[14px] font-semibold text-white">Best Seller</p>
-          </div>
-          <button className="relative w-[24px] h-[24px] flex items-center justify-center top-1 right-2 text-gray-600 text-sm bg-white p-4 rounded-md shadow z-50">
-            <FontAwesomeIcon icon={faHeart} />
-          </button>
+    <>
+      {/* Navbar for large and medium screens */}
+      <nav className="hidden md:flex lg:flex bg-[var(--theme-color)] text-light items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50">
+        {/* First Section - Logo */}
+        <div className="flex items-center gap-4">
+          <Link href="/">
+            <Image src="/Logo.png" alt="Logo" width={100} height={100} />
+          </Link>
         </div>
 
-        {/* Image Slider Section */}
-        <div className="relative">
-          {isHovered ? (
-            <Carousel autoplay autoplaySpeed={2000} arrows infinite
-              id="hover-slider"
-              className="transition-all duration-300 ease-in-out;  ">
-              {thumbImages.map((thumb, idx) => (
-                <div key={idx} id="hover-slider" className="flex justify-center items-center">
-                  <Image src={thumb} alt={`Thumbnail ${idx + 1}`} width={200} height={200} className="object-cover w-full h-full" />
-                </div>
-              ))}
-            </Carousel>
-          ) : (
+        {/* Second Section - Deliver To */}
+        {loading ? (
+          loader
+        ) : (
+          <div className="flex items-center gap-2 p-5">
             <Image
-              src={productImage}
-              alt={altText || "image"}
-              width={210}
-              height={210}
-              className="object-cover w-full"
+              src="/assets/Flag_of_Qatar.svg"
+              alt="Flag"
+              width={50}
+              height={30}
+              className="rounded-md"
             />
+            <div>
+              <span className="text-sm ">
+                Deliver to <FontAwesomeIcon icon={faCaretDown} />
+              </span>
+
+              <div className="font-semibold flex items-center gap-1">Doha</div>
+            </div>
+          </div>
+        )}
+
+        {/* Third Section - Search Bar */}
+        <div
+          ref={searchRef}
+          className="flex-1 mx-4 px-5 relative hidden md:block lg:block"
+        >
+          <div className="flex">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearch}
+              onFocus={() => setShowDropdown(true)}
+              placeholder="What are you looking for?"
+              className="w-full md:w-full p-2 rounded-lg border border-gray-300 outline-none z-50"
+            />
+            {isClient && searchTerm && (
+              <FontAwesomeIcon
+                icon={faTimes}
+                className="text-gray-500 cursor-pointer hover:text-gray-700 absolute top-3 right-10 z-50"
+                onClick={crossHandler}
+              />
+            )}
+          </div>
+
+          {isClient && showDropdown && (
+            <div className="absolute w-full bg-white border border-gray-300 shadow-lg rounded-md mt-1">
+              <div className="flex justify-between p-2 text-sm font-semibold text-gray-500">
+                <span>RECENT SEARCHES</span>
+                <button
+                  onClick={clearRecentSearches}
+                  className="text-blue-500 hover:underline"
+                >
+                  CLEAR ALL
+                </button>
+              </div>
+              {recentSearches.length > 0 ? (
+                recentSearches.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleSelect(item)}
+                    className="p-2 cursor-pointer hover:bg-gray-100"
+                  >
+                    {item}
+                  </div>
+                ))
+              ) : (
+                <div className="p-2 text-gray-400 text-sm">
+                  No recent searches
+                </div>
+              )}
+            </div>
           )}
         </div>
 
-        <div className="flex justify-between bg-[#F1EFF0]">
-          <div className="relative flex items-center mt-2 text-sm bg-white p-1 rounded-md shadow bottom-4 left-1 z-10">
-            <FontAwesomeIcon icon={faStar} className="text-green" />
-            <span className="ml-1 text-gray-700 text-xs font-semibold">
-              {rating}
+        {/* Fourth Section - Language */}
+        <div className="text-sm font-bold py-5 px-5">العربية</div>
+
+        {/* Fifth Section - My Account */}
+        {/* {loading ? (
+          loader
+        ) : (
+          <div className="relative p-5">
+            <button
+              onClick={toggleDropdown}
+              className="flex items-center gap-2"
+            >
+              <div className="flex flex-col justify-end">
+                <p className="text-xs">Hala !</p>
+                <span className="font-semibold">My Account</span>
+              </div>
+              <FontAwesomeIcon icon={faCaretDown} />
+            </button>
+          </div>
+        )} */}
+
+        <button
+          onClick={() => setIsLoginOpen(true)}
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight hover:text-white"
+        >
+          <span className="text-nowrap">Log in</span>
+          <FontAwesomeIcon icon={faUser} />
+        </button>
+
+        {/* login form  */}
+        {isLoginOpen && <LoginSignup onClose={() => setIsLoginOpen(false)} />}
+
+        {/* Sixth Section - Wishlist */}
+        <button className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight ">
+          <span>Wishlist</span>
+          <FontAwesomeIcon icon={faHeart} />
+          <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+            0
+          </span>
+        </button>
+
+        {/* Seventh Section - Cart */}
+        <Link
+          href="/cart"
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight"
+        >
+          <span>Cart</span>
+          <FontAwesomeIcon icon={faShoppingCart} />
+          <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+            {getCartCount}
+          </span>
+        </Link>
+      </nav>
+
+      {/* Navbar for small screens */}
+      <nav className="md:hidden lg:hidden bg-[var(--theme-color)] flex items-center justify-between p-4 h-[60px]">
+        {/* Noon logo */}
+        <Image src="/Logo.png" alt="Logo" width={60} height={60} />
+
+        {/* Deliver to section */}
+        {loading ? (
+          loader
+        ) : (
+          <div className="flex items-center gap-2 ml-2">
+            <Image
+              src="/assets/Flag_of_Qatar.svg"
+              alt="Flag"
+              width={30}
+              height={20}
+              className="rounded-md"
+            />
+            <div className="leading-tight text-white">
+              <span className="text-xs">
+                Deliver to <FontAwesomeIcon icon={faCaretDown} />
+              </span>
+              <div className="font-semibold text-sm flex items-center gap-1">
+                Doha{" "}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Login setion */}
+
+        <button
+          onClick={() => setIsLoginOpen(true)}
+          className="flex items-center gap-2 relative py-5 px-5 font-semibold  leading-tight text-white"
+        >
+          <span className="text-nowrap">Log in</span>
+          <FontAwesomeIcon icon={faUser} />
+        </button>
+
+        {/* login form  */}
+        {isLoginOpen && <LoginSignup onClose={() => setIsLoginOpen(false)} />}
+
+        {/* Wishlist and Cart */}
+        <div className="flex items-center text-white font-bold">
+          <button className="flex items-center gap-2 relative py-5">
+            <span className="hidden md:inline text-sm font-bold">Wishlist</span>
+            <FontAwesomeIcon icon={faHeart} />
+            <span className="absolute top-4 -right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+              0
             </span>
-            <span className="ml-1 text-gray-500 text-xs">({reviews})</span>
-          </div>
-          <button
-            className="relative flex items-center justify-center bottom-4 right-2 text-gray-600 text-sm bg-white p-2 rounded-md shadow z-20"
-            onClick={handleAddToCart}
-          >
-            <FontAwesomeIcon icon={faShoppingCart} />
           </button>
+          <Link href="/cart" className="flex items-center gap-2 relative p-5">
+            <span className="hidden md:inline text-sm font-bold">Cart</span>
+            <FontAwesomeIcon icon={faShoppingCart} />
+            <span className="absolute top-4 right-3 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+              {getCartCount}
+            </span>
+          </Link>
         </div>
-      </div>
-      <div className="max-w-[262px]">
-        <div className="flex flex-col gap-1 break-words line-clamp-3 leading-snug text-[14px] font-semibold">
-          <p className="h-[60] overflow-hidden">
-            iPhone 16 Pro Max 256GB Desert Titanium 5G With FaceTime - Middle
-            East Version
-          </p>
-          <div className="flex gap-1 items-baseline justify-start leading-tight">
-            <p className="font-normal">{currency}</p>
-            <p className="text-[18px] text-secondary font-bold">{price}</p>
-            <p className="line-through text-primary">{originalPrice}</p>
-            <p className="text-green ">65%</p>
-          </div>
-          <div className="h-[20px] mb-1">
-            <RotatingText messages={messages} />
-          </div>
-        </div>
-        <div className="relative min-w-[235px] -left-3 bg-[#2122B8] text-white flex items-center justify-between gap-x-4 px-5 pl-2 pr-5 py-1 rounded-r-lg rounded-bl-lg h-8 mt-2 ">
-          <div className="flex items-center gap-4 px-2">
-            <div className="flex items-center">
-              <div className="text-yellow-400 font-bold text-xs leading-none">
-                super <br /> mall
-              </div>
-              <div className="ml-2 text-white text-nowrap text-sm ">
-                GET IN <span className="font-bold">1 HR 20 MINS</span>
-              </div>
-            </div>
-            <div className="text-white text-lg">
-              <FontAwesomeIcon icon={faChevronRight} width={10} height={10} />
-            </div>
-          </div>
-        </div>
-        <div className="bg-[#404553] w-3 h-3 rotate-45 relative -top-[38px] -left-[9.40px] -z-20"></div>
-      </div>
-    </Link>
+      </nav>
+    </>
   );
 };
 
-export default ProductCard;
+export default Navbar;
