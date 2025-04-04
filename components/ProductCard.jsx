@@ -136,7 +136,7 @@ const ProductCard = ({
               <div className="text-yellow-400 font-bold text-[10px] lg:text-xs leading-none">
                 super <br /> mall
               </div>
-              <div className="ml-2 text-white text-nowrap text-[9px] lg:text-sm ">
+              <div className="w-[140px] overflow-hidden ml-2 text-white text-nowrap text-[9px] lg:text-sm ">
                 GET IN <span className="font-bold">1 HR 20 MINS</span>
               </div>
             </div>
