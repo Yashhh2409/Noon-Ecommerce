@@ -3,9 +3,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import categoriesList from "@/data/categoryList";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductCategories from "@/components/Sliders/ProductCategories";
 import Image from "next/image";
 import Carousel from "@/components/Carousel";
@@ -15,6 +12,12 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import Filters from "@/components/L1category/Filters";
 import { getCategories } from "@/api/getCategories";
 import HomeProductSlider from "@/components/Sliders/HomeProductSlider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBars,
+  faHamburger,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 const images = [
   "/carousel/Crousel1.png",
@@ -23,8 +26,7 @@ const images = [
   "/carousel/Crousel1.png",
   "/carousel/Crousel2.png",
   "/carousel/Crousel3.png",
-]
-
+];
 
 const categoriesData = [
   {
@@ -98,7 +100,6 @@ const categories = [
   { id: 25, src: "/categoryimages/CategoryImg5.avif" },
 ];
 
-
 const Eidcategories = [
   { id: 1, src: "/categoryimages/CategoryImg6.avif" },
   { id: 2, src: "/categoryimages/CategoryImg7.avif" },
@@ -133,14 +134,11 @@ const CrazyDeals = [
   { id: 10, src: "/CrazyDeals/Img2.avif" },
 ];
 
-
-
 const CategoryPage = () => {
   const params = useParams();
   const decodedCategory = decodeURIComponent(params.category);
 
   console.log("Params of cat:", decodedCategory);
-
 
   const [categories, setCategories] = useState([]);
   const [foundCategory, setFoundCategory] = useState([]);
@@ -150,6 +148,7 @@ const CategoryPage = () => {
   const [isBrandsOpen, setIsBrandsOpen] = useState(true);
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [isHamburgOpen, setIsHamburgOpen] = useState(false);
 
   const { currency, products } = useContext(ShopContext);
 
@@ -159,12 +158,10 @@ const CategoryPage = () => {
       if (data) {
         setCategories(data);
       }
+    };
 
-    }
-
-    fetchCategories()
-  }, [])
-
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     if (decodedCategory && categories.length > 0) {
@@ -186,17 +183,12 @@ const CategoryPage = () => {
       console.log("Cats id: ", categoryId);
 
       // extracting forth level cats
-      const forthLevel = categories.filter((cat) => cat.sub_category === categoryId);
+      const forthLevel = categories.filter(
+        (cat) => cat.sub_category === categoryId
+      );
       setForthLevelCategory(forthLevel);
-
-
     }
   }, [decodedCategory, categories]);
-
-
-
-
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -228,32 +220,49 @@ const CategoryPage = () => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="flex gap-5">
-          {/* Filters */}
-          <Filters categoriesData={categoriesData} />
+        <>
+          <div
+            onClick={() => setIsHamburgOpen((prev) => !prev)}
+            className="block lg:hidden ml-5 mt-2 transition-transform duration-300 ease-in-out"
+          >
+            {isHamburgOpen ? (
+              <FontAwesomeIcon icon={faXmark} width={25} height={25} />
+            ) : (
+              <FontAwesomeIcon icon={faBars} width={25} height={25} />
+            )}
+          </div>
+          <div className="flex gap-5">
+            <div
+              className={`${
+                isHamburgOpen ? "block" : "hidden"
+              } lg:block absolute lg:static  w-full bg-white shadow-md`}
+            >
+              <Filters categoriesData={categoriesData} />
+            </div>
 
-          {/* Main Content */}
-          <div className="w-[80%] bg-white p-5 mt-2 rounded-md">
-            {/* Subcategories */}
+            {/* Main Content */}
+            <div
+              className={`${
+                isHamburgOpen ? "" : "w-full"
+              } lg:w-[80%]  bg-white p-5 mt-2 rounded-md`}
+            >
+              {/* Subcategories */}
 
-            {/* Dummy data */}
-            <div className="flex gap-5 mb-5">
-              {
-                forthLevelCategory.map((cat, idx) => (
+              {/* Dummy data */}
+              <div className="flex gap-5 mb-5">
+                {forthLevelCategory.map((cat, idx) => (
                   <Link
-                  key={idx}
+                    key={idx}
                     href={`/${cat.category_url}`}
                     className="bg-gray-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
                   >
                     <p>{cat.category_name}</p>
                   </Link>
-                ))
-              }
+                ))}
+              </div>
 
-            </div>
-
-            {/* with data  */}
-            {/* <div className="flex gap-5 mb-5">
+              {/* with data  */}
+              {/* <div className="flex gap-5 mb-5">
               {categoryData?.subcategories?.map((sub, idx) => (
                 <Link
                   href={`/${params.category}/${sub.slug}`}
@@ -265,77 +274,85 @@ const CategoryPage = () => {
               ))}
             </div> */}
 
-            {/* Carousel */}
-            <Carousel imgArray={images} />
+              {/* Carousel */}
+              <Carousel imgArray={images} />
 
-            {/* Product Categories */}
-            {loading ? (
-              <LoadingSpinner />
-            ) : (
-              <ProductCategories
-                categories={categories}
-                rows={2}
-                sliderBG={false}
-                width={90}
-              />
-            )}
+              {/* Product Categories */}
+              {loading ? (
+                <LoadingSpinner />
+              ) : (
+                <ProductCategories
+                  categories={categories}
+                  rows={2}
+                  sliderBG={false}
+                  width={90}
+                />
+              )}
 
-            {/* flash sell banner  */}
-            <div className="mb-10 w-full h-auto">
-              <Image
-                src="/categoryimages/FlashSaleBanner.gif"
-                alt="image"
-                layout="responsive"
-                width={500}
-                height={300}
-                className="w-full h-[20px] object-cover"
+              {/* flash sell banner  */}
+              <div
+                className={`mb-10 w-full h-auto ${
+                  isHamburgOpen ? "hidden" : "block"
+                }`}
+              >
+                <Image
+                  src="/categoryimages/FlashSaleBanner.gif"
+                  alt="image"
+                  layout="responsive"
+                  width={500}
+                  height={300}
+                  className="w-full h-[20px] object-cover"
+                />
+              </div>
+
+              {/* Limited Price Drops */}
+
+              {/* Get Eid Ready  */}
+              {loading ? (
+                <LoadingSpinner />
+              ) : (
+                <div>
+                  <p className="px-5 text-gray-700 font-extrabold text-xs sm:text-md md:text-lg lg:text-xl">
+                    Get Eid Ready
+                  </p>
+                  <ProductCategories
+                    categories={Eidcategories}
+                    rows={1}
+                    sliderBG={false}
+                    slidesPerView={7}
+                    width={150}
+                  />
+                </div>
+              )}
+
+              {/* Category Product Card Slider */}
+              <HomeProductSlider
+                slidesPerView={5}
+                firstTxt={"Haa"}
+                secondTxt={"Bhaiii"}
+                products={products}
               />
+
+              {/* Crazy Deals  */}
+              {loading ? (
+                <LoadingSpinner />
+              ) : (
+                <div className="bg-[#FDFDEB] pt-5">
+                  <p className="px-5 text-gray-700 font-extrabold text-xs sm:text-md md:text-lg lg:text-xl">
+                    Get Eid Ready
+                  </p>
+                  <ProductCategories
+                    categories={CrazyDeals}
+                    rows={1}
+                    sliderBG={false}
+                    slidesPerView={5}
+                    width={200}
+                  />
+                </div>
+              )}
             </div>
-
-            {/* Limited Price Drops */}
-
-
-            {/* Get Eid Ready  */}
-            {loading ? (
-              <LoadingSpinner />
-            ) : (
-              <div>
-                <p className="px-5 text-gray-700 font-extrabold text-xs sm:text-md md:text-lg lg:text-xl">
-                  Get Eid Ready
-                </p>
-                <ProductCategories
-                  categories={Eidcategories}
-                  rows={1}
-                  sliderBG={false}
-                  slidesPerView={7}
-                  width={150}
-                />
-              </div>
-            )}
-
-            {/* Category Product Card Slider */}
-            <HomeProductSlider  firstTxt={"Haa"} secondTxt={"Bhaiii"} products={products}/>
-
-
-            {/* Crazy Deals  */}
-            {loading ? (
-              <LoadingSpinner />
-            ) : (
-              <div className="bg-[#FDFDEB] pt-5">
-                <p className="px-5 text-gray-700 font-extrabold text-xs sm:text-md md:text-lg lg:text-xl">
-                  Get Eid Ready
-                </p>
-                <ProductCategories
-                  categories={CrazyDeals}
-                  rows={1}
-                  sliderBG={false}
-                  slidesPerView={5}
-                  width={200}
-                />
-              </div>
-            )}
           </div>
-        </div>
+        </>
       )}
     </div>
   );

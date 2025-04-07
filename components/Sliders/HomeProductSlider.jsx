@@ -7,7 +7,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import Title from "../Title";
 import ProductCard from "../ProductCard";
 
-const HomeProductSlider = ({firstTxt, secondTxt, products}) => {
+const HomeProductSlider = ({firstTxt, secondTxt, products, slidesPerView}) => {
   // const { products } = useContext(ShopContext) || { products: [] };
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,7 @@ const HomeProductSlider = ({firstTxt, secondTxt, products}) => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <CustomSwiper>
+        <CustomSwiper slidesPerView={slidesPerView}>
           {recommendedProducts.map((product) => (
             <div key={product._id} className="w-full">
               <ProductCard

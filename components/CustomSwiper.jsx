@@ -5,13 +5,13 @@ import "swiper/css/navigation";
 
 import { Navigation } from "swiper/modules";
 
-const CustomSwiper = ({ children }) => {
+const CustomSwiper = ({ children, slidesPerView = 6 }) => {
   return (
     <div className="rounded-lg overflow-hidden">
       <Swiper
         navigation={true}
         modules={[Navigation]}
-        slidesPerView={6} // Show 5 slides at a time
+        slidesPerView={slidesPerView} // Show 5 slides at a time
         spaceBetween={14} // Add spacing between slides
         breakpoints={{
           1024: { slidesPerView: 6}, // Desktop: 5 slides

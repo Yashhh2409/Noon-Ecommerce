@@ -2,8 +2,12 @@
 import { useEffect, useState, useContext, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAddressBook,
   faCaretDown,
   faHeart,
+  faList,
+  faPerson,
+  faPersonRifle,
   faShoppingCart,
   faTimes,
   faUser,
@@ -45,6 +49,8 @@ const Navbar = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [navItems, setNavItems] = useState([]);
   const [navSettings, setNavSettings] = useState([]);
+  const [hoverText, setHoverText] = useState(false);
+  const [isAccDropDownOpen, setIsAccDropDownOpen] = useState(false);
 
   useEffect(() => {
     const handleClickOutSide = (e) => {
@@ -123,7 +129,12 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar for large and medium screens */}
-      <nav className="hidden md:flex lg:flex bg-[var(--theme-color)] text-light items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50">
+      <nav
+        className="hidden md:flex lg:flex items-center justify-between sticky top-0 px-5 h-[70px] mx-auto w-full z-50"
+        style={{
+          backgroundColor: navSettings?.background_color,
+        }}
+      >
         {navItems
           .filter((item) => item.header_name === "noon")
           .map((item) => (
@@ -138,7 +149,17 @@ const Navbar = () => {
         {navItems
           .filter((item) => item.header_name === "Delivery Location")
           .map((item) => (
-            <div key={item} className="flex items-center gap-2 p-5">
+            <div
+              key={item}
+              className="flex items-center gap-2 p-5 duration-300"
+              style={{ color: navSettings.text_color }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = navSettings.hover_color)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = navSettings.text_color)
+              }
+            >
               <Image
                 src="/assets/Flag_of_Qatar.svg"
                 alt="Flag"
@@ -216,8 +237,79 @@ const Navbar = () => {
             </div>
           ))}
 
-        {/* Fourth Section - Language */}
-        <div className="text-sm font-bold py-5 px-5">العربية</div>
+        {navItems
+          .filter((item) => item.header_name === "Log in")
+          .map((item) => (
+            <div
+              key={item}
+              className="relative p-5"
+              style={{ color: navSettings.text_color }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = navSettings.hover_color)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = navSettings.text_color)
+              }
+            >
+              <button
+                onClick={() => setIsAccDropDownOpen((prev) => !prev)}
+                className="flex items-center gap-2"
+              >
+                <div className="flex flex-col justify-end">
+                  <p className="text-xs">Hala !</p>
+                  <span className="font-semibold">My Account</span>
+                </div>
+                <FontAwesomeIcon icon={faCaretDown} />
+              </button>
+
+              {isAccDropDownOpen && (
+                <div className="absolute left-2 top-[75px] max-w-20% flex flex-col justify-center items-center px-4 py-4 rounded-md shadow-md gap-5 bg-white">
+                  <Link
+                    href={"/orders"}
+                    onClick={() => setIsAccDropDownOpen(false)}
+                    className="flex justify-center items-center gap-2"
+                  >
+                    <FontAwesomeIcon icon={faList} width={25} height={25} />
+                    <p>Orders</p>
+                  </Link>
+
+                  <div className="flex justify-center items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faAddressBook}
+                      width={25}
+                      height={25}
+                    />
+                    <p>Adress</p>
+                  </div>
+
+                  <div className="flex justify-center items-center gap-2">
+                    <FontAwesomeIcon icon={faPerson} width={25} height={25} />
+                    <p>Profile</p>
+                  </div>
+                </div>
+              )}
+            </div>
+            // <div key={item.header_name}>
+            //   <button
+            //     onClick={() => setIsLoginOpen(true)}
+            //     className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight duration-300"
+            //     style={{ color: navSettings.text_color }}
+            //     onMouseEnter={(e) =>
+            //       (e.currentTarget.style.color = navSettings.hover_color)
+            //     }
+            //     onMouseLeave={(e) =>
+            //       (e.currentTarget.style.color = navSettings.text_color)
+            //     }
+            //   >
+            //     <span className="text-nowrap">Log in</span>
+            //     <FontAwesomeIcon icon={faUser} />
+            //   </button>
+
+            //   {isLoginOpen && (
+            //     <LoginSignup onClose={() => setIsLoginOpen(false)} />
+            //   )}
+            // </div>
+          ))}
 
         {/* Fifth Section - My Account */}
         {/* {loading ? (
@@ -237,41 +329,70 @@ const Navbar = () => {
           </div>
         )} */}
 
-        <button
+        {/* <button
           onClick={() => setIsLoginOpen(true)}
           className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight hover:text-white"
         >
           <span className="text-nowrap">Log in</span>
           <FontAwesomeIcon icon={faUser} />
-        </button>
+        </button> */}
 
         {/* login form  */}
-        {isLoginOpen && <LoginSignup onClose={() => setIsLoginOpen(false)} />}
+        {/* {isLoginOpen && <LoginSignup onClose={() => setIsLoginOpen(false)} />} */}
 
         {/* Sixth Section - Wishlist */}
-        <button className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight ">
-          <span>Wishlist</span>
-          <FontAwesomeIcon icon={faHeart} />
-          <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-            0
-          </span>
-        </button>
+        {navItems
+          .filter((item) => item.header_name === "Wishlist")
+          .map((item) => (
+            <button
+              key={item}
+              className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight duration-300"
+              style={{ color: navSettings.text_color }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = navSettings.hover_color)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = navSettings.text_color)
+              }
+            >
+              <span>Wishlist</span>
+              <FontAwesomeIcon icon={faHeart} />
+              <span className="absolute top-4 z-50 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                0
+              </span>
+            </button>
+          ))}
 
         {/* Seventh Section - Cart */}
-        <Link
-          href="/cart"
-          className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight"
-        >
-          <span>Cart</span>
-          <FontAwesomeIcon icon={faShoppingCart} />
-          <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-            {getCartCount}
-          </span>
-        </Link>
+        {navItems
+          .filter((item) => item.header_name === "Cart")
+          .map((item) => (
+            <Link
+              key={item}
+              href="/cart"
+              className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight duration-300"
+              style={{ color: navSettings.text_color }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = navSettings.hover_color)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = navSettings.text_color)
+              }
+            >
+              <span>Cart</span>
+              <FontAwesomeIcon icon={faShoppingCart} />
+              <span className="absolute top-4 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                {getCartCount}
+              </span>
+            </Link>
+          ))}
       </nav>
 
       {/* Navbar for small screens */}
-      <nav className="md:hidden lg:hidden bg-[var(--theme-color)] flex items-center justify-between p-4 h-[60px]">
+      <nav
+        className="md:hidden lg:hidden flex items-center justify-between p-4 h-[60px]"
+        style={{ backgroundColor: navSettings.background_color }}
+      >
         {/* Noon logo */}
         <Image src="/Logo.png" alt="Logo" width={60} height={60} />
 

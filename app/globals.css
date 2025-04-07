@@ -5,9 +5,6 @@
 @tailwind utilities;
 
 
-:root {
-  --theme-color: #0C3451;
-}
 
 /* .slick-prev::before,
 .slick-next::before {
