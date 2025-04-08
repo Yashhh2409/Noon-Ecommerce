@@ -18,6 +18,24 @@ import { ShopContext } from "@/context/ShopContext";
 import LoginSignup from "./LoginSignup";
 import { getHeaders } from "@/api/getHeader";
 
+const links = [
+  {
+    id: "1",
+    name: "Orders",
+    link_url: "orders",
+  },
+  {
+    id: "2",
+    name: "Returns",
+    link_url: "returns",
+  },
+  {
+    id: "3",
+    name: "Wishlist",
+    link_url: "wishlist",
+  },
+];
+
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { getCartCount } = useContext(ShopContext);
@@ -240,20 +258,17 @@ const Navbar = () => {
         {navItems
           .filter((item) => item.header_name === "Log in")
           .map((item) => (
-            <div
-              key={item}
-              className="relative p-5"
-              style={{ color: navSettings.text_color }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = navSettings.hover_color)
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = navSettings.text_color)
-              }
-            >
+            <div key={item} className="relative p-5">
               <button
                 onClick={() => setIsAccDropDownOpen((prev) => !prev)}
                 className="flex items-center gap-2"
+                style={{ color: navSettings.text_color }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = navSettings.hover_color)
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = navSettings.text_color)
+                }
               >
                 <div className="flex flex-col justify-end">
                   <p className="text-xs">Hala !</p>
@@ -263,28 +278,27 @@ const Navbar = () => {
               </button>
 
               {isAccDropDownOpen && (
-                <div className="absolute left-2 top-[75px] max-w-20% flex flex-col justify-center items-center px-4 py-4 rounded-md shadow-md gap-5 bg-white">
-                  <Link
-                    href={"/orders"}
-                    onClick={() => setIsAccDropDownOpen(false)}
-                    className="flex justify-center items-center gap-2"
-                  >
-                    <FontAwesomeIcon icon={faList} width={25} height={25} />
-                    <p>Orders</p>
-                  </Link>
-
-                  <div className="flex justify-center items-center gap-2">
-                    <FontAwesomeIcon
-                      icon={faAddressBook}
-                      width={25}
-                      height={25}
-                    />
-                    <p>Adress</p>
+                <div className="absolute left-2 top-[75px] text-primary max-w-20% flex flex-col items-center pt-4 rounded-md shadow-md bg-white">
+                  {links.map((link) => (
+                    <Link
+                      key={link.id}
+                      href={`/account/${link.link_url}`}
+                      onClick={() => setIsAccDropDownOpen(false)}
+                      className="hover:bg-blue-100 w-full block"
+                    >
+                      <div className="w-full flex items-center gap-2 px-8 py-2">
+                        <FontAwesomeIcon icon={faList} width={25} height={25} />
+                        <p>{link.name}</p>
+                      </div>
+                    </Link>
+                  ))}
+                  <div className="absolute self-end flex justify-end -top-2 right-2">
+                    <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[12px] border-l-transparent border-r-transparent border-b-white"></div>
                   </div>
 
-                  <div className="flex justify-center items-center gap-2">
-                    <FontAwesomeIcon icon={faPerson} width={25} height={25} />
-                    <p>Profile</p>
+                  <hr className="border w-full border-gray-100"/>
+                  <div className="w-full flex justify-center items-center py-2 hover:opacity-50 transition-all duration-300">
+                    <p>Sign Out</p>
                   </div>
                 </div>
               )}

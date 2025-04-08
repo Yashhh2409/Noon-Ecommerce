@@ -179,8 +179,8 @@ const CategoryPage = () => {
       console.log("MY category is:", categories);
 
       // extracted cat id from slug
-      const categoryId = foundCategory.category_id;
-      console.log("Cats id: ", categoryId);
+      const categoryId = foundCategory?.category_id;
+      console.log("Cats idxfbgfhff : ", categoryId);
 
       // extracting forth level cats
       const forthLevel = categories.filter(
@@ -235,7 +235,7 @@ const CategoryPage = () => {
             <div
               className={`${
                 isHamburgOpen ? "block" : "hidden"
-              } lg:block absolute lg:static  w-full bg-white shadow-md`}
+              } lg:block absolute lg:static w-full bg-white shadow-md z-20`}
             >
               <Filters categoriesData={categoriesData} />
             </div>

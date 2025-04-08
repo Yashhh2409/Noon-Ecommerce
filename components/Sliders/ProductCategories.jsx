@@ -42,7 +42,7 @@ const ProductCategories = ({
         >
           <div className="">
             {categories?.map((category) => (
-              <SwiperSlide key={category.id}>
+              <SwiperSlide key={category?.id}>
                 <div className="w-fit mb-5">
                   <Link href={`/subcategory/${category.id}`}>
                     <Image
