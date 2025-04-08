@@ -64,7 +64,7 @@ const page = () => {
     <>
       <div className="max-w-full p-5 my-4 flex flex-col gap-6">
         <h2 className="text-[24px] text-secondary font-bold">Profile</h2>
-        <p className="text-[16px] mb-3">
+        <p className="text-[16px]">
           View & Update Your Personal and Contact Information
         </p>
 
@@ -73,7 +73,7 @@ const page = () => {
             Contact Information
           </h2>
 
-          <div className="w-full flex justify-start gap-5">
+          <div className="w-full flex flex-wrap justify-start gap-5">
             <div className="min-w-[300px] flex flex-col gap-2">
               <label className="text-primary">Email</label>
               <input
@@ -106,7 +106,7 @@ const page = () => {
             Personal Information
           </h2>
 
-          <div className="w-full flex justify-start gap-5">
+          <div className="w-full flex flex-wrap justify-start gap-5">
             <div className="min-w-[300px] flex flex-col gap-2">
               <label className="text-primary">First Name</label>
               <input
@@ -162,7 +162,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <div className="min-w-[300px] flex flex-col gap-2">
               <label className="text-primary">Birthday</label>
               <input
