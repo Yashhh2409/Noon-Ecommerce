@@ -12,6 +12,7 @@ const links = [
   { id: "1", name: "Orders", link_url: "orders" },
   { id: "2", name: "Returns", link_url: "returns" },
   { id: "3", name: "Wishlist", link_url: "wishlist" },
+  { id: "4", name: "Noon Credits", link_url: "meenaHubCredits" },
 ];
 
 const myAccountLinks = [
@@ -21,6 +22,13 @@ const myAccountLinks = [
   { id: "4", name: "Warranty Claims", link_url: "warranty-claims" },
   { id: "5", name: "Gift Cards", link_url: "gift-cards" },
 ];
+
+const otherLinks = [
+  { id: "1", name: "Notification", link_url: "notification" },
+  { id: "2", name: "Security Settings", link_url: "securitySettings" },
+];
+
+const signOut = [{ id: "1", name: "SignOut", link_url: "signout" }];
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -62,9 +70,14 @@ const layout = ({ children }) => {
         {items.map((link) => (
           <Link
             key={link.id}
-            href={`/account/${link.link_url}`}
+            href={` ${
+              link.link_url.includes("gift-cards")
+                ? `/${link.link_url}`
+                : `/account/${link.link_url}`
+            }  `}
+            // href={`/account/${link.link_url}`}
             onClick={() => setSidebarOpen(false)}
-            className={`p-3 w-full text-primary ${
+            className={`p-3 w-full text-primary hover:bg-blue-100 ${
               pathname.includes(link.link_url)
                 ? "bg-[#FFFCD1] border text-secondary font-semibold"
                 : ""
@@ -97,6 +110,8 @@ const layout = ({ children }) => {
           <SidebarContent />
           <LinkGroup items={links} />
           <LinkGroup title="my account" items={myAccountLinks} />
+          <LinkGroup title="Other" items={otherLinks} />
+          <LinkGroup items={signOut} />
         </div>
 
         {/* Sidebar for small screen - AnimatePresence */}
@@ -112,12 +127,14 @@ const layout = ({ children }) => {
               <SidebarContent />
               <LinkGroup items={links} />
               <LinkGroup title="my account" items={myAccountLinks} />
+              <LinkGroup title="Other" items={otherLinks} />
+              <LinkGroup items={signOut} />
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Main content */}
-        <main className="col-span-9 w-full">{children}</main>
+        <main className="col-span-9 w-full h-auto">{children}</main>
       </div>
     </>
   );

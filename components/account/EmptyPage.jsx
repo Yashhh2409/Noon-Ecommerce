@@ -17,14 +17,19 @@ const EmptyPage = ({ image, heading, subHeading, btnText, hrefRoute }) => {
         <h3 className="text-secondary text-[16px] lg:text-[20px] font-bold text-center">
           {heading}
         </h3>
-        <p className="text-primary text-[12px] lg:text-[16px] text-center">{subHeading}</p>
+        <p className="text-primary text-[12px] lg:text-[16px] text-center">
+          {subHeading}
+        </p>
       </div>
-      <Link
-        href={hrefRoute}
-        className="p-[20px] lg:p-[32px] py-1.5 lg:py-3 bg-[#3866DF] text-[12px] lg:text-[14px] font-semibold text-white rounded-md uppercase"
-      >
-        {btnText}
-      </Link>
+
+      {hrefRoute && btnText && (
+        <Link
+          href={hrefRoute}
+          className="p-[20px] lg:p-[32px] py-1.5 lg:py-3 bg-[#3866DF] text-[12px] lg:text-[14px] font-semibold text-white rounded-md uppercase"
+        >
+          {btnText}
+        </Link>
+      )}
     </div>
   );
 };
