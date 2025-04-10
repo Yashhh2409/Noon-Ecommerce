@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBagShopping,
   faBoltLightning,
+  faChevronDown,
+  faChevronUp,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,7 +38,56 @@ const giftCards = [
   },
 ];
 
+const logos = [
+  {
+    id: "1",
+    img: "/gift-cards/food-logo.avif",
+  },
+  {
+    id: "2",
+    img: "/gift-cards/minutes-new-logo.avif",
+  },
+  {
+    id: "3",
+    img: "/gift-cards/food-logo.avif",
+  },
+  {
+    id: "4",
+    img: "/gift-cards/minutes-new-logo.avif",
+  },
+  {
+    id: "5",
+    img: "/gift-cards/food-logo.avif",
+  },
+];
+
+const questions = [
+  {
+    id: "1",
+    question: "What is a noon Gift Card?",
+    answer:
+      "A noon Gift Card is an electronic prepaid card that contains a specific amount of money available for use on a variety of purchases.",
+  },
+  {
+    id: "2",
+    question: "How will the noon Gift Card be delivered?",
+    answer:
+      "Gift Cards will be sent to the receiver through an email. You can also share a link via WhatsApp.",
+  },
+  {
+    id: "3",
+    question: "How long is the Gift Card valid for?",
+    answer: "Gift Cards are valid for one (1) year from the date of purchase.",
+  },
+];
+
 const page = () => {
+  const [isDropDownOpen, setIsDropDownOpen] = useState(null);
+
+  const toggleQuestion = (id) => {
+    setIsDropDownOpen((prev) => (prev === id ? null : id));
+  };
+
   return (
     <>
       <div className="max-w-full h-[100px] lg:h-[275px]">
@@ -76,7 +127,9 @@ const page = () => {
                   height={25}
                   className="w-4 h-4"
                 />
-                <p className="text-nowrap text-sm sm:text-base">Redeem gift card</p>
+                <p className="text-nowrap text-sm sm:text-base">
+                  Redeem gift card
+                </p>
               </div>
               <div className="flex items-center justify-center gap-1 py-2 px-4 border-[1px] text-blue-600 rounded-md border-blue-600 whitespace-nowrap">
                 <FontAwesomeIcon
@@ -85,7 +138,9 @@ const page = () => {
                   height={25}
                   className="w-4 h-4"
                 />
-                <p className="text-nowrap text-sm sm:text-base">View past orders</p>
+                <p className="text-nowrap text-sm sm:text-base">
+                  View past orders
+                </p>
               </div>
             </div>
           </div>
@@ -99,6 +154,7 @@ const page = () => {
                 <div className="relative w-full h-[100px] lg:h-[172.86px] flex items-center justify-center">
                   <Image
                     src={card.img1}
+                    alt="img"
                     width={143}
                     height={88}
                     className="absolute top-8 left-10 sm:w-[47%] md:w-[30%] lg:w-[143px] lg:h-[88px] rotate-[-20deg]"
@@ -106,6 +162,7 @@ const page = () => {
                   />
                   <Image
                     src={card.img2}
+                    alt="img"
                     width={143}
                     height={88}
                     className="absolute lg:top-[75px] right-8 sm:w-[47%] md:w-[30%] lg:w-[143px] lg:h-[88px]"
@@ -120,6 +177,81 @@ const page = () => {
               </div>
             ))}
           </div>
+
+          <div className="w-full py-5">
+            <p className="text-[19px] lg:text-[32px] font-bold text-center text-secondary">
+              Use your noon Gift Card balance across all brands
+            </p>
+          </div>
+
+          <div className="w-full flex flex-wrap justify-evenly items-center py-8">
+            <div className="max-w-full flex gap-4 flex-wrap justify-center">
+              {logos.map((logo) => (
+                <Image
+                  key={logo.id}
+                  src={logo.img}
+                  alt="img"
+                  width={300}
+                  height={300}
+                  className="w-[20%] lg:w-[126px] h-[20%]  lg:h-[50px] object-cover"
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-full h-[100px] lg:h-[275px]">
+        <Image
+          src={"/gift-cards/banner_image_2.avif"}
+          alt="img"
+          width={500}
+          height={300}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <div className="w-full px-2 lg:px-0 bg-[#F3F4F8] flex justify-center items-center py-5">
+        <div className="w-full lg:w-[66%] flex flex-col justify-center items-center">
+          <p className="text-[19px] lg:text-[32px] text-secondary font-bold py-4">
+            Frequently asked questions
+          </p>
+
+          {questions.map((ques) => (
+            <div key={ques.id} className="w-full bg-white">
+              <div
+                onClick={() => toggleQuestion(ques.id)}
+                className="flex justify-between items-center px-4 py-2"
+              >
+                <p className="text-[14px] lg:text-[16px] text-secondary font-semibold py-2">
+                  {ques.question}
+                </p>
+                {isDropDownOpen === ques.id ? (
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    width={20}
+                    height={20}
+                    className="w-3 lg:w-4 h-3 lg:h-4"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faChevronUp}
+                    width={20}
+                    height={20}
+                    className="w-3 lg:w-4 h-3 lg:h-4"
+                  />
+                )}
+              </div>
+              
+              {isDropDownOpen === ques.id && (
+                <div className="w-full text-[12px] lg:text-[16px] px-4 py-2 text-primary text-wrap">
+                  {ques.answer}
+                  
+                </div>
+              )}
+            <hr className="border-b-2 border-gray-200 w-full"/>
+            </div>
+          ))}
+          
         </div>
       </div>
     </>

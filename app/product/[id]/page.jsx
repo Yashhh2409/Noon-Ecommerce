@@ -319,16 +319,12 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <div className="w-full h-auto bg-white mt-10 px-10 py-2">
+      <div className="w-full h-auto bg-white mt-10 px-1 lg:px-10 py-2">
         <ProductOverview />
       </div>
 
-      <div className="w-full h-auto bg-white my-10 px-10 py-2">
+      <div className="w-full h-auto bg-white my-10 px-2 lg:px-10 py-2">
         <RatingsAndReviews />
-      </div>
-
-      <div className="w-full h-auto bg-white my-10 px-10 py-2">
-        <Recommended />
       </div>
     </>
   );

@@ -31,14 +31,14 @@ const RatingsAndReviews = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-1">
+      <h1 className="text-[24px] lg:text-2xl font-bold text-gray-800 mb-1">
         Product Ratings & Reviews
       </h1>
       <hr />
-      <div className="flex gap-5">
+      <div className="w-full flex flex-col lg:flex-row  gap-5">
         {/* first  */}
-        <div className="w-[30%] h-auto py-5 text-gray-800">
-          <h2 className="text-lg font-bold mb-5">Overall Rating</h2>
+        <div className="w-full lg:w-[30%] h-auto py-5 px-2 text-gray-800">
+          <h2 className="text-[19px] lg:text-lg font-bold mb-5">Overall Rating</h2>
           <div className="mb-8">
             <h1 className="text-3xl font-bold">4.6</h1>
             <div className="flex gap-1 mb-2">
@@ -101,43 +101,28 @@ const RatingsAndReviews = () => {
                 height={17}
                 className="w-6 h-6"
               />
-              <p className="text-lg font-bold">How do I review this product?</p>
+              <p className="text-[16px] lg:text-lg font-bold">How do I review this product?</p>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-[14px] lg:text-sm text-gray-600">
               If you recently purchased this product from noon, you can go to
               your Orders page and click on the Submit Review button
             </p>
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex gap-2">
-              <Image
-                src={"/icons-svg/reviews-icon-noon-logo-circle.svg"}
-                alt="img"
-                width={17}
-                height={17}
-                className="w-6 h-6"
-              />
-              <p className="text-lg font-bold">How do I review this product?</p>
-            </div>
-            <p className="text-sm text-gray-600">
-              Our reviews are from noon customers who purchased the product and
-              submitted a review
-            </p>
-          </div>
+         
         </div>
         {/* second  */}
-        <div className="w-[70%] h-auto py-5 px-10 border-l">
-          <div className="flex justify-between items-center mb-3 text-gray-800">
-            <div>
-              <h2 className="text-lg font-bold mb-5">1 Review</h2>
+        <div className="w-full lg:w-[70%] h-auto py-5 px-2 lg:px-10 border-l">
+          <div className="flex flex-col lg:flex-row justify-start items-center mb-3 text-gray-800">
+            <div className="w-full">
+              <h2 className="text-[19px] lg:text-lg font-bold mb-5">1 Review</h2>
             </div>
 
-            <div className="flex justify-center items-center gap-5">
-              <button className="bg-blue-500 text-white py-1 px-2 rounded-md">
+            <div className="w-full flex flex-col justify-start lg:flex-row items-center gap-5 px-2">
+              <button className="bg-blue-500 self-start text-white py-1 px-2 text-nowrap rounded-md">
                 Revert all translations
               </button>
-              <div>
-                <span className="mr-2">
+              <div className="self-start">
+                <span className="mr-2 text-[12px] font-bold">
                   <FontAwesomeIcon icon={faFilter} className="mr-2" />
                   FILTER BY:
                 </span>
@@ -145,7 +130,7 @@ const RatingsAndReviews = () => {
                 <div className="relative inline-block w-40">
                   {/* Selected Option (Dropdown Button) */}
                   <button
-                    className="w-full border p-2 flex items-center justify-between bg-white rounded-md border-gray-800"
+                    className="w-full border px-2 py-1 flex items-center justify-between bg-white rounded-md border-gray-800"
                     onClick={() => setIsOpen(!isOpen)}
                   >
                     {selected ? (
@@ -156,7 +141,7 @@ const RatingsAndReviews = () => {
                         height={90}
                       />
                     ) : (
-                      <span>Select Rating</span>
+                      <span className="text-[14px]">Select Rating</span>
                     )}
 
                     {/* Animated Dropdown Icon */}
@@ -184,7 +169,7 @@ const RatingsAndReviews = () => {
                       {options.map((option) => (
                         <li
                           key={option.id}
-                          className="flex justify-center p-2 hover:bg-gray-100 cursor-pointer"
+                          className="flex justify-start p-2 hover:bg-gray-100 cursor-pointer"
                           onClick={() => {
                             setSelected(option);
                             setIsOpen(false); // Close dropdown after selection
@@ -204,15 +189,15 @@ const RatingsAndReviews = () => {
 
               </div>
 
-              <div>
-                <span className="mr-2 text-gray-800">
+              <div className="self-start">
+                <span className="mr-2 text-gray-800 text-[12px] font-bold">
                   <FontAwesomeIcon icon={faSort} className="mr-2" />
                   SORT BY:
                 </span>
                 <select
                   name=""
                   id=""
-                  className="border border-gray-800 rounded-md px-5 py-2 text-gray-500"
+                  className="text-[12px] border border-gray-800 rounded-md py-2 px-4 text-gray-500"
                 >
                   All Stars
                   <option value="">Top Reviews</option>
@@ -231,24 +216,24 @@ const RatingsAndReviews = () => {
             } `}
           >
             <div className="text-gray-800 py-5">
-              <div className="flex gap-5 items-start mb-4">
-                <div className="flex gap-2">
+              <div className="flex gap-5 items-start justify-between lg:justify-start mb-4">
+                <div className="flex items-center gap-2">
                   <div className="flex justify-center items-center w-10 h-10 bg-[#EFF3FD] p-2 rounded-full">
                     <FontAwesomeIcon
                       icon={faQuestion}
-                      className="text-gray-800"
+                      className="text-gray-800 text-[14px]"
                     />
                   </div>
                   <div className="flex flex-col leading-tight">
-                    <p className="font-bold">Anonymous</p>
-                    <p>Nov 12, 2024</p>
+                    <p className="text-[14px] font-bold">Anonymous</p>
+                    <p className="text-[12px]">Nov 12, 2024</p>
                   </div>
                 </div>
-                <div className="flex gap-1 items-center bg-[#EFF3FD] py-0 px-1 rounded-full">
-                  <div className="w-5 h-5 bg-gray-800 rounded-full flex justify-center items-center">
+                <div className="text-[12px] flex gap-1 items-center bg-[#EFF3FD] py-0 px-1 rounded-full">
+                  <div className="w-3 lg:w-5 h-3 lg:h-5 bg-gray-800 rounded-full flex justify-center items-center">
                     <FontAwesomeIcon
                       icon={faCheck}
-                      className="text-gray-300 text-xs"
+                      className="text-gray-300 text-[10px] lg:text-xs"
                     />
                   </div>
                   <p>Verified purchase</p>
@@ -257,11 +242,11 @@ const RatingsAndReviews = () => {
 
               {/* star */}
               <div className="flex gap-1 mb-2">
-                <FontAwesomeIcon icon={faStar} className="text-green-500" />
-                <FontAwesomeIcon icon={faStar} className="text-green-500" />
-                <FontAwesomeIcon icon={faStar} className="text-green-500" />
-                <FontAwesomeIcon icon={faStar} className="text-green-500" />
-                <FontAwesomeIcon icon={faStar} className="text-green-500" />
+                <FontAwesomeIcon icon={faStar} className="text-lime-500 text-[14px]" />
+                <FontAwesomeIcon icon={faStar} className="text-lime-500 text-[14px]" />
+                <FontAwesomeIcon icon={faStar} className="text-lime-500 text-[14px]" />
+                <FontAwesomeIcon icon={faStar} className="text-lime-500 text-[14px]" />
+                <FontAwesomeIcon icon={faStar} className="text-lime-500 text-[14px]" />
               </div>
 
               <div className="flex gap-2 items-center">

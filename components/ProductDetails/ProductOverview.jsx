@@ -1,3 +1,6 @@
+"use client"
+
+import { width } from "@mui/system";
 import React, { useState } from "react";
 
 const ProductOverview = () => {
@@ -38,25 +41,27 @@ const ProductOverview = () => {
     ["Operating System", "IOS"],
   ];
 
+const [ishight, setHight] = useState(false);
+
   const [showFullList, setShowFullList] = useState(false);
   const visibleList = showFullList
     ? specifications
     : specifications.slice(0, 15);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-1">
+    <div className="w-full p-1">
+      <h1 className="text-[24px] lg:text-2xl font-bold text-gray-800 mb-1">
         Product Overview
       </h1>
       <hr />
-      <div className="flex gap-10 justify-between">
+      <div className="h-[400px] overflow-hidden flex gap-2 lg:gap-10 justify-between" style={{height: ishight ? "400px" : "auto"}}>
         <div className="w-[50%] bg-white py-5 text-gray-600 flex flex-col gap-10">
           {/* Highlights  */}
           <div>
-            <h1 className="text-xl font-bold mb-2 pl-5">Highlights</h1>
-            <div className="text-sm text-gray-500">
+            <h1 className="text-[16px] lg:text-xl font-bold mb-2 pl-5">Highlights</h1>
+            <div className="text-[14px] text-gray-500">
               <ul className="list-disc space-y-2 pl-5">
-                <li>
+                <li className="">
                   Personalise your Home Screen. Tint your icons with any colour.
                   Rearrange and resize apps and widgets. You can even lock or
                   hide apps to protect sensitive information — it’s your call.
@@ -88,10 +93,10 @@ const ProductOverview = () => {
 
           {/* Overview  */}
           <div>
-            <h1 className="text-xl font-bold mb-2 pl-5">Overview</h1>
-            <div className="text-sm text-gray-500">
-              <ul className="space-y-2 pl-5">
-                <li>
+            <h1 className="text-[16px] lg:text-xl font-bold mb-2 px-2">Overview</h1>
+            <div className="text-primary">
+              <ul className="px-2">
+                <li className="text-[14px]">
                   Apple Intelligence protects your privacy at every step. With
                   on-device processing and Private Cloud Compute, no one but you
                   can access your data — not even Apple. The new Passwords app
@@ -109,17 +114,17 @@ const ProductOverview = () => {
 
         {/* Specifications  */}
         <div className="w-[50%] mx-auto text-gray-600 mt-5">
-          <h1 className="text-xl font-bold mb-4 pl-5">Specifications</h1>
+          <h1 className="text-[16px] lg:text-xl font-bold mb-4 pl-5">Specifications</h1>
           <div className="">
             {visibleList.map(([title, value], index) => (
               <div
                 key={index}
-                className={`grid grid-cols-2 px-4 py-2 text-sm ${
+                className={`grid grid-cols-2 px-1 lg:px-4 py-2 text-sm ${
                   index % 2 === 0 ? "bg-blue-50" : "bg-white"
                 }`}
               >
-                <span className="text-gray-500 font-medium">{title}</span>
-                <span className="text-gray-700">{value}</span>
+                <span className="text-[14px] text-primary font-medium line-clamp-2">{title}</span>
+                <span className="text-[14px] text-secondary ml-2 line-clamp-2">{value}</span>
               </div>
             ))}
           </div>
@@ -130,9 +135,9 @@ const ProductOverview = () => {
         <div className="absolute top-0 left-0 w-full h-10 bg-white blur-md"></div>
         <button
           className="m-6 text-blue-600 font-bold z-50 border-2 border-blue-600 px-5 py-1 rounded-lg hover:border-blue-700 hover:text-blue-700"
-          onClick={() => setShowFullList(!showFullList)}
+          onClick={() => setHight(prev => !prev)}
         >
-          {showFullList ? "Show Less" : "View Full Overview"}
+          {ishight ? "View Full Overview" : "Show Less"}
         </button>
       </div>
     </div>

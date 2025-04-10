@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -74,6 +76,12 @@ const LoginSignup = ({ onClose }) => {
             <input
               type="password"
               placeholder="Enter password"
+              className="w-full p-3 border rounded-lg mb-3"
+            />
+
+            <input
+              type="password"
+              placeholder="Enter confirm password"
               className="w-full p-3 border rounded-lg mb-3"
             />
           </>
