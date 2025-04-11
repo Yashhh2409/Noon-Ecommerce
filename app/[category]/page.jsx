@@ -244,7 +244,7 @@ const CategoryPage = () => {
             <div
               className={`${
                 isHamburgOpen ? "" : "w-full"
-              } lg:w-[80%]  bg-white p-5 mt-2 rounded-md`}
+              } lg:w-[80%]  bg-white lg:p-5 mt-2 rounded-md`}
             >
               {/* Subcategories */}
 
@@ -254,7 +254,7 @@ const CategoryPage = () => {
                   <Link
                     key={idx}
                     href={`/${cat.category_url}`}
-                    className="bg-gray-500 text-white px-5 py-2 rounded-md flex justify-center items-center"
+                    className="bg-primary text-white mx-2 lg:mx-0 px-2 lg:px-5 py-1 lg:py-2 rounded-md flex justify-center items-center"
                   >
                     <p>{cat.category_name}</p>
                   </Link>
@@ -291,7 +291,7 @@ const CategoryPage = () => {
 
               {/* flash sell banner  */}
               <div
-                className={`mb-10 w-full h-auto ${
+                className={`mb-5 lg:mb-10 w-full h-auto ${
                   isHamburgOpen ? "hidden" : "block"
                 }`}
               >
@@ -301,7 +301,7 @@ const CategoryPage = () => {
                   layout="responsive"
                   width={500}
                   height={300}
-                  className="w-full h-[20px] object-cover"
+                  className="w-full h-[30px] lg:h-[20px] object-cover"
                 />
               </div>
 

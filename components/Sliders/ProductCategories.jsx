@@ -27,7 +27,7 @@ const ProductCategories = ({
   }, [categories]);
 
   return (
-    <div className={`${sliderBG ? "slider-bg" : ""} w-full h-auto p-5`}>
+    <div className={`${sliderBG ? "slider-bg" : ""} w-full h-auto p-2 lg:p-5`}>
       {loading ? (
         <LoadingSpinner />
       ) : (

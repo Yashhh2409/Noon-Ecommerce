@@ -22,7 +22,7 @@ const HomeProductSlider = ({firstTxt, secondTxt, products, slidesPerView}) => {
   }, [products]);
 
   return (
-    <div className="w-full max-w-screen bg-white mt-10 flex flex-col justify-center p-5 gap-5">
+    <div className="w-full max-w-screen bg-white px-4 mt-4 mb-4  flex flex-col justify-center gap-5">
       <Title firstTxt={firstTxt} secondTxt={secondTxt} />
       {loading ? (
         <LoadingSpinner />

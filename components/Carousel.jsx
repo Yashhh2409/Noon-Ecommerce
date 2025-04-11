@@ -28,7 +28,7 @@ const Carousel = ({ imgArray = [] }) => {
 
   return (
     <div className="w-full">
-      <div className="relative w-full md:w-[100%] h-[150px] sm:h-[200px] md:h-[200px] lg:h-[250px] overflow-hidden">
+      <div className="relative w-full md:w-[100%] h-[100px] md:h-[200px] lg:h-[250px] overflow-hidden">
         {/* Previous Slide Button */}
         <button
           onClick={prevSlide}

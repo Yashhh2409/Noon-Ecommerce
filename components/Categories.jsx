@@ -142,7 +142,7 @@ const Categories = () => {
       {/* Full-Width Dropdown on Hover */}
       {hoveredCategory !== null && (
         <div
-          className="absolute top-[40px] left-0 w-full bg-white shadow-lg p-6 z-50 text-md sm:text-xs sm:p-10"
+          className="absolute top-[35px] left-0 w-full bg-white shadow-lg p-6 z-50 text-md sm:text-xs"
           onMouseEnter={() => setHoveredCategory(hoveredCategory)}
           onMouseLeave={() => setHoveredCategory(null)}
         >
