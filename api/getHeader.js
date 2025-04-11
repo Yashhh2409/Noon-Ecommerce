@@ -1,6 +1,6 @@
 export const getHeaders = async () => {
   try {
-    const response = await fetch("https://noon-website.onrender.com/noon/getHeader");
+    const response = await fetch("https://noon-web.onrender.com/noon/getHeader");
     if(!response.ok) {
         throw new Error("Failed to fetch header");
     }

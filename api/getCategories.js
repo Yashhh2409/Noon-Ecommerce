@@ -1,6 +1,6 @@
 export const getCategories = async () => {
   try {
-    const response = await fetch("https://noon-website.onrender.com/noon/get-categories");
+    const response = await fetch("https://noon-web.onrender.com/noon/get-categories");
 
     if (!response.ok) {
       throw new Error("Failed to fetch categories");

@@ -111,7 +111,7 @@ const Navbar = () => {
   const fetchNavSettings = async () => {
     try {
       const response = await fetch(
-        "https://noon-website.onrender.com/noon/getHeaderSetting"
+        "https://noon-web.onrender.com/noon/getHeaderSetting"
       );
 
       if (!response.ok) {
@@ -296,7 +296,7 @@ const Navbar = () => {
                     <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[12px] border-l-transparent border-r-transparent border-b-white"></div>
                   </div>
 
-                  <hr className="border w-full border-gray-100"/>
+                  <hr className="border w-full border-gray-100" />
                   <div className="w-full flex justify-center items-center py-2 hover:opacity-50 transition-all duration-300">
                     <p>Sign Out</p>
                   </div>
