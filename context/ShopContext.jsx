@@ -7,20 +7,35 @@ export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
+  const [wishListItems, setWishListItems] = useState({});
 
   const currency = "AED ";
- const API_BACKEND_URL = process.env.NEXT_PUBLIC_API_BACKEND_URL;
+  const API_BACKEND_URL = process.env.NEXT_PUBLIC_API_BACKEND_URL;
 
- 
+  // addToWishlist 
+  const addToWishlist = async (itemId) => {
+    setWishListItems((prevList) => {
+      const updateList = { ...prevList };
+      if(updateList[itemId]) {
+        updateList[itemId] += 1;
+      } else {
+        updateList[itemId] = 1;
+      }
+      return updateList;
+    })
+  }
+
+  console.log("Wishlist items:", wishListItems);
+  
 
   // addToCart function
   const addToCart = async (itemId) => {
     setCartItems((prevCart) => {
       const updateCart = { ...prevCart };
       if (updateCart[itemId]) {
-        updateCart[itemId] += 1; 
+        updateCart[itemId] += 1;
       } else {
-        updateCart[itemId] = 1; 
+        updateCart[itemId] = 1;
       }
       return updateCart;
     });
@@ -28,52 +43,54 @@ const ShopContextProvider = (props) => {
 
   // get Cart count (Memoized for performance)
   const getCartCount = useMemo(() => {
-    return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
-  }, [cartItems]); 
+    return Object.values(cartItems).reduce(
+      (total, quantity) => total + quantity,
+      0
+    );
+  }, [cartItems]);
 
   // update quantity
   const updateQuantity = async (itemId, quantity) => {
     setCartItems((prevCart) => {
       const updatedCart = { ...prevCart };
-  
+
       if (quantity > 0) {
-        updatedCart[itemId] = quantity; 
+        updatedCart[itemId] = quantity;
       } else {
         delete updatedCart[itemId];
       }
-  
+
       return updatedCart;
     });
   };
- 
 
   // removeFromCart function
   const removeFromCart = async (itemId) => {
     setCartItems((prevCart) => {
       const updateCart = { ...prevCart };
-        delete updateCart[itemId];
+      delete updateCart[itemId];
       return updateCart;
-    })
-  }
+    });
+  };
 
   // get cart amount
   const getCartAmount = () => {
     let totalAmount = 0;
-  
+
     for (const itemId in cartItems) {
       const itemInfo = products.find((product) => product._id === itemId);
       if (itemInfo) {
         totalAmount += itemInfo.price * cartItems[itemId]; // Multiply price with quantity
       }
     }
-  
+
     return totalAmount;
   };
 
   // Shipping Fee
   const getShippingFee = () => {
     const cartProductIds = Object.keys(cartItems);
-    
+
     // Check if any remaining product in cart has a shipping fee
     const shippingFees = cartProductIds
       .map((id) => {
@@ -81,13 +98,9 @@ const ShopContextProvider = (props) => {
         return product?.shippingFee || 0;
       })
       .filter((fee) => fee > 0);
-  
+
     return shippingFees.length > 0 ? Math.max(...shippingFees) : 0;
   };
-  
-  
-
-
 
   const value = {
     products,
@@ -99,6 +112,7 @@ const ShopContextProvider = (props) => {
     updateQuantity,
     getCartAmount,
     getShippingFee,
+    addToWishlist,
     API_BACKEND_URL,
   };
 

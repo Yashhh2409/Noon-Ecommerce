@@ -42,7 +42,7 @@ const ProductCard = ({
   ranking,
   rating,
 }) => {
-  const { currency, addToCart, products } = useContext(ShopContext);
+  const { currency, addToCart, products, addToWishlist } = useContext(ShopContext);
 
 
   const getThumbnailImages = (_id) => {
@@ -58,6 +58,11 @@ const ProductCard = ({
   const productImage = image[0] || "/placeholder.png";
   const altText = name ? `${name} product image` : "Product image";
 
+  const handleAddToWishList = (e) => {
+    e.preventDefault();
+    addToWishlist(_id);
+    toast.success("Product Added to Wishlist!");
+  }
 
   const handleAddToCart = (e) => {
     e.preventDefault(); // Prevent navigation
@@ -77,7 +82,7 @@ const ProductCard = ({
           <div className="relative flex justify-center items-center h-[24px] px-[10px] bg-[#404553] rounded-full top-1 left-1">
             <p className="text-xs font-semibold text-white">Best Seller</p>
           </div>
-          <button className="relative w-[24px] h-[24px] flex items-center justify-center top-1 right-2 text-gray-600 text-sm bg-white p-4 rounded-md shadow z-40">
+          <button onClick={handleAddToWishList} className="relative w-[24px] h-[24px] flex items-center justify-center top-1 right-2 text-gray-600 text-sm bg-white p-4 rounded-md shadow z-40">
             <FontAwesomeIcon icon={faHeart} />
           </button>
         </div>

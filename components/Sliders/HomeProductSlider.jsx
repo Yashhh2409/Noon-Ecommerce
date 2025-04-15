@@ -7,7 +7,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import Title from "../Title";
 import ProductCard from "../ProductCard";
 
-const HomeProductSlider = ({firstTxt, secondTxt, products, slidesPerView}) => {
+const HomeProductSlider = ({firstTxt, secondTxt, products, slidesPerView = 6}) => {
   // const { products } = useContext(ShopContext) || { products: [] };
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [loading, setLoading] = useState(true);

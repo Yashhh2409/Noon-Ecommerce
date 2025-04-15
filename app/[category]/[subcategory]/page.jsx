@@ -243,7 +243,7 @@ const SubcategoryPage = () => {
             {/* Sidebar / Product List Container */}
 
             <div className="w-full bg-light">
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 {products?.slice(start, end).map((product) => (
                   <ProductCard
                     key={product._id}

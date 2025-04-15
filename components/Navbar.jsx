@@ -358,7 +358,7 @@ const Navbar = () => {
         {navItems
           .filter((item) => item.header_name === "Wishlist")
           .map((item) => (
-            <button
+            <Link href={"/wishlist"}
               key={item}
               className="flex items-center gap-2 relative py-5 px-5 font-semibold leading-tight duration-300"
               style={{ color: navSettings.text_color }}
@@ -374,7 +374,7 @@ const Navbar = () => {
               <span className="absolute top-4 z-50 right-2 bg-blue-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
                 0
               </span>
-            </button>
+            </Link>
           ))}
 
         {/* Seventh Section - Cart */}

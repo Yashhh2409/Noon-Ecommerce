@@ -113,7 +113,7 @@ const Footer = () => {
             />
             <div>
               <p className="text-gray-500 text-sm">Customer Happiness Center</p>
-              <h1 className="font-bold text-black text-lg">help.noon.com</h1>
+              <h1 className="font-bold text-black text-lg">help.meenaHub.com</h1>
             </div>
           </div>
           <div className="flex items-center gap-3 mt-3 md:mt-0">
@@ -124,7 +124,7 @@ const Footer = () => {
             />
             <div>
               <p className="text-gray-500 text-sm">Email Support</p>
-              <h1 className="font-bold text-black text-lg">care@noon.com</h1>
+              <h1 className="font-bold text-black text-lg">care@meenaHub.com</h1>
             </div>
           </div>
         </div>
