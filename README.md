@@ -37,10 +37,10 @@ Deployed on Vercel with real-time updates
 
 Project Setup
 # Clone the repository
-git clone https://github.com/your-username/noon-clone.git
+git clone https://github.com/Yashhh2409/Noon-Ecommerce
 
 # Navigate to the project folder
-cd noon-clone
+cd noon-ecommerce
 
 # Install dependencies
 npm install
