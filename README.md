@@ -7,7 +7,7 @@ A fully responsive eCommerce web application inspired by Noon.com
 
 Hosted on Vercel
 (Add your live link here)
-https://your-vercel-link.vercel.app/
+https://noon-nine.vercel.app/
 
 🧠 Tech Stack
 
